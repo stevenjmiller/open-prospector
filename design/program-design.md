@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.4
+**Version:** v0.5
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -24,6 +24,9 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD2 | **Rung transitions are hard gates — criteria, not dates — and a failed gate plateaus the program at its current rung; it does not kill it.** Each gate protects the *next* rung's capital, produces the evidence a funder of that rung would need to see, and names which program-killer mitigations (Section 2) it verifies. Rungs overlap in operation: a gate opens the next rung, it never closes the current one (Rung 0 in particular never decommissions — per D17 it becomes the fleet's forward-planning tool). | 2026-07-28 | Direct application of the master's D32 gate discipline to the D17 ladder. The plateau property is D11/D17's "each rung independently valuable" made operational: the ladder has no sunk-cost trap because every rung is a stable, fundable resting state. |
 | PD3 | **Program mission assurance follows the D39 discipline: an enumerated killer register (Section 2), each killer de-singularized, mitigation matched to timescale.** The program's master killer is **legitimacy** — public trust that its promises (real agency, real hardware, open access, honest record) are being kept — and the public record is its primary standing defense. Two mitigations are design-time mandates that cannot be retrofitted (the D29 pattern): governance separation of powers (PK7) and the published loss budget (PK4). | 2026-07-28 | The settlement's register names power as the master killer because every other failure cascades through it; the program's failures (scandal, capture, social rejection) cascade through legitimacy the same way. Naming the design-time mandates now, before any institution is founded, is the whole value of doing this early. |
 | PD4 | **Every gate carries two kinds of criteria: readiness criteria (what the program must demonstrate — under its control) and availability criteria (what external actors' infrastructure must provide — not under its control). Availability is verified at gate time as a purchasable service or a signed manifest, never assumed from roadmaps or announcements.** Consequences: (a) external non-availability plateaus the program exactly like an unmet readiness criterion — the D17 ladder's rung independence is the insurance policy, and Rungs 0–1 deliberately require no space infrastructure at all; (b) fleet elements are designed to the **smallest viable payload class**, so the set of possible rides is as large as possible — a fleet only one provider can deliver inherits that provider's priorities; (c) while a rung waits at a gate, its availability criteria are re-verified every synodic window, because external infrastructure can regress as well as advance. | 2026-07-28 | The master's D5 treats launch as "an interface, not our problem" — correct for design work, dangerous for gating: an interface still has to exist before you can buy it. Caught by owner review (PC1). |
+| PD5 | **Two entities, and the program owns both: the Institute (nonprofit) owns every asset the program's promises depend on — protocol specification, public record, qualification standards, allocation authority, planetary-protection ruleset, and eventually the fleet; the Studio (commercial, wholly-owned subsidiary of the Institute) builds and operates the game.** Four constitutional commitments bind both charters: (1) money flows one way — Studio profits fund the Institute on fixed terms, and no Institute decision is ever conditioned on Studio performance; (2) funders receive reports, never allocation votes; (3) the public record is continuously mirrored to independent archives so it survives even the Institute's failure; (4) the gatekeeper's rules and code are public. The Studio implements qualification measurement in-game; the criteria are Institute-owned; the Studio holds no allocation vote, ever. | 2026-07-28 | Two entities because a single entity's board can amend its own charter — the capture path PK7 blocks must be closed structurally. Wholly owned rather than licensed (owner decision): an external studio's commercial priorities would compete with the interface discipline the game exists to teach — outsourcing the program's revenue engine and training instrument is a real risk, not a hedge. D41's funded-not-profitable logic applies to the science side. |
+| PD6 | **The campaign authority is an office of the Institute — a professional operations directorate — with a named individual assigned per campaign, whose override signatures appear on the public record as the paper requires.** The office answers to the Institute board; the individuals answer by name to the public record. | 2026-07-28 | The paper's separation of powers (contestation is the democratic layer, override the constitutional layer) needs a street address. Lineage: observatory director, flight director. |
+| PD7 | **The Institute incorporates in the United States.** Under the Outer Space Treaty the launching state keeps jurisdiction and liability, so incorporation determines which government answers for the fleet and whose export rules bind the autonomy stack. | 2026-07-28 | Owner decision: export-regime politics can shift in any jurisdiction, so jurisdiction-shopping buys little protection — while the US offers the deepest funding pool and direct adjacency to commercial lunar delivery. Revisit only if the export regime becomes a demonstrated blocker to the openness promise (PK8, PQ10). |
 
 ## Corrections Log (PC)
 
@@ -42,12 +45,14 @@ the Prospector program itself.
 |---|----------|----------|--------|
 | PQ1 | **Rung gates.** What must each rung demonstrate before the next is worth funding? D17 asserts each rung is independently valuable, but no transition criteria exist (master D32 discipline: a gate is a criterion, not a schedule milestone). | High | **RESOLVED first pass (v0.2):** four gates designed at Section 1 under doctrine PD2 (criteria-not-dates; plateau-not-death; gates verify Section 2 mitigations). Numeric thresholds deliberately left parameterized until each gate's spec freeze. |
 | PQ2 | **Program killer register.** The D39 exercise run against the *program*: game flops (funding inversion dies), sim-to-real gap discredits Rung 1, PP authority denies Candor access (no fallback campaign named), early public loss-of-asset scandal, fleet attrition breaking the "real drone-hours" promise. Enumerate and de-singularize. | High | **RESOLVED first pass (v0.2):** ten-killer register built at Section 2 under doctrine PD3 (master killer = legitimacy; public record as primary defense; two design-time mandates named). Residuals spun into PQ sub-questions where noted. |
-| PQ3 | **Governance & institutional identity.** Who is the campaign authority (Level-3 locks require a named human — of what institution)? Who owns the fleet? Consumer game company vs. observatory-style allocation institution — one entity or two? Export control on a trained autonomy stack. A legal entity must exist before Rung 0 ships. | High | Open |
+| PQ3 | **Governance & institutional identity.** Who is the campaign authority (Level-3 locks require a named human — of what institution)? Who owns the fleet? Consumer game company vs. observatory-style allocation institution — one entity or two? Export control on a trained autonomy stack. A legal entity must exist before Rung 0 ships. | High | **RESOLVED first pass (v0.5):** two-entity structure designed at Section 3 (PD5: Institute + wholly-owned Studio, four constitutional commitments; PD6: campaign authority as an office; PD7: US incorporation). Board-seat questions deferred by owner decision (3.6). Residuals spun off: record-escrow partners (PQ9), export determination (PQ10). |
 | PQ4 | **Allocation mechanics** (= master Q17). Peer-review vs. game-qualification tracks, campaign mechanics, proprietary periods. Design direction already accumulated in paper Section 9: allocation prices *state* not time; contractual exit conditions; return-to-readiness intervals; stranded-cost policy and the demotion ladder. Promote into designed prose + decision entries. | Med | Open — raw material in paper Section 9 |
 | PQ5 | **Economics with numbers.** "Each rung independently fundable" has never been costed, even order-of-magnitude (game-studio scale vs. CLPS-mission scale vs. flagship scale). Also: the three program products (science, constituency, revenue) have no stated priority for conflicts — e.g. discovery naming rights (revenue) vs. IAU nomenclature rules. | Med | Open |
 | PQ6 | **Comms & data dependency.** Public-by-default record implies serious relay capacity; Marslink (D6) is a settlement asset Rung 3 may predate; DSN time for a crowd-directed private fleet is unsolved. Nobody owns this interface. | Med | Open |
 | PQ7 | **Timeline.** Map the rungs onto synodic windows, even coarsely (the D3 clock governs Rungs 2–3; Rungs 0–1 are calendar-driven). | Med | Open |
 | PQ8 | **Program naming.** "Open Prospector" is Mars-flavored and extraction-flavored; Section 12.6 already argues the architecture is a capability, not a mission ("OpenExplorer" floated 2026-07-28). Interacts with the site's SD10 umbrella-branding deferral. No -ify names. | Low | Open |
+| PQ9 | **Record escrow: which independent archives mirror the public record, and by what mechanism?** PD5's third commitment — the record survives even the Institute's failure — needs named partners (planetary-science data archives are the natural candidates; libraries have run this model for digital preservation) and a mirroring cadence and format. Couples to the Q18 public-record format spec (a Gate 0→1 deliverable, G1-3). | Med | Open |
+| PQ10 | **Export-control determination.** Formal classification of the trained autonomy stack and the high-fidelity twin under US export rules (PD7): what is controlled, what is publishable, and where the open-layer boundary (protocol spec, directive interface, record formats — deliberately open standards) must sit. Timing: in hand before Gate 1→2 (verified at G2-5); early enough to shape the architecture split rather than react to it. | High | Open |
 
 ---
 
@@ -94,9 +99,11 @@ The lightest gate; it protects a game-studio-scale commitment.
   4–5) is specified tightly enough to *implement in software* — not the formal
   schema (that is a Gate 0→1 deliverable, see G1-3) but an engineering-usable
   statement of the grammar, ladder, and negotiation-window rule.
-- **G0-3 Institutional seed (PQ3).** A legal entity able to ship a consumer
-  product exists, with the governance separation of PK7 reflected in its
-  founding documents — the one thing that cannot be bolted on later.
+- **G0-3 Institutional seed (PQ3, PD5).** The Institute exists with the four
+  constitutional commitments in its charter, and the Studio — the entity that
+  ships the consumer product — is formed as its wholly-owned subsidiary. The
+  separation cannot be bolted on later; it must precede the first dollar of
+  game revenue.
 
 **Availability (PD4):** already satisfied — the terrain archives (HiRISE,
 MOLA, CTX) are public data, downloadable today, and a consumer game needs no
@@ -259,8 +266,8 @@ repo opens to contributions, so it is noted here rather than numbered.
 | PK4 | **Public loss-of-asset scandal** | An early, visible drone loss traced to a crowd directive — "they let gamers destroy the rover" — collapses institutional trust and agency partnership | The first loss **will** happen; the mitigation must pre-exist it (acute-class). (a) The contestation protocol is the engineering defense; (b) the public record converts the loss into an attribution audit (drone's judgment vs. team's directive vs. authority's override — the record already carries attribution as its third duty, paper Section 9); (c) **published loss budget**: every campaign carries a declared risk budget (already in the Q17 design direction) so losses land as budgeted events, not betrayals. Design-time mandate per PD3. | Preventable (as scandal; the loss itself is survivable) / acute |
 | PK5 | **Fleet attrition breaks the drone-hours promise** | Attrition plus no replenishment shrinks real allocation until qualification becomes decorative; the constituency sours into the program's loudest critics | (a) Demotion ladder keeps degraded assets productive (mobile → fixed station → parts donor, per the Q17 direction, Spirit-at-Troy precedent); (b) sim-tier campaigns are *honest* allocation (forward-planning reconnaissance is real contribution, not a consolation prize — D17); (c) buying replacement drones is standing program policy, written into every rung's funding request (G3-4); (d) the allocation design says plainly that more teams will qualify than can ever be served, rather than letting each team discover it (PQ4). | Preventable / chronic → strategic |
 | PK6 | **The comms bottleneck starves campaigns** | Public-by-default record + imagery-hungry science vs. thin relay capacity: DSN allocation for a private crowd fleet is tiny, and Marslink (D6) is a settlement asset Rung 3 may predate | (a) Own the interface early (PQ6 remains the design vehicle); (b) tier the data budget: the *record* (directives, contestations, resolutions — small) has absolute priority over raw data volume, so the program's integrity never throttles even when its bandwidth does; (c) commercial deep-space relay services are an emerging market — capacity can increasingly be bought rather than built; (d) onboard summarization rides the same autonomy stack. | Preventable / chronic |
-| PK7 | **Institutional capture** | A funder, partner agency, or the game company's commercial owner captures allocation; the public tier is squeezed out; "Open" becomes marketing | The DMS-descended separation of powers already inside the protocol extends to institutions: **the revenue entity never controls allocation; the allocation authority never depends on revenue performance** — two bodies, or one body with constitutionally separated organs (PQ3 decides which). Founding-document material, the D29 pattern: cannot be retrofitted (PD3 design-time mandate). The public record makes capture visible; visibility plus a constituency of thousands is the enforcement mechanism. | Preventable at founding only / chronic |
-| PK8 | **Export control closes the "Open"** | ITAR/EAR classification of the trained autonomy stack or twin blocks international teams — or blocks launch integration — gutting open access | (a) Early formal determination (PQ3 work item, verified at G2-5); (b) architectural split: the *directive interface and record* are open by construction; the flight stack can be controlled without closing the program's front door; (c) international-payload precedents exist today. Worst case: openness lives at the directive layer while the stack stays domestic — degraded, not dead. | Survivable / chronic |
+| PK7 | **Institutional capture** | A funder, partner agency, or the game company's commercial owner captures allocation; the public tier is squeezed out; "Open" becomes marketing | The DMS-descended separation of powers already inside the protocol extends to institutions: **the revenue entity never controls allocation; the allocation authority never depends on revenue performance** — decided as two bodies, the Studio wholly owned by the Institute, with four charter-level commitments (PD5, Section 3). Founding-document material, the D29 pattern: cannot be retrofitted (PD3 design-time mandate). The public record makes capture visible; visibility plus a constituency of thousands is the enforcement mechanism. | Preventable at founding only / chronic |
+| PK8 | **Export control closes the "Open"** | ITAR/EAR classification of the trained autonomy stack or twin blocks international teams — or blocks launch integration — gutting open access | (a) Early formal determination (PQ10, verified at G2-5); (b) architectural split: the *directive interface and record* are open by construction; the flight stack can be controlled without closing the program's front door; (c) international-payload precedents exist today. Worst case: openness lives at the directive layer while the stack stays domestic — degraded, not dead. | Survivable / chronic |
 | PK9 | **The protocol fails socially** | Rung 0 reveals humans hate being refused by machines at scale: counter-proposal acceptance is low, rage-quit dominates, the cultural bet (paper 4.7) inverts into resentment | This is precisely what Rung 0 exists to discover at the cost of a video game rather than the cost of flight hardware (the game corpus is the spec's test suite — decided, D17). Iterate the grammar at game speed: ladder tuning (more Level-1 auto-substitute, less Level-2 hold), counter-proposal phrasing, the five-move family's learnability. G1-3 makes social viability a *gate criterion*, so the bet is never carried to hardware unexamined. | Preventable (by Rung-0 iteration) / delayed |
 | PK10 | **Seed-fleet delivery loss** | One launch failure or EDL failure — canyon EDL (Q12) being the hard case — erases the entire Rung 3 investment in a single event | Classic single-point failure; de-singularize the manifest: (a) fleet split across ≥2 launches/landers (the multi-modal fleet splits naturally); (b) first campaign designed to be scientifically viable with a partial fleet; (c) EDL risk isolated from fleet risk — land on benign terrain and traverse in, vs. canyon EDL, is a Q12 trade the mission plan must close (G3-4); (d) insurance and a replenishment slot in the next window (the D3 clock as recovery margin). | Preventable / acute |
 | PK11 | **The ride never materializes** | The external infrastructure a rung depends on is never built, rather than failing on the pad (contrast PK10): lunar delivery programs scrapped for technical or political reasons; the Mars heavy-lift provider loses interest in Mars and no successor appears; relay capacity never deployed. The program is ready; the world declines to show up. | The program cannot build heavy lift; absorb and hedge: (a) the plateau doctrine (PD2) is the deep insurance — Rungs 0–1 need nothing launched, every rung is a stable resting state, and waiting costs the program its schedule but not its existence; (b) maximize the set of possible rides — design fleet elements to the smallest viable payload class (PD4) so any delivery vehicle above that class is a candidate, and treat non-US providers as real options; (c) the program is itself a demand signal — a funded, manifest-ready payload, a qualified user base in the thousands, and a public constituency are arguments *to* a wavering provider that a Mars (or lunar) market exists; (d) re-verify availability every synodic window rather than assuming it once (PD4) — infrastructure regresses as well as advances. | Survivable-only / chronic → strategic |
@@ -284,13 +291,123 @@ repo opens to contributions, so it is noted here rather than numbered.
   (PD4(b), serving PK11) — a fleet designed around one provider's unique
   vehicle cannot be re-designed when that provider's priorities change.
 - **Residuals spun off:** the fallback-first-campaign design (PK3) belongs to
-  the Rung 3 mission plan; the export-determination work item (PK8) joins PQ3;
-  the data-budget tiering (PK6) joins PQ6. The register tracks them; the
+  the Rung 3 mission plan; the export-determination work item (PK8) is now
+  PQ10; the data-budget tiering (PK6) joins PQ6. The register tracks them; the
   design work happens in those sections.
 
-## 3. Governance & Institutional Identity (PQ3)
+## 3. Governance & Institutional Identity (PQ3) — FIRST PASS v0.5
 
-*Stub.*
+### 3.0 The structure (PD5)
+
+Two entities, and the program owns both.
+
+**The Institute** — a nonprofit — owns every asset the program's promises
+depend on: the protocol specification, the public record, the qualification
+standards, the allocation authority (peer panels it convenes,
+observatory-style — the lineage of university consortia operating shared
+scientific facilities under charter), the campaign-authority office (3.2),
+the planetary-protection ruleset, and eventually the fleet.
+
+**The Studio** — a commercial company, wholly owned by the Institute — builds
+and sells the game and runs its live operations. It implements the
+qualification measurement in-game, but the criteria are Institute-owned, and
+the Studio holds no allocation vote, ever.
+
+Why two entities: a single organization's board can amend its own charter, so
+any separation of powers inside one entity is only as durable as the current
+board's goodwill — exactly the capture path PK7 must close structurally. Why
+wholly owned rather than licensed to an existing studio (owner decision,
+2026-07-28): the game is the program's revenue engine, vetting funnel, and
+training instrument at once, and an external studio's commercial priorities
+would compete with the interface discipline the game exists to teach.
+Outsourcing it is a risk, not a hedge.
+
+### 3.1 The four constitutional commitments (PD5)
+
+Written into both charters at founding, because none can be retrofitted:
+
+1. **Money flows one way; authority never flows back.** Studio profits fund
+   the Institute on fixed terms. No Institute decision — allocation,
+   qualification, campaign, override — is ever conditioned on Studio
+   performance. (D41's funded-not-profitable logic, applied to the science
+   side of the program.)
+2. **Funders receive reports, never allocation votes.** The observatory norm,
+   stated in charter so it binds future boards, not just present intentions.
+3. **The record outlives the institutions.** "Nothing is erased" is a policy
+   until it is a guarantee: the public record is continuously mirrored to
+   independent archives so that it survives even the Institute's own failure.
+   Partner selection and mechanism are PQ9.
+4. **The gatekeeper is public code.** The planetary-protection layer is
+   statute, not judgment (paper Section 3) — and statutes are published.
+   Anyone can audit the rules their directive was screened against; the
+   audit-ability is also the strongest case the program can present at
+   certification time (G3-3).
+
+### 3.2 The campaign authority (PD6)
+
+An office, not a person: a professional operations directorate inside the
+Institute, in the lineage of the observatory director and the flight
+director. A named individual is assigned per campaign; their Level-3 override
+signatures appear on the public record exactly as the paper requires. The
+office answers to the Institute board; the individuals answer by name to the
+public record. This gives the paper's separation of powers — contestation as
+the democratic layer, override as the constitutional layer — a street
+address.
+
+### 3.3 Fleet ownership, liability, and the launching state
+
+Under the Outer Space Treaty, the launching state retains jurisdiction over
+and liability for space assets — so incorporation (3.4) decides which
+government answers for the fleet. The Institute owns the fleet, through
+per-mission subsidiaries where launch practice requires them. Directing teams
+never carry asset liability: their exposure is capped by the stranded-cost
+policy already sketched in paper Section 9, with the contestation record as
+the attribution instrument. Rung 1 hardware can simply be university-owned
+under program standards — cheaper, and it seeds the consortium relationships
+the Institute's board will later draw on.
+
+### 3.4 Jurisdiction and the export split (PD7)
+
+The Institute incorporates in the **United States** (owner decision,
+2026-07-28): export-regime politics can shift in any jurisdiction, so
+choosing a country for its current export rules buys little lasting
+protection — while the US offers the deepest funding pool and direct
+adjacency to commercial lunar delivery. Revisit only if the export regime
+becomes a demonstrated blocker to the openness promise.
+
+The export split (PK8): the Institute publishes the **open layer** as open
+standards — protocol specification, directive interface, record formats.
+This is simultaneously the openness guarantee and the extensibility play
+(Section 12.6: a capability, not a mission — and open standards are how a
+capability outlives its first program). The trained flight autonomy stack
+and the high-fidelity twin live with whichever entity can lawfully hold
+controlled technology; the formal determination is PQ10, in hand before
+Gate 1→2.
+
+### 3.5 Phasing
+
+- **Now:** one lightweight nonprofit — the Institute — holding the corpus,
+  the protocol, and the charter commitments of 3.1. Creating it retires the
+  bus-factor note of Section 2.0 by giving the design an institutional home.
+- **At Gate into Rung 0 (G0-3):** the Studio is formed as game development
+  capitalizes.
+- **At Gate 1→2 (G2-5):** both operate as functioning institutions with
+  written, exercised procedures.
+
+### 3.6 Deferred governance items (owner decisions, 2026-07-28)
+
+- **University board seat.** Inviting a university to take a board seat adds
+  credibility with other institutions — a real lever, deliberately deferred
+  until there is a board worth joining.
+- **Constituency governance.** The program's thesis is that directing the
+  fleet confers real agency; an elected board seat for qualified teams would
+  make governance honest to that thesis and is itself a capture defense (a
+  constituency with standing is harder to squeeze out). Deferred as a
+  possibility — revisit after Gate 0→1, when a qualified population exists
+  to elect from. Not a founding requirement.
+- Board composition beyond these two levers (independent scientists,
+  planetary-protection or ethics seat) is design work for the Institute's
+  actual founding documents, not for this pass.
 
 ## 4. Allocation (PQ4, master Q17)
 
@@ -339,3 +456,11 @@ Section 9.*
   to the register as its only killer wholly outside program control;
   smallest-viable-payload-class named as the third design-time mandate,
   effective when fleet hardware design begins.
+- **2026-07-28 (v0.5):** PQ3 resolved first pass at Section 3, after
+  discussion closed three forks by owner decision: Studio wholly owned, never
+  licensed (PD5); board-seat questions (university for credibility,
+  constituency for the agency thesis) deferred, not dropped (3.6); US
+  incorporation (PD7). Campaign authority designed as an office of the
+  Institute (PD6). Four constitutional commitments named as founding-document
+  material. Residuals: record-escrow partners (PQ9), export determination
+  (PQ10, raised to High — it shapes the architecture split and gates G2-5).
