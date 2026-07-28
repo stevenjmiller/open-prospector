@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.3
+**Version:** v0.4
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -23,12 +23,13 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD1 | **This repo exists as the program's private design incubator.** Program-level design is worked here under PD/PC/PQ ledgers; the mars master remains source of truth for decided material; adoption back into the master (or the paper) is an explicit act. Repo stays private until the owner opens it to contributions. | 2026-07-28 | Section 12 of the master already notes the program "outgrows the outline"; the mars repo is public and auto-publishes to the site, so work-in-progress cannot incubate there. |
 | PD2 | **Rung transitions are hard gates — criteria, not dates — and a failed gate plateaus the program at its current rung; it does not kill it.** Each gate protects the *next* rung's capital, produces the evidence a funder of that rung would need to see, and names which program-killer mitigations (Section 2) it verifies. Rungs overlap in operation: a gate opens the next rung, it never closes the current one (Rung 0 in particular never decommissions — per D17 it becomes the fleet's forward-planning tool). | 2026-07-28 | Direct application of the master's D32 gate discipline to the D17 ladder. The plateau property is D11/D17's "each rung independently valuable" made operational: the ladder has no sunk-cost trap because every rung is a stable, fundable resting state. |
 | PD3 | **Program mission assurance follows the D39 discipline: an enumerated killer register (Section 2), each killer de-singularized, mitigation matched to timescale.** The program's master killer is **legitimacy** — public trust that its promises (real agency, real hardware, open access, honest record) are being kept — and the public record is its primary standing defense. Two mitigations are design-time mandates that cannot be retrofitted (the D29 pattern): governance separation of powers (PK7) and the published loss budget (PK4). | 2026-07-28 | The settlement's register names power as the master killer because every other failure cascades through it; the program's failures (scandal, capture, social rejection) cascade through legitimacy the same way. Naming the design-time mandates now, before any institution is founded, is the whole value of doing this early. |
+| PD4 | **Every gate carries two kinds of criteria: readiness criteria (what the program must demonstrate — under its control) and availability criteria (what external actors' infrastructure must provide — not under its control). Availability is verified at gate time as a purchasable service or a signed manifest, never assumed from roadmaps or announcements.** Consequences: (a) external non-availability plateaus the program exactly like an unmet readiness criterion — the D17 ladder's rung independence is the insurance policy, and Rungs 0–1 deliberately require no space infrastructure at all; (b) fleet elements are designed to the **smallest viable payload class**, so the set of possible rides is as large as possible — a fleet only one provider can deliver inherits that provider's priorities; (c) while a rung waits at a gate, its availability criteria are re-verified every synodic window, because external infrastructure can regress as well as advance. | 2026-07-28 | The master's D5 treats launch as "an interface, not our problem" — correct for design work, dangerous for gating: an interface still has to exist before you can buy it. Caught by owner review (PC1). |
 
 ## Corrections Log (PC)
 
 | # | Version | Correction |
 |---|---------|------------|
-| — | | *(none yet)* |
+| PC1 | v0.2 → v0.4 | **Owner review caught a silent assumption.** The v0.2 gates tested only what the *program* must demonstrate (readiness), assuming the external infrastructure each rung rides on — commercial lunar delivery, Mars-capable heavy lift, relay capacity — will exist when the program is ready for it. But lunar delivery programs get scrapped for technical or political reasons, and a Mars-capable launch provider can lose interest in Mars; none of that is under program control. **Fix:** every gate now carries availability criteria beside its readiness criteria (PD4), and the never-materializing ride is its own killer (PK11), distinct from PK10's failed launch. |
 
 ## Open Questions Register (PQ)
 
@@ -68,6 +69,13 @@ properties:
 3. **Gates and killers are duals** (the master's 0.4/0.5 pattern). Each gate
    names the Section 2 killers whose mitigations it verifies before capital
    commits; the register defends continuously between gates.
+4. **Readiness and availability (per PD4, added PC1).** The numbered criteria
+   below are *readiness* criteria — what the program must demonstrate. Each
+   gate also carries an *availability* block: the infrastructure operated by
+   external actors that the next rung rides on, which may simply never be
+   built, whatever the program demonstrates. Availability is verified at gate
+   time as something purchasable or contracted — never assumed from a roadmap
+   — and re-verified every synodic window while the program waits (PK11).
 
 Numeric thresholds below are deliberately parameterized (marked *[spec
 freeze]*): first-pass gates fix *what is measured*; each threshold is set when
@@ -89,6 +97,11 @@ The lightest gate; it protects a game-studio-scale commitment.
 - **G0-3 Institutional seed (PQ3).** A legal entity able to ship a consumer
   product exists, with the governance separation of PK7 reflected in its
   founding documents — the one thing that cannot be bolted on later.
+
+**Availability (PD4):** already satisfied — the terrain archives (HiRISE,
+MOLA, CTX) are public data, downloadable today, and a consumer game needs no
+space infrastructure. This is the only gate with no external dependency, which
+is precisely why the ladder starts here.
 
 ### 1.2 Gate 0→1 — "worth buying hardware"
 
@@ -124,6 +137,11 @@ the measurement of PK2.
   than an impression. *(Sets up PK2 — Rung 1's mission is to find everything
   the sim got wrong; that mission needs a ruler.)*
 
+**Availability (PD4):** modest and commercially diverse — an off-the-shelf
+market for field-robot hardware (it exists and is broadening) and continued
+access to analog sites through university partnerships. Low external risk;
+Rung 1, like Rung 0, needs nothing launched.
+
 ### 1.3 Gate 1→2 — "worth a lunar manifest"
 
 Protects a CLPS-class commitment — a commercial lunar delivery contract, on
@@ -158,6 +176,13 @@ via the lunar regulatory rehearsal.
   real regulatory and international-participation constraints, not analog
   courtesy.
 
+**Availability (PD4):** commercial lunar delivery exists as a *purchasable
+service* at the fleet's payload class — flown missions, quoted prices, and
+more than one provider if at all possible (non-US providers count). If the
+CLPS-style market is scrapped for technical or political reasons and no
+alternative emerges, the program waits at Rung 1 — still valuable — and
+re-verifies each synodic window. *(PK11)*
+
 ### 1.4 Gate 2→3 — "worth the seed fleet"
 
 Protects the flagship-class commitment. Verifies mitigations for PK3, PK5,
@@ -187,6 +212,16 @@ PK6, PK10.
 - **G3-5 Demand and data interfaces sized.** Qualified-team pipeline at the
   scale Rung 3 allocation assumes *(PK5)*, and the relay/data interface (PQ6)
   contracted or designed — not assumed. *(PK6)*
+
+**Availability (PD4):** the ladder's largest external dependency. Mars
+delivery at the seed-fleet payload class must be demonstrated *and for sale* —
+a provider with proven Mars entry, descent, and landing who will carry a
+paying payload (the master's D5 interface, actually existing rather than
+specified). Plus relay capacity per G3-5. If the heavy-lift provider's Mars
+ambitions lapse and no successor appears, Rung 3 waits indefinitely — the
+scenario PD4(b) prepares for by sizing fleet elements to the smallest viable
+payload class, and PK11 works by pointing the program's constituency outward
+as a demand signal. *(PK11)*
 
 ## 2. Program Killer Register (PQ2) — FIRST PASS v0.2
 
@@ -228,20 +263,26 @@ repo opens to contributions, so it is noted here rather than numbered.
 | PK8 | **Export control closes the "Open"** | ITAR/EAR classification of the trained autonomy stack or twin blocks international teams — or blocks launch integration — gutting open access | (a) Early formal determination (PQ3 work item, verified at G2-5); (b) architectural split: the *directive interface and record* are open by construction; the flight stack can be controlled without closing the program's front door; (c) international-payload precedents exist today. Worst case: openness lives at the directive layer while the stack stays domestic — degraded, not dead. | Survivable / chronic |
 | PK9 | **The protocol fails socially** | Rung 0 reveals humans hate being refused by machines at scale: counter-proposal acceptance is low, rage-quit dominates, the cultural bet (paper 4.7) inverts into resentment | This is precisely what Rung 0 exists to discover at the cost of a video game rather than the cost of flight hardware (the game corpus is the spec's test suite — decided, D17). Iterate the grammar at game speed: ladder tuning (more Level-1 auto-substitute, less Level-2 hold), counter-proposal phrasing, the five-move family's learnability. G1-3 makes social viability a *gate criterion*, so the bet is never carried to hardware unexamined. | Preventable (by Rung-0 iteration) / delayed |
 | PK10 | **Seed-fleet delivery loss** | One launch failure or EDL failure — canyon EDL (Q12) being the hard case — erases the entire Rung 3 investment in a single event | Classic single-point failure; de-singularize the manifest: (a) fleet split across ≥2 launches/landers (the multi-modal fleet splits naturally); (b) first campaign designed to be scientifically viable with a partial fleet; (c) EDL risk isolated from fleet risk — land on benign terrain and traverse in, vs. canyon EDL, is a Q12 trade the mission plan must close (G3-4); (d) insurance and a replenishment slot in the next window (the D3 clock as recovery margin). | Preventable / acute |
+| PK11 | **The ride never materializes** | The external infrastructure a rung depends on is never built, rather than failing on the pad (contrast PK10): lunar delivery programs scrapped for technical or political reasons; the Mars heavy-lift provider loses interest in Mars and no successor appears; relay capacity never deployed. The program is ready; the world declines to show up. | The program cannot build heavy lift; absorb and hedge: (a) the plateau doctrine (PD2) is the deep insurance — Rungs 0–1 need nothing launched, every rung is a stable resting state, and waiting costs the program its schedule but not its existence; (b) maximize the set of possible rides — design fleet elements to the smallest viable payload class (PD4) so any delivery vehicle above that class is a candidate, and treat non-US providers as real options; (c) the program is itself a demand signal — a funded, manifest-ready payload, a qualified user base in the thousands, and a public constituency are arguments *to* a wavering provider that a Mars (or lunar) market exists; (d) re-verify availability every synodic window rather than assuming it once (PD4) — infrastructure regresses as well as advances. | Survivable-only / chronic → strategic |
 
 ### 2.2 Reading the register
 
 - **The cascade check (D39's power test):** PK4, PK7, and PK9 kill through
   legitimacy directly; PK2, PK5, and PK8 kill through it at one remove (each
-  breaks a promise the constituency was recruited on). Only PK10 kills
-  through mass and money alone. Defending the public record — its
+  breaks a promise the constituency was recruited on). Only PK10 and PK11
+  kill without touching legitimacy — one by losing the ride, one by never
+  getting a ride at all — and PK11 is the register's only killer wholly
+  outside program control. Defending the public record — its
   completeness, its priority on the downlink (PK6-b), its independence from
   the revenue entity (PK7) — is therefore the program's single
   highest-leverage mission-assurance investment.
 - **The two design-time mandates (PD3):** governance separation (PK7) and the
   published loss budget (PK4) must exist in founding documents and first
   campaign contracts respectively. Everything else in the register can be
-  built when its rung arrives; these two cannot.
+  built when its rung arrives; these two cannot. A third joins them the day
+  fleet hardware design begins: the smallest-viable-payload-class rule
+  (PD4(b), serving PK11) — a fleet designed around one provider's unique
+  vehicle cannot be re-designed when that provider's priorities change.
 - **Residuals spun off:** the fallback-first-campaign design (PK3) belongs to
   the Rung 3 mission plan; the export-determination work item (PK8) joins PQ3;
   the data-budget tiering (PK6) joins PQ6. The register tracks them; the
@@ -290,3 +331,11 @@ Section 9.*
   replaced finance/marketing shorthand ("prospectus," "hit-scale sales,"
   "the ask," "eight-figure," "cashed in," "Foldit-class") with explanatory
   language. No claims or criteria changed — phrasing only, so no PC entry.
+- **2026-07-28 (v0.4):** Availability criteria added (PC1, PD4) after owner
+  review caught the silent assumption that externally-operated infrastructure
+  (commercial lunar delivery, Mars-capable heavy lift, relay) will exist when
+  the program is ready for it. Every gate now carries an availability block
+  beside its readiness criteria; PK11 ("the ride never materializes") added
+  to the register as its only killer wholly outside program control;
+  smallest-viable-payload-class named as the third design-time mandate,
+  effective when fleet hardware design begins.
