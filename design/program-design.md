@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.7
+**Version:** v0.8
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -31,6 +31,8 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD9 | **Two tracks, one campaign structure: peer-review and game-qualification tracks converge on shared campaigns with mixed rosters as the intended norm. A charter-protected minimum share of each season's allocatable state flows through the qualification track. Allocation is never sold: membership fees buy standing to propose, never outcomes; qualification cannot be bought at any price. One refinement (owner, 2026-07-28): an institutional membership may reserve team-roster *seats* — but every individual filling a reserved seat must hold current qualification, earned in the sim like anyone else's. Money reserves capacity, never competence; an unfilled reserved seat lapses back to the season's qualified pool.** | 2026-07-28 | Separate fleets would recreate the two-class system the program exists to dissolve (D16: the same directive artifact through the same interpretation layer). The protected share blocks the PK5/PK7 squeeze-out structurally. Never-sold is a legitimacy requirement (PD3): purchasable drone-hours would forfeit what every other element defends. Reserved seats are safe because institutions normally hold a large pool of qualifiers, and the platform is itself the training tool — so the seat fee purchases exactly the behavior the program wants: institutions running their people through the program's own pipeline. |
 | PD10 | **Two disclosure clocks. The operational record (directives, contestations, resolutions) publishes within a short campaign window, and safety-significant events (locks, reflex saves, overrides) publish immediately, no exceptions. Science data gets an observatory-style proprietary period — long enough to protect first publication, no longer — then the permanent archive.** | 2026-07-28 | Proprietary protection exists for publication priority, never for operational accountability. One clock cannot serve both duties: the record is the program's safety and legitimacy instrument (PD3), the data is its science product. |
 | PD11 | **Stewardship reputation: the tracked quantity is stewardship of granted state against the declared plan — spending budgeted risk is legitimate use, never misconduct. Consequence ladder matched to the finding: miscalibration → coaching; persistent waste → allocation penalty; adversarial conduct → qualification revocation, appealable to the campaign authority. Clean hand-offs carry forward as standing.** | 2026-07-28 | The paper's abuse analysis (4.9) requires consequences; the risk-budget distinction keeps them from teaching timidity — a reputation system that punishes all refusals selects for cowardly science. Appeals run through PD6's office: the separation that governs locks governs standing. |
+| PD12 | **Revenue is instrumental and always yields to science and constituency; science and constituency are co-primary and never ranked against each other in the moment — a conflict between them is a design error, resolved structurally in the ledger (the D42 pattern), not by whoever is in the room. Corollary: naming rights become explicitly informal discovery dedications on the program's own maps and record — official IAU nomenclature is not for sale and the informality is stated, never implied away.** | 2026-07-28 | The register said the three products had no conflict rule; now they do, and the one live conflict (naming rights vs. IAU nomenclature) is resolved by it. Selling "official" names would be the star-registry con at institutional scale — precisely the legitimacy (PD3) the program cannot spend. |
+| PD13 | **The funding ladder, stated honestly: revenue funds the proving; proof buys the partnership. Game revenue carries Rung 0 operations and seeds Rung 1; memberships and grants carry Rung 1; Rung 2 is philanthropy-plus-agency scale; Rung 3 is agency/international-partnership scale — bought with the credibility the earlier rungs manufacture, never with consumer revenue. The Institute's charter functions run on durable streams (memberships, endowment), never on volatile consumer revenue; the endowment is sized so record custody survives indefinite revenue drought.** | 2026-07-28 | Each rung costs roughly 10× its predecessor and is fundable by a different kind of money (5.1); pretending one source spans the ladder is the falsifiable-optimism PK1 punishes. D41's funded-not-profitable applied per rung. Endowed custody is the economic mechanism behind PD5's "record outlives the institutions." |
 
 ## Corrections Log (PC)
 
@@ -51,13 +53,14 @@ the Prospector program itself.
 | PQ2 | **Program killer register.** The D39 exercise run against the *program*: game flops (funding inversion dies), sim-to-real gap discredits Rung 1, PP authority denies Candor access (no fallback campaign named), early public loss-of-asset scandal, fleet attrition breaking the "real drone-hours" promise. Enumerate and de-singularize. | High | **RESOLVED first pass (v0.2):** ten-killer register built at Section 2 under doctrine PD3 (master killer = legitimacy; public record as primary defense; two design-time mandates named). Residuals spun into PQ sub-questions where noted. |
 | PQ3 | **Governance & institutional identity.** Who is the campaign authority (Level-3 locks require a named human — of what institution)? Who owns the fleet? Consumer game company vs. observatory-style allocation institution — one entity or two? Export control on a trained autonomy stack. A legal entity must exist before Rung 0 ships. | High | **RESOLVED first pass (v0.5):** two-entity structure designed at Section 3 (PD5: Institute + wholly-owned Studio, four constitutional commitments; PD6: campaign authority as an office; PD7: US incorporation). Board-seat questions deferred by owner decision (3.6). Residuals spun off: record-escrow partners (PQ9), export determination (PQ10). |
 | PQ4 | **Allocation mechanics** (= master Q17). Peer-review vs. game-qualification tracks, campaign mechanics, proprietary periods. Design direction already accumulated in paper Section 9: allocation prices *state* not time; contractual exit conditions; return-to-readiness intervals; stranded-cost policy and the demotion ladder. Promote into designed prose + decision entries. | Med | **RESOLVED first pass (v0.6):** designed at Section 4 under PD8–PD11 (state-vector allocation; two tracks converging on shared campaigns with a charter-protected public share and allocation never sold; two disclosure clocks; stewardship reputation with appealable consequences). Numbers parameterized to the campaign contract template (PQ11). Master Q17 adoption deferred until repo goes public (4.8). |
-| PQ5 | **Economics with numbers.** "Each rung independently fundable" has never been costed, even order-of-magnitude (game-studio scale vs. CLPS-mission scale vs. flagship scale). Also: the three program products (science, constituency, revenue) have no stated priority for conflicts — e.g. discovery naming rights (revenue) vs. IAU nomenclature rules. | Med | Open |
+| PQ5 | **Economics with numbers.** "Each rung independently fundable" has never been costed, even order-of-magnitude (game-studio scale vs. CLPS-mission scale vs. flagship scale). Also: the three program products (science, constituency, revenue) have no stated priority for conflicts — e.g. discovery naming rights (revenue) vs. IAU nomenclature rules. | Med | **RESOLVED first pass (v0.8):** designed at Section 5 under PD12–PD13. Order-of-magnitude costs anchored (each rung ~10× its predecessor, each fundable by a different kind of money); revenue streams sized honestly (game revenue carries Rung 0–1, never Rung 2+); conflict rule set (revenue always yields; science/constituency conflicts resolve structurally); naming rights resolved as explicitly informal dedications. Bottom-up numbers = PQ12. |
 | PQ6 | **Comms & data dependency.** Public-by-default record implies serious relay capacity; Marslink (D6) is a settlement asset Rung 3 may predate; DSN time for a crowd-directed private fleet is unsolved. Nobody owns this interface. | Med | Open |
 | PQ7 | **Timeline.** Map the rungs onto synodic windows, even coarsely (the D3 clock governs Rungs 2–3; Rungs 0–1 are calendar-driven). | Med | Open |
 | PQ8 | **Program naming.** "Open Prospector" is Mars-flavored and extraction-flavored; Section 12.6 already argues the architecture is a capability, not a mission ("OpenExplorer" floated 2026-07-28). Interacts with the site's SD10 umbrella-branding deferral. No -ify names. | Low | Open |
 | PQ9 | **Record escrow: which independent archives mirror the public record, and by what mechanism?** PD5's third commitment — the record survives even the Institute's failure — needs named partners (planetary-science data archives are the natural candidates; libraries have run this model for digital preservation) and a mirroring cadence and format. Couples to the Q18 public-record format spec (a Gate 0→1 deliverable, G1-3). | Med | Open |
 | PQ10 | **Export-control determination.** Formal classification of the trained autonomy stack and the high-fidelity twin under US export rules (PD7): what is controlled, what is publishable, and where the open-layer boundary (protocol spec, directive interface, record formats — deliberately open standards) must sit. Timing: in hand before Gate 1→2 (verified at G2-5); early enough to shape the architecture split rather than react to it. | High | Open |
 | PQ11 | **Campaign contract template and first parameter set.** The numbers Section 4 deliberately leaves symbolic: risk-budget units (how expected loss is priced across drone classes — a real actuarial problem), the qualification track's charter-protected minimum share, the two disclosure-clock window lengths, membership fee schedule, readiness-grading scale. Needed as working templates before G2-2's rehearsal campaign; each number frozen per the gate discipline (1.0). | Med | Open |
+| PQ12 | **Bottom-up cost and revenue model.** Section 5's anchors are public comparables, adequate for gate design, inadequate for a budget: studio budget by phase, analog-fleet and field-season costs, real lunar-delivery quotes, membership pricing against named consortium comparables, endowment sizing for indefinite record custody (5.5). Each number freezes per the gate discipline — Rung 0's before G0-3, Rung 2's before Gate 1→2. | Med | Open |
 
 ---
 
@@ -567,9 +570,121 @@ repo goes public — a private pointer in a public ledger serves nobody. The
 same deferral applies to the PD5–PD7 governance material. Tracked here so
 the adoption debt is visible.
 
-## 5. Economics (PQ5)
+## 5. Economics (PQ5) — FIRST PASS v0.8
 
-*Stub.*
+### 5.0 Doctrine (PD13)
+
+The master's D41 frame — *funded, not profitable* — applies to this program
+with one sharpening. "Revenue before hardware" (D17's inverted funding
+curve) has sometimes been read as *the game pays for the fleet*. It does
+not, and the design should never imply it: at the scales below, consumer
+revenue can carry the program's institution and its proving, not its
+flagship. The honest restatement is:
+
+> **Revenue funds the proving; proof buys the partnership.** Game revenue
+> and memberships carry Rungs 0–1 and keep the Institute alive; what Rungs
+> 0–2 manufacture — a proven ops doctrine, a certified gatekeeper, a
+> qualified public in the thousands, an auditable record — is the asset
+> that persuades agencies, international partners, and major philanthropy
+> to buy Rung 3 the way science infrastructure is always bought.
+
+### 5.1 Order-of-magnitude costs (2026 dollars, public comparables)
+
+First-pass anchors, deliberately coarse; the bottom-up model is PQ12.
+
+| Rung | Scale class | Order of magnitude | Comparable |
+|---|---|---|---|
+| 0 — Game | Independent-to-mid studio | ~$5–30M development over 2–4 years, plus ongoing live operations | Successful simulation games have shipped at this scale; the terrain data is free (public archives), which is unusual cost relief for a sim |
+| 1 — Earth analog fleet | University consortium program | ~$2–10M/year for a fleet of 5–15 off-the-shelf field robots, field seasons, and staff; ~$10–30M over its life | Existing analog programs (Devon Island-class) plus research-robotics fleet costs |
+| 2 — Lunar fleet | Commercial lunar delivery mission | ~$150–500M all-in: delivery (reported commercial lunar task orders have ranged roughly $75–350M) plus payload development and operations | CLPS-class task orders, small-rover payload programs |
+| 3 — Mars seed fleet | Agency-partnership mission | ~$1–3B for a multi-asset fleet with Mars entry, descent, and landing plus relay and multi-year operations | Between New-Frontiers-class (~$1B) and flagship-class (~$2.5B+) Mars missions |
+
+The gradient is the point: each rung costs roughly 10× its predecessor, and
+each is fundable by a different *kind* of money. No single source spans the
+ladder, and the design stops pretending one could.
+
+### 5.2 Revenue streams, sized honestly
+
+- **Game revenue.** A well-executed niche simulation with a real-hardware
+  hook is plausibly a 1–5M-lifetime-unit product over years (successful
+  space sims have reached this range) — order $30–200M gross lifetime, most
+  of it years after launch, against studio and live-ops costs. Honest
+  capacity: **carries Rung 0 operations and can seed Rung 1; cannot carry
+  Rung 2, ever.** Stating this plainly is a PK1 defense — no gate ever
+  depends on the optimistic tail of the sales curve.
+- **Institutional memberships and reserved seats (PD9).** Observatory-
+  consortium comparables put mature membership programs in the $1–20M/year
+  range across dozens-to-hundreds of institutions at tiered rates. Carries:
+  allocation operations and a growing share of Rung 1. The reserved-seat
+  product (4.3) makes the membership concretely valuable without touching
+  outcomes.
+- **Philanthropy.** Space-science philanthropy operates at $10–100M-gift
+  scale today. The program's pitch to it is unusually strong — a
+  constituency of people who have *personally* directed exploration
+  hardware is the donor pipeline no gala manufactures. Primary role:
+  bridging Rung 2 alongside agency partnership.
+- **Agency and international partnership.** The honest primary for Rung 3.
+  What the program sells an agency is not access but *efficiency and
+  constituency*: directed science per dollar with a trained public
+  attached, plus a flight-proven autonomy-and-contestation stack. This is
+  the Antarctica model (D41): bought as infrastructure, justified by
+  output.
+- **Discovery dedications (naming rights, resolved).** Official planetary
+  nomenclature belongs to the IAU and is not for sale — a program that
+  sold "official" names would be running the star-registry con at
+  institutional scale, and legitimacy (PD3) forbids it. What the program
+  can honestly sell: **explicitly informal dedications** — a donor's name
+  attached to a feature *on the program's own maps and record*, in the
+  tradition of mission teams' informal feature nicknames, marketed with
+  the informality stated, never implied away. Modest revenue, zero
+  legitimacy cost. (PD12.)
+
+### 5.3 The funding ladder: source mix per rung (PD13)
+
+| Rung | Primary money | Secondary | Never |
+|---|---|---|---|
+| 0 | Founding investment + game revenue as it arrives | Philanthropy for the Institute's charter functions | — |
+| 1 | Game surplus + memberships + university research grants | Philanthropy | — |
+| 2 | Philanthropy + agency partnership + memberships | Game surplus (contributes, does not carry) | Game revenue as the plan of record |
+| 3 | Agency/international partnership + major philanthropy | All continuing streams | Any claim that consumer revenue reaches this rung |
+
+### 5.4 When the three products conflict (PD12)
+
+The program produces three things: science, constituency, and revenue. The
+standing rule:
+
+- **Revenue is instrumental and always yields.** When a revenue opportunity
+  conflicts with scientific integrity or the constituency's trust, the
+  revenue loses — automatically, without a meeting. Naming rights (above)
+  is the worked example: the honest version was adopted, the lucrative
+  version was not.
+- **Science and constituency are co-primary and are never ranked against
+  each other in the moment.** A conflict between them is treated as a
+  design error to be resolved structurally — the way D42 resolved
+  fun-versus-honesty by finding the physically-accurate fun mode, and the
+  way the charter-protected share (PD9) resolved throughput-versus-openness
+  with a number fixed in advance. If a genuinely new science/constituency
+  conflict appears, it goes to the ledger as design work, not to whoever is
+  in the room.
+
+### 5.5 Institutional durability
+
+PD5's one-way-money commitment gets its economic mechanism here: the
+Institute's charter functions — record custody, allocation, the campaign
+authority — must run on the *durable* streams (memberships, endowment
+income), never on volatile consumer revenue. Target: an endowment sized so
+that record custody and archive mirroring (PQ9) survive a total revenue
+drought indefinitely — the economic expression of "the record outlives the
+institutions." Sizing belongs to PQ12.
+
+### 5.6 Residual
+
+The numbers above are anchors from public comparables, adequate for gate
+design and honest conversation, inadequate for a budget. **PQ12** holds the
+bottom-up work: studio budget, fleet and field-season costs, real delivery
+quotes, membership pricing against named consortium comparables, endowment
+sizing. Each number freezes per the gate discipline (1.0) — Rung 0's before
+G0-3, Rung 2's before Gate 1→2.
 
 ## 6. Communications & Data Interface (PQ6)
 
@@ -636,3 +751,14 @@ the adoption debt is visible.
   training-pipeline adoption — revenue coupled to the program's own
   instrument without touching outcomes. Charter-protected share (PD9)
   confirmed as-is.
+- **2026-07-28 (v0.8):** PQ5 resolved first pass at Section 5 (PD12–PD13).
+  Order-of-magnitude cost anchors from public comparables (each rung ~10×
+  its predecessor; each fundable by a different kind of money); revenue
+  streams sized honestly — the funding inversion restated as "revenue funds
+  the proving; proof buys the partnership," with game revenue capped at
+  carrying Rungs 0–1 in the plan of record. Conflict doctrine set (PD12):
+  revenue always yields; science/constituency conflicts are design errors
+  resolved structurally. Naming rights resolved as explicitly informal
+  discovery dedications (IAU nomenclature is not for sale). Institutional
+  durability: charter functions on durable streams, endowment sized for
+  indefinite record custody. Bottom-up numbers spun off to PQ12.
