@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.6
+**Version:** v0.7
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -28,7 +28,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD6 | **The campaign authority is an office of the Institute — a professional operations directorate — with a named individual assigned per campaign, whose override signatures appear on the public record as the paper requires.** The office answers to the Institute board; the individuals answer by name to the public record. | 2026-07-28 | The paper's separation of powers (contestation is the democratic layer, override the constitutional layer) needs a street address. Lineage: observatory director, flight director. |
 | PD7 | **The Institute incorporates in the United States.** Under the Outer Space Treaty the launching state keeps jurisdiction and liability, so incorporation determines which government answers for the fleet and whose export rules bind the autonomy stack. | 2026-07-28 | Owner decision: export-regime politics can shift in any jurisdiction, so jurisdiction-shopping buys little protection — while the US offers the deepest funding pool and direct adjacency to commercial lunar delivery. Revisit only if the export regime becomes a demonstrated blocker to the openness promise (PK8, PQ10). |
 | PD8 | **Allocation prices state, not time. A campaign award is a budget in five currencies — drone-hours by class, position (traverse + contractual end-positions), risk budget, instrument-consumable cycles, downlink share — with exit conditions as contract terms, twin rehearsal as award evidence, and a program-run, never-allocatable return-to-readiness interval between campaigns.** | 2026-07-28 | Drone state is path-dependent (paper Section 3); the telescope-time model breaks on it. Formalizes the design direction accumulated in paper Section 9. Risk budget as a first-class allocated quantity is what turns the PK4 loss budget from a promise into bookkeeping. |
-| PD9 | **Two tracks, one campaign structure: peer-review and game-qualification tracks converge on shared campaigns with mixed rosters as the intended norm. A charter-protected minimum share of each season's allocatable state flows through the qualification track. Allocation is never sold: membership fees buy standing to propose, never outcomes; qualification cannot be bought at any price.** | 2026-07-28 | Separate fleets would recreate the two-class system the program exists to dissolve (D16: the same directive artifact through the same interpretation layer). The protected share blocks the PK5/PK7 squeeze-out structurally. Never-sold is a legitimacy requirement (PD3): purchasable drone-hours would forfeit what every other element defends. |
+| PD9 | **Two tracks, one campaign structure: peer-review and game-qualification tracks converge on shared campaigns with mixed rosters as the intended norm. A charter-protected minimum share of each season's allocatable state flows through the qualification track. Allocation is never sold: membership fees buy standing to propose, never outcomes; qualification cannot be bought at any price. One refinement (owner, 2026-07-28): an institutional membership may reserve team-roster *seats* — but every individual filling a reserved seat must hold current qualification, earned in the sim like anyone else's. Money reserves capacity, never competence; an unfilled reserved seat lapses back to the season's qualified pool.** | 2026-07-28 | Separate fleets would recreate the two-class system the program exists to dissolve (D16: the same directive artifact through the same interpretation layer). The protected share blocks the PK5/PK7 squeeze-out structurally. Never-sold is a legitimacy requirement (PD3): purchasable drone-hours would forfeit what every other element defends. Reserved seats are safe because institutions normally hold a large pool of qualifiers, and the platform is itself the training tool — so the seat fee purchases exactly the behavior the program wants: institutions running their people through the program's own pipeline. |
 | PD10 | **Two disclosure clocks. The operational record (directives, contestations, resolutions) publishes within a short campaign window, and safety-significant events (locks, reflex saves, overrides) publish immediately, no exceptions. Science data gets an observatory-style proprietary period — long enough to protect first publication, no longer — then the permanent archive.** | 2026-07-28 | Proprietary protection exists for publication priority, never for operational accountability. One clock cannot serve both duties: the record is the program's safety and legitimacy instrument (PD3), the data is its science product. |
 | PD11 | **Stewardship reputation: the tracked quantity is stewardship of granted state against the declared plan — spending budgeted risk is legitimate use, never misconduct. Consequence ladder matched to the finding: miscalibration → coaching; persistent waste → allocation penalty; adversarial conduct → qualification revocation, appealable to the campaign authority. Clean hand-offs carry forward as standing.** | 2026-07-28 | The paper's abuse analysis (4.9) requires consequences; the risk-budget distinction keeps them from teaching timidity — a reputation system that punishes all refusals selects for cowardly science. Appeals run through PD6's office: the separation that governs locks governs standing. |
 
@@ -483,6 +483,21 @@ Two protections keep the convergence honest:
   purchased would forfeit the legitimacy (PD3) every other design element
   defends.
 
+  One refinement keeps this rule compatible with a real institutional
+  membership product (owner, 2026-07-28): a membership may **reserve
+  team-roster seats** for a season — but a reserved seat is only a slot, and
+  every individual who fills one must hold current qualification, earned in
+  the sim under the same criteria as everyone else. Money reserves
+  *capacity*, never *competence*: an institution that cannot field qualified
+  members watches its reserved seats lapse back to the season's qualified
+  pool, unsold and untransferable. This is safe for two reasons — an
+  institution normally holds a deep pool of qualifiers, and the platform is
+  itself the training tool — and it aligns incentives precisely: the seat
+  fee is only worth paying if the institution runs its people through the
+  program's own training pipeline. Reserved seats are roster capacity only;
+  the campaign's state-vector award (4.1) still flows exclusively through
+  the review and qualification tracks.
+
 ### 4.4 Proprietary periods: two clocks (PD10)
 
 The observatory proprietary period is adapted, not adopted, because the
@@ -612,3 +627,12 @@ the adoption debt is visible.
   state against declared plan, with an appealable consequence ladder.
   Numbers parameterized to the campaign contract template (new PQ11).
   Master Q17 adoption deliberately deferred until the repo goes public (4.8).
+- **2026-07-28 (v0.7):** Owner review of Section 4's defaults: both upheld,
+  with one refinement to PD9 — institutional memberships may reserve
+  team-roster seats, filled only by individuals holding current
+  qualification (money reserves capacity, never competence; unfilled seats
+  lapse to the qualified pool). Rationale: institutions hold deep qualifier
+  pools, and the platform is the training tool, so the seat fee purchases
+  training-pipeline adoption — revenue coupled to the program's own
+  instrument without touching outcomes. Charter-protected share (PD9)
+  confirmed as-is.
