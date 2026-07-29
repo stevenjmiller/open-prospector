@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.8
+**Version:** v0.9
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -33,6 +33,9 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD11 | **Stewardship reputation: the tracked quantity is stewardship of granted state against the declared plan — spending budgeted risk is legitimate use, never misconduct. Consequence ladder matched to the finding: miscalibration → coaching; persistent waste → allocation penalty; adversarial conduct → qualification revocation, appealable to the campaign authority. Clean hand-offs carry forward as standing.** | 2026-07-28 | The paper's abuse analysis (4.9) requires consequences; the risk-budget distinction keeps them from teaching timidity — a reputation system that punishes all refusals selects for cowardly science. Appeals run through PD6's office: the separation that governs locks governs standing. |
 | PD12 | **Revenue is instrumental and always yields to science and constituency; science and constituency are co-primary and never ranked against each other in the moment — a conflict between them is a design error, resolved structurally in the ledger (the D42 pattern), not by whoever is in the room. Corollary: naming rights become explicitly informal discovery dedications on the program's own maps and record — official IAU nomenclature is not for sale and the informality is stated, never implied away.** | 2026-07-28 | The register said the three products had no conflict rule; now they do, and the one live conflict (naming rights vs. IAU nomenclature) is resolved by it. Selling "official" names would be the star-registry con at institutional scale — precisely the legitimacy (PD3) the program cannot spend. |
 | PD13 | **The funding ladder, stated honestly: revenue funds the proving; proof buys the partnership. Game revenue carries Rung 0 operations and seeds Rung 1; memberships and grants carry Rung 1; Rung 2 is philanthropy-plus-agency scale; Rung 3 is agency/international-partnership scale — bought with the credibility the earlier rungs manufacture, never with consumer revenue. The Institute's charter functions run on durable streams (memberships, endowment), never on volatile consumer revenue; the endowment is sized so record custody survives indefinite revenue drought.** | 2026-07-28 | Each rung costs roughly 10× its predecessor and is fundable by a different kind of money (5.1); pretending one source spans the ladder is the falsifiable-optimism PK1 punishes. D41's funded-not-profitable applied per rung. Endowed custody is the economic mechanism behind PD5's "record outlives the institutions." |
+| PD14 | **Two downlink tiers on two physical paths: Tier 1 (the operational record — small) closes over direct-to-Earth links that every fleet asset class carries, sized for closure with zero relay assets in existence; Tier 2 (science volume) rides relay and is the only tier campaign downlink shares allocate. Relay loss can therefore throttle science but never safety, accountability, or the record.** | 2026-07-28 | The record is the program's legitimacy instrument (PD3) and Level-3/reflex events must publish immediately (PD10) — so the integrity layer cannot depend on infrastructure the program might not get. Record-tier volumes are within demonstrated Mars direct-to-Earth rates; the tiering was already PK6 doctrine, this binds it to hardware. |
+| PD15 | **Tier 2 relay capacity is procured in strict preference order: buy commercial → partner with agencies (paid, contracted, never charity) → fly program-owned smallsat relays as a priced Rung 3 manifest line → treat Marslink as windfall, never plan-of-record.** The backstop option is what makes the plan close without anyone's permission. | 2026-07-28 | Owning the interface (PK6) means the last rung of the ladder is under program control. Cross-agency relay precedent exists and is purchasable in principle; Marslink (D6) is a settlement asset the seed fleet may predate (the PK11 pattern: external infrastructure is never assumed). Gives G3-5's "contracted or designed — not assumed" its concrete meaning. |
+| PD16 | **Bandwidth joins latency as a simulated-then-real physical variable across the ladder: the game enforces realistic downlink scarcity from day one (data-budget craft is a taught, qualification-relevant skill, and game telemetry calibrates tier sizing); Rung 1 injects Mars-realistic downlink constraints as G2-4 injects latency; Rungs 2–3 meet real links with the discipline already trained.** | 2026-07-28 | Extends D42's logic to the second physics the fleet lives under: if latency shapes the control paradigm, bandwidth shapes the science product, and both are cheap to teach in simulation and expensive to learn at Mars. Also hardens qualification: downlink budgeting failures should disqualify in the sim, not strand data on Mars. |
 
 ## Corrections Log (PC)
 
@@ -54,13 +57,14 @@ the Prospector program itself.
 | PQ3 | **Governance & institutional identity.** Who is the campaign authority (Level-3 locks require a named human — of what institution)? Who owns the fleet? Consumer game company vs. observatory-style allocation institution — one entity or two? Export control on a trained autonomy stack. A legal entity must exist before Rung 0 ships. | High | **RESOLVED first pass (v0.5):** two-entity structure designed at Section 3 (PD5: Institute + wholly-owned Studio, four constitutional commitments; PD6: campaign authority as an office; PD7: US incorporation). Board-seat questions deferred by owner decision (3.6). Residuals spun off: record-escrow partners (PQ9), export determination (PQ10). |
 | PQ4 | **Allocation mechanics** (= master Q17). Peer-review vs. game-qualification tracks, campaign mechanics, proprietary periods. Design direction already accumulated in paper Section 9: allocation prices *state* not time; contractual exit conditions; return-to-readiness intervals; stranded-cost policy and the demotion ladder. Promote into designed prose + decision entries. | Med | **RESOLVED first pass (v0.6):** designed at Section 4 under PD8–PD11 (state-vector allocation; two tracks converging on shared campaigns with a charter-protected public share and allocation never sold; two disclosure clocks; stewardship reputation with appealable consequences). Numbers parameterized to the campaign contract template (PQ11). Master Q17 adoption deferred until repo goes public (4.8). |
 | PQ5 | **Economics with numbers.** "Each rung independently fundable" has never been costed, even order-of-magnitude (game-studio scale vs. CLPS-mission scale vs. flagship scale). Also: the three program products (science, constituency, revenue) have no stated priority for conflicts — e.g. discovery naming rights (revenue) vs. IAU nomenclature rules. | Med | **RESOLVED first pass (v0.8):** designed at Section 5 under PD12–PD13. Order-of-magnitude costs anchored (each rung ~10× its predecessor, each fundable by a different kind of money); revenue streams sized honestly (game revenue carries Rung 0–1, never Rung 2+); conflict rule set (revenue always yields; science/constituency conflicts resolve structurally); naming rights resolved as explicitly informal dedications. Bottom-up numbers = PQ12. |
-| PQ6 | **Comms & data dependency.** Public-by-default record implies serious relay capacity; Marslink (D6) is a settlement asset Rung 3 may predate; DSN time for a crowd-directed private fleet is unsolved. Nobody owns this interface. | Med | Open |
+| PQ6 | **Comms & data dependency.** Public-by-default record implies serious relay capacity; Marslink (D6) is a settlement asset Rung 3 may predate; DSN time for a crowd-directed private fleet is unsolved. Nobody owns this interface. | Med | **RESOLVED first pass (v0.9):** designed at Section 6 under PD14–PD16 (two tiers on two physical paths — the record closes direct-to-Earth with zero relay; relay procurement ladder ending in a program-owned backstop; bandwidth joins latency as a taught variable across all rungs). Technical follow-through (link budgets, spectrum, ground segment, backstop design) spun off to PQ13. |
 | PQ7 | **Timeline.** Map the rungs onto synodic windows, even coarsely (the D3 clock governs Rungs 2–3; Rungs 0–1 are calendar-driven). | Med | Open |
 | PQ8 | **Program naming.** "Open Prospector" is Mars-flavored and extraction-flavored; Section 12.6 already argues the architecture is a capability, not a mission ("OpenExplorer" floated 2026-07-28). Interacts with the site's SD10 umbrella-branding deferral. No -ify names. | Low | Open |
 | PQ9 | **Record escrow: which independent archives mirror the public record, and by what mechanism?** PD5's third commitment — the record survives even the Institute's failure — needs named partners (planetary-science data archives are the natural candidates; libraries have run this model for digital preservation) and a mirroring cadence and format. Couples to the Q18 public-record format spec (a Gate 0→1 deliverable, G1-3). | Med | Open |
 | PQ10 | **Export-control determination.** Formal classification of the trained autonomy stack and the high-fidelity twin under US export rules (PD7): what is controlled, what is publishable, and where the open-layer boundary (protocol spec, directive interface, record formats — deliberately open standards) must sit. Timing: in hand before Gate 1→2 (verified at G2-5); early enough to shape the architecture split rather than react to it. | High | Open |
 | PQ11 | **Campaign contract template and first parameter set.** The numbers Section 4 deliberately leaves symbolic: risk-budget units (how expected loss is priced across drone classes — a real actuarial problem), the qualification track's charter-protected minimum share, the two disclosure-clock window lengths, membership fee schedule, readiness-grading scale. Needed as working templates before G2-2's rehearsal campaign; each number frozen per the gate discipline (1.0). | Med | Open |
 | PQ12 | **Bottom-up cost and revenue model.** Section 5's anchors are public comparables, adequate for gate design, inadequate for a budget: studio budget by phase, analog-fleet and field-season costs, real lunar-delivery quotes, membership pricing against named consortium comparables, endowment sizing for indefinite record custody (5.5). Each number freezes per the gate discipline — Rung 0's before G0-3, Rung 2's before Gate 1→2. | Med | Open |
+| PQ13 | **Comms interface specification.** The technical follow-through of Section 6: per-asset-class link budgets sizing the Tier-1 direct-to-Earth requirement (PD14); spectrum coordination and licensing path; ground-segment procurement options (agency networks vs. the emerging commercial deep-space fringe); preliminary design and cost of the program-owned relay backstop for the Rung 3 manifest (PD15). Lunar items verified before Gate 1→2; Mars items before Gate 2→3. | Med | Open |
 
 ---
 
@@ -273,7 +277,7 @@ repo opens to contributions, so it is noted here rather than numbered.
 | PK3 | **Planetary protection bars the flagship target** | COSPAR special-region ruling denies Candor Chaos ground truth — the highest-value first campaign (Q1) and the Phase II site gate (D15) | Cannot force the ruling — absorb it: (a) **named fallback first campaign** of independent value (leading candidate: Candidate A ice-corridor characterization, which serves D13 directly and is nobody's special region); (b) early, structural engagement — the gatekeeper demonstrated as *enforced architecture* at Rung 2 (G3-3) is the strongest case ever presented to a PP authority; (c) sterilization-capable subset of the fleet as a compliance option. | Survivable-only / chronic → strategic |
 | PK4 | **Public loss-of-asset scandal** | An early, visible drone loss traced to a crowd directive — "they let gamers destroy the rover" — collapses institutional trust and agency partnership | The first loss **will** happen; the mitigation must pre-exist it (acute-class). (a) The contestation protocol is the engineering defense; (b) the public record converts the loss into an attribution audit (drone's judgment vs. team's directive vs. authority's override — the record already carries attribution as its third duty, paper Section 9); (c) **published loss budget**: every campaign carries a declared risk budget (already in the Q17 design direction) so losses land as budgeted events, not betrayals. Design-time mandate per PD3. | Preventable (as scandal; the loss itself is survivable) / acute |
 | PK5 | **Fleet attrition breaks the drone-hours promise** | Attrition plus no replenishment shrinks real allocation until qualification becomes decorative; the constituency sours into the program's loudest critics | (a) Demotion ladder keeps degraded assets productive (mobile → fixed station → parts donor, per the Q17 direction, Spirit-at-Troy precedent); (b) sim-tier campaigns are *honest* allocation (forward-planning reconnaissance is real contribution, not a consolation prize — D17); (c) buying replacement drones is standing program policy, written into every rung's funding request (G3-4); (d) the allocation design says plainly that more teams will qualify than can ever be served, rather than letting each team discover it (designed at 4.5). | Preventable / chronic → strategic |
-| PK6 | **The comms bottleneck starves campaigns** | Public-by-default record + imagery-hungry science vs. thin relay capacity: DSN allocation for a private crowd fleet is tiny, and Marslink (D6) is a settlement asset Rung 3 may predate | (a) Own the interface early (PQ6 remains the design vehicle); (b) tier the data budget: the *record* (directives, contestations, resolutions — small) has absolute priority over raw data volume, so the program's integrity never throttles even when its bandwidth does; (c) commercial deep-space relay services are an emerging market — capacity can increasingly be bought rather than built; (d) onboard summarization rides the same autonomy stack. | Preventable / chronic |
+| PK6 | **The comms bottleneck starves campaigns** | Public-by-default record + imagery-hungry science vs. thin relay capacity: DSN allocation for a private crowd fleet is tiny, and Marslink (D6) is a settlement asset Rung 3 may predate | (a) Own the interface early (designed at Section 6: the record closes direct-to-Earth per PD14; relay ends in a program-owned backstop per PD15); (b) tier the data budget: the *record* (directives, contestations, resolutions — small) has absolute priority over raw data volume, so the program's integrity never throttles even when its bandwidth does; (c) commercial deep-space relay services are an emerging market — capacity can increasingly be bought rather than built; (d) onboard summarization rides the same autonomy stack. | Preventable / chronic |
 | PK7 | **Institutional capture** | A funder, partner agency, or the game company's commercial owner captures allocation; the public tier is squeezed out; "Open" becomes marketing | The DMS-descended separation of powers already inside the protocol extends to institutions: **the revenue entity never controls allocation; the allocation authority never depends on revenue performance** — decided as two bodies, the Studio wholly owned by the Institute, with four charter-level commitments (PD5, Section 3). Founding-document material, the D29 pattern: cannot be retrofitted (PD3 design-time mandate). The public record makes capture visible; visibility plus a constituency of thousands is the enforcement mechanism. | Preventable at founding only / chronic |
 | PK8 | **Export control closes the "Open"** | ITAR/EAR classification of the trained autonomy stack or twin blocks international teams — or blocks launch integration — gutting open access | (a) Early formal determination (PQ10, verified at G2-5); (b) architectural split: the *directive interface and record* are open by construction; the flight stack can be controlled without closing the program's front door; (c) international-payload precedents exist today. Worst case: openness lives at the directive layer while the stack stays domestic — degraded, not dead. | Survivable / chronic |
 | PK9 | **The protocol fails socially** | Rung 0 reveals humans hate being refused by machines at scale: counter-proposal acceptance is low, rage-quit dominates, the cultural bet (paper 4.7) inverts into resentment | This is precisely what Rung 0 exists to discover at the cost of a video game rather than the cost of flight hardware (the game corpus is the spec's test suite — decided, D17). Iterate the grammar at game speed: ladder tuning (more Level-1 auto-substitute, less Level-2 hold), counter-proposal phrasing, the five-move family's learnability. G1-3 makes social viability a *gate criterion*, so the bet is never carried to hardware unexamined. | Preventable (by Rung-0 iteration) / delayed |
@@ -686,9 +690,96 @@ quotes, membership pricing against named consortium comparables, endowment
 sizing. Each number freezes per the gate discipline (1.0) — Rung 0's before
 G0-3, Rung 2's before Gate 1→2.
 
-## 6. Communications & Data Interface (PQ6)
+## 6. Communications & Data Interface (PQ6) — FIRST PASS v0.9
 
-*Stub.*
+### 6.0 The dependency, stated
+
+A public-by-default program is a data-return program: no downlink, no
+record; no record, no legitimacy (PD3). Yet the plan's comms assumptions
+were inherited, not designed — Marslink (D6) is a settlement asset the seed
+fleet may predate, agency deep-space network time is scarce and allocated
+by peer pressure the program does not command, and a crowd-directed private
+fleet is precisely the customer existing arrangements were not written for.
+This section owns the interface.
+
+### 6.1 Two tiers, two physical paths (PD14)
+
+The PK6 tiering becomes an architecture rule by mapping the tiers onto
+different links:
+
+- **Tier 1 — the operational record** (directives, contestations,
+  resolutions, health telemetry, event summaries). Kilobytes to a few
+  megabits per sol per asset — within demonstrated direct-to-Earth rates
+  for Mars surface vehicles. Doctrine: **every fleet asset class carries
+  direct-to-Earth capability sized so that Tier 1 closes with zero relay
+  assets in existence.** Tier 1 is never allocatable (4.1 allocates only
+  Tier 2) and never throttled below closure.
+- **Tier 2 — science volume** (imagery, spectrometry, mapping products).
+  Hundreds of megabits per sol and up; physically requires relay. This is
+  what campaign downlink shares (4.1) divide, and what grows or shrinks
+  with the relay situation.
+
+The consequence is the design's point: **losing relay capacity degrades
+science throughput; it can never degrade safety, accountability, or the
+record's completeness.** The program's integrity layer runs on the link the
+program itself carries.
+
+### 6.2 The relay procurement ladder (PD15)
+
+Tier 2 capacity is an availability item (PD4) with a procurement order:
+
+1. **Buy commercial** relay service where a market exists (emerging at the
+   Moon now; speculative at Mars on Rung 3's horizon).
+2. **Partner with agencies — paid and contracted, not charity.** Precedent
+   exists: agencies already cross-relay for each other's landers; the
+   program buys passes the same way, as a contracted service with defined
+   volumes.
+3. **Fly the backstop:** program-owned smallsat relays as a priced line
+   item in the Rung 3 manifest (order $50–150M within the 5.1 envelope —
+   PQ13 refines). This is what "owning the interface" ultimately means: the
+   plan closes without anyone's permission.
+4. **Marslink is windfall, never plan-of-record.** If the settlement
+   program's constellation exists by Rung 3, Tier 2 gets cheap and
+   abundant — but no gate criterion and no campaign promise may assume it.
+
+G3-5 already demands the relay interface "contracted or designed — not
+assumed"; the ladder says what those words mean in order of preference.
+
+### 6.3 Bandwidth is the second taught variable (PD16)
+
+D42 made latency a gameplay variable because latency is the C2 physics.
+Bandwidth is the data physics, and it gets the same treatment:
+
+- **Rung 0:** the game enforces realistic downlink scarcity from day one —
+  campaign data budgets, Tier 1/Tier 2 split, the choice of what to send
+  home as a core gameplay decision. Data-budget craft becomes a taught,
+  tested, qualification-relevant skill (a team that cannot manage a
+  downlink budget is not fleet-ready), and game telemetry calibrates the
+  real tier sizing (feeds PQ11's parameter set).
+- **Rung 1:** analog fleets operate under injected Mars-realistic downlink
+  constraints, as latency is injected per G2-4 — the full communications
+  discipline rehearsed where bandwidth is actually abundant.
+- **Rungs 2–3:** the discipline meets real links; Rung 2's lunar campaigns
+  prove Tier 1 closure and tier arbitration on actual deep-space
+  infrastructure before Mars distance raises the stakes.
+
+### 6.4 Ground segment and spectrum
+
+The unglamorous half of the interface, named so it is owned: deep-space-
+capable ground stations are scarce (a handful of agency networks and an
+emerging commercial fringe), and a private fleet needs spectrum
+coordination through the same international machinery agency missions use.
+Both are procurement-and-licensing work items with long lead times, not
+engineering novelties. They live in PQ13 and are verified at the same gates
+as the capacity they serve (ground/spectrum for the Moon before Gate 1→2;
+for Mars before Gate 2→3).
+
+### 6.5 Residual
+
+**PQ13** holds the technical follow-through: link budgets per asset class
+(sizing the Tier-1 direct-to-Earth requirement each drone must carry),
+spectrum and licensing path, ground-segment procurement options, and the
+preliminary design and cost of the relay backstop for the Rung 3 manifest.
 
 ## 7. Timeline (PQ7)
 
@@ -762,3 +853,13 @@ G0-3, Rung 2's before Gate 1→2.
   discovery dedications (IAU nomenclature is not for sale). Institutional
   durability: charter functions on durable streams, endowment sized for
   indefinite record custody. Bottom-up numbers spun off to PQ12.
+- **2026-07-29 (v0.9):** PQ6 resolved first pass at Section 6 (PD14–PD16).
+  The load-bearing move: the PK6 data tiers bind to different physical
+  links — Tier 1 (the record) closes over direct-to-Earth capability every
+  asset class carries, with zero relay in existence, so relay loss can
+  throttle science but never accountability. Relay procurement ladder ends
+  in a program-owned smallsat backstop (the plan closes without anyone's
+  permission); Marslink is windfall, never plan-of-record. Bandwidth joins
+  latency (D42 pattern) as a taught variable: downlink scarcity is gameplay
+  from Rung 0, injected at Rung 1, real at Rungs 2–3. Technical
+  follow-through spun off to PQ13.
