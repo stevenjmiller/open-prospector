@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.12
+**Version:** v0.13
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -38,6 +38,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD16 | **Bandwidth joins latency as a simulated-then-real physical variable across the ladder: the game enforces realistic downlink scarcity from day one (data-budget craft is a taught, qualification-relevant skill, and game telemetry calibrates tier sizing); Rung 1 injects Mars-realistic downlink constraints as G2-4 injects latency; Rungs 2–3 meet real links with the discipline already trained.** | 2026-07-28 | Extends D42's logic to the second physical constraint the fleet lives under: if latency shapes the control paradigm, bandwidth shapes the science product, and both are cheap to teach in simulation and expensive to learn at Mars. Also hardens qualification: downlink budgeting failures should disqualify in the sim, not strand data on Mars. |
 | PD17 | **The timeline is a pacing model, never a schedule: dates are earliest-credible projections conditioned on gates. The schedule never pressures a gate (slipping evidence slips the date, never the reverse); no hardware commits to a launch window before its gate passes (window targeting stays provisional until then); and the program runs on three clocks — calendar for Rungs 0–1, contract lead time for Rung 2, synodic (D3) for Rung 3 only — with the ~26-month synodic tick doubling as the standing program review (availability re-verification per PD4(c), pacing model refreshed).** | 2026-07-29 | A timeline that hardens into commitments reverses PD2's criteria-not-dates doctrine; window fever — thinning evidence to make a launch window — is the oldest schedule pathology in planetary exploration, and the gates exist to make it impossible. Earliest-credible arc: ~16 years founding-to-Mars, revenue from ~year 3, science from ~year 5, permanent off-Earth operations from ~year 10 (7.1). |
 | PD18 | **Tiered naming: the institution is the Open Exploration Institute; the Open Prospector Program keeps its name as the Institute's first program; the Studio's working name is Open Exploration Studio; the consumer game's name is a later Studio decision inside Institute-set rules (no overpromising, no "-ify" names). Nothing renames today — the paper, corpus, site, and this repo all say "Open Prospector Program" and remain correct; the Institute name first appears when the Institute is founded.** A program fits under the umbrella when it has: a scarce or hazardous instrument, a latency or bandwidth constraint that forces autonomy, science worth doing, and a public that wants real agency. Candidate future programs (capacity, not commitments, per PD2): the permanent lunar fleet that Rung 2 becomes; deep-ocean fleets; crowd-directed orbital instruments; other bodies per master 12.6. | 2026-07-30 | Owner decision: the tiered structure gives the program room to grow into. "Prospector" is accurate for the Mars program (its first campaign literally prospects for ice) but extraction-flavored as a permanent institutional identity — the planetary-protection filing is the sentence it would read worst in. "Open Exploration Institute" is the plainest body-agnostic name, per the explain-don't-allude style rule. NASA-style agency/program/mission layering; program #2 costs a fraction of program #1 because protocol, twin engine, allocation, qualification, and record are shared. |
+| PD19 | **Record escrow follows the digital-preservation model: many complete public mirrors under independent governance. Custodianship is a consortium membership function (member libraries hold full mirrors); at least three custodian classes at all times (member libraries, an independent public archive, the agency science archive for Tier 2 data); anyone may mirror. The record format is escrow-shaped by requirement: append-only, hash-chained, self-describing, open, and small — written into the G1-3 formal spec. Custody is endowment-funded (5.5) with continuation obligations that survive the Institute; agreements in force before the first Rung 1 campaign record opens.** | 2026-07-30 | An archive the Institute alone controls is a promise, not a guarantee — and the adversarial case (an authority altering or quietly dropping entries) is the one that matters, since the record is the accountability instrument (PD3). Mirrors the Institute does not control close the capture path; hash-chaining lets any mirror holder verify completeness without trusting anyone. The scholarly-publishing preservation model, applied to the program's own consortium. |
 
 ## Corrections Log (PC)
 
@@ -62,7 +63,7 @@ the Prospector program itself.
 | PQ6 | **Comms & data dependency.** Public-by-default record implies serious relay capacity; Marslink (D6) is a settlement asset Rung 3 may predate; DSN time for a crowd-directed private fleet is unsolved. Nobody owns this interface. | Med | **RESOLVED first pass (v0.9):** designed at Section 6 under PD14–PD16 (two tiers on two physical paths — the record closes direct-to-Earth with zero relay; relay procurement ladder ending in a program-owned backstop; bandwidth joins latency as a taught variable across all rungs). Technical follow-through (link budgets, spectrum, ground segment, backstop design) spun off to PQ13. |
 | PQ7 | **Timeline.** Map the rungs onto synodic windows, even coarsely (the D3 clock governs Rungs 2–3; Rungs 0–1 are calendar-driven). | Med | **RESOLVED first pass (v0.10):** pacing model at Section 7 under PD17 (dates condition on gates, never pressure them; no window commitment before gate passage; three clocks, with the synodic tick as standing program review). Earliest-credible arc: ~16 years founding-to-Mars surface, productive throughout. Refreshed at every synodic review rather than spun off to a new PQ. |
 | PQ8 | **Program naming.** "Open Prospector" is Mars-flavored and extraction-flavored; Section 12.6 already argues the architecture is a capability, not a mission ("OpenExplorer" floated 2026-07-28). Interacts with the site's SD10 umbrella-branding deferral. No -ify names. | Low | **RESOLVED (v0.12):** tiered naming adopted at Section 8 (PD18) — Open Exploration Institute over the Open Prospector Program; nothing renames today. Name clearance before founding is PQ14. SD10 adoption deferred until repo goes public (with 4.8). |
-| PQ9 | **Record escrow: which independent archives mirror the public record, and by what mechanism?** PD5's third commitment — the record survives even the Institute's failure — needs named partners (planetary-science data archives are the natural candidates; libraries have run this model for digital preservation) and a mirroring cadence and format. Couples to the Q18 public-record format spec (a Gate 0→1 deliverable, G1-3). | Med | Open |
+| PQ9 | **Record escrow: which independent archives mirror the public record, and by what mechanism?** PD5's third commitment — the record survives even the Institute's failure — needs named partners (planetary-science data archives are the natural candidates; libraries have run this model for digital preservation) and a mirroring cadence and format. Couples to the Q18 public-record format spec (a Gate 0→1 deliverable, G1-3). | Med | **RESOLVED first pass (v0.13):** designed at Section 9 under PD19 — many-mirror model with custodianship as a membership function, three custodian classes minimum, escrow-shaped format requirements fed into the G1-3 spec, endowment-funded custody with continuation obligations. Named-partner selection is a founding follow-on (9.5). |
 | PQ10 | **Export-control determination.** Formal classification of the trained autonomy stack and the high-fidelity twin under US export rules (PD7): what is controlled, what is publishable, and where the open-layer boundary (protocol spec, directive interface, record formats — deliberately open standards) must sit. Timing: in hand before Gate 1→2 (verified at G2-5); early enough to shape the architecture split rather than react to it. | High | Open |
 | PQ11 | **Campaign contract template and first parameter set.** The numbers Section 4 deliberately leaves symbolic: risk-budget units (how expected loss is priced across drone classes — a real actuarial problem), the qualification track's charter-protected minimum share, the two disclosure-clock window lengths, membership fee schedule, readiness-grading scale. Needed as working templates before G2-2's rehearsal campaign; each number frozen per the gate discipline (1.0). | Med | Open |
 | PQ12 | **Bottom-up cost and revenue model.** Section 5's anchors are public comparables, adequate for gate design, inadequate for a budget: studio budget by phase, analog-fleet and field-season costs, real lunar-delivery quotes, membership pricing against named consortium comparables, endowment sizing for indefinite record custody (5.5). Each number freezes per the gate discipline — Rung 0's before G0-3, Rung 2's before Gate 1→2. | Med | Open |
@@ -892,6 +893,87 @@ Institute as the umbrella over the Mars Colonization and Open Prospector
 cards). Like 4.8, adoption into the public corpus waits until this repo
 goes public.
 
+## 9. Record Escrow (PQ9) — FIRST PASS v0.13
+
+### 9.0 The requirement
+
+PD5's third commitment — the record outlives the institutions — must hold
+against four failure modes: the Institute's systems fail; the Institute
+itself fails (bankruptcy, dissolution, capture); revenue stops for years
+(the endowment case, 5.5); or someone with authority tries to alter or
+quietly drop part of the record. The last one matters most: the record is
+the program's accountability instrument, and an archive the Institute alone
+controls is a promise, not a guarantee.
+
+### 9.1 Many custodians, one verifiable chain (PD19)
+
+Digital preservation solved this problem for scholarly publishing years
+ago, and the answer is copies: many complete mirrors, held by institutions
+with different governance, funding, and failure modes, under agreements
+that survive the depositor. The program applies that model with one
+addition it is uniquely positioned to make:
+
+- **Custodianship is a membership function.** Consortium member
+  institutions (PD9) hold full public mirrors of the record as part of
+  membership — their libraries already run digital preservation
+  infrastructure, and it puts the archive in the hands of the same
+  institutions that use the fleet. A captured or failing Institute cannot
+  recall mirrors it does not control.
+- **At least three custodian classes** at all times, so no single kind of
+  failure takes them all: member university libraries; an independent
+  public digital archive; and, for Rung 3 science data, the planetary
+  science archive an agency partnership would require anyway (Tier 2 data
+  follows agency archiving norms; the operational record is the part that
+  needs the program's own arrangements).
+- **Anyone may mirror.** The record is public; formal custodians carry
+  obligations, but nothing stops a university course, a newspaper, or an
+  individual from holding a full copy. Ubiquity is the last line of
+  defense.
+
+### 9.2 Format requirements (feeds the G1-3 spec)
+
+Escrow works only if the format cooperates, so these are requirements on
+the formal Q18 record specification, stated now so the spec is written
+against them:
+
+- **Append-only and hash-chained:** every entry references the hash of its
+  predecessor, so any mirror holder can verify completeness and detect
+  tampering or silent gaps without trusting the Institute.
+- **Self-describing and open:** documented format, no proprietary reader;
+  a mirror must be readable in fifty years by someone with no help.
+- **Small by construction:** the operational record is Tier 1 (PD14) —
+  kilobytes to megabits per sol per asset. Years of fleet operations fit
+  on storage a university library will not notice. Smallness is a
+  preservation feature, not just a bandwidth one.
+
+### 9.3 Mechanism, cadence, succession
+
+- **Continuous replication**, not periodic dumps — the record is an
+  append-only stream and mirrors follow it live. Verification audit (every
+  mirror confirms chain integrity) at each synodic review (7.0).
+- **Custodian agreements** name the obligation plainly: retain
+  indefinitely, serve publicly, and continue both if the Institute ceases.
+  Custodial costs are small and funded from the endowment (5.5), so
+  custody survives the same revenue drought the Institute might not.
+- **Timing:** the guarantee must be in force before the first Rung 1 field
+  campaign opens its record — which is why the format spec is a Gate 0→1
+  deliverable (G1-3) and the first custodian agreements are a founding
+  follow-on task, not a someday item.
+
+### 9.4 Scope
+
+Covered by the guarantee: everything the allocation system produces —
+directives, contestations, resolutions, readiness grades, override
+signatures — including sim-tier campaigns (4.5), which are real allocation.
+Not covered: casual gameplay telemetry, which is Studio product data, not
+the record.
+
+### 9.5 Residual
+
+Named-partner selection is conversations, not design, and it needs the
+Institute to exist first. The candidate classes above bound the search;
+the agreements are drafted against 9.3's obligations at founding.
+
 ---
 
 ## Session Log
@@ -998,3 +1080,13 @@ goes public.
   + science + public agency), with candidate future programs noted as
   capacity, not commitments — deep ocean the strongest non-space case.
   Name clearance spun off as PQ14; SD10 adoption deferred with 4.8.
+- **2026-07-30 (v0.13):** PQ9 resolved first pass at Section 9 (PD19).
+  Record escrow follows the digital-preservation many-mirror model, with
+  one addition the program is positioned to make: custodianship is a
+  consortium membership function — member libraries hold full mirrors, so
+  a captured or failed Institute cannot recall the record. Three custodian
+  classes minimum; anyone may mirror. Format requirements (append-only,
+  hash-chained, self-describing, open, small) written as constraints on
+  the G1-3 formal spec. Custody endowment-funded with continuation
+  obligations; agreements in force before the first Rung 1 campaign
+  record opens. Named partners deferred to founding (9.5).
