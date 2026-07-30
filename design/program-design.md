@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.9
+**Version:** v0.10
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -36,6 +36,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD14 | **Two downlink tiers on two physical paths: Tier 1 (the operational record — small) closes over direct-to-Earth links that every fleet asset class carries, sized for closure with zero relay assets in existence; Tier 2 (science volume) rides relay and is the only tier campaign downlink shares allocate. Relay loss can therefore throttle science but never safety, accountability, or the record.** | 2026-07-28 | The record is the program's legitimacy instrument (PD3) and Level-3/reflex events must publish immediately (PD10) — so the integrity layer cannot depend on infrastructure the program might not get. Record-tier volumes are within demonstrated Mars direct-to-Earth rates; the tiering was already PK6 doctrine, this binds it to hardware. |
 | PD15 | **Tier 2 relay capacity is procured in strict preference order: buy commercial → partner with agencies (paid, contracted, never charity) → fly program-owned smallsat relays as a priced Rung 3 manifest line → treat Marslink as windfall, never plan-of-record.** The backstop option is what makes the plan close without anyone's permission. | 2026-07-28 | Owning the interface (PK6) means the last rung of the ladder is under program control. Cross-agency relay precedent exists and is purchasable in principle; Marslink (D6) is a settlement asset the seed fleet may predate (the PK11 pattern: external infrastructure is never assumed). Gives G3-5's "contracted or designed — not assumed" its concrete meaning. |
 | PD16 | **Bandwidth joins latency as a simulated-then-real physical variable across the ladder: the game enforces realistic downlink scarcity from day one (data-budget craft is a taught, qualification-relevant skill, and game telemetry calibrates tier sizing); Rung 1 injects Mars-realistic downlink constraints as G2-4 injects latency; Rungs 2–3 meet real links with the discipline already trained.** | 2026-07-28 | Extends D42's logic to the second physics the fleet lives under: if latency shapes the control paradigm, bandwidth shapes the science product, and both are cheap to teach in simulation and expensive to learn at Mars. Also hardens qualification: downlink budgeting failures should disqualify in the sim, not strand data on Mars. |
+| PD17 | **The timeline is a pacing model, never a schedule: dates are earliest-credible projections conditioned on gates. The schedule never pressures a gate (slipping evidence slips the date, never the reverse); no hardware commits to a launch window before its gate passes (window targeting stays provisional until then); and the program runs on three clocks — calendar for Rungs 0–1, contract lead time for Rung 2, synodic (D3) for Rung 3 only — with the ~26-month synodic tick doubling as the standing program review (availability re-verification per PD4c, pacing model refreshed).** | 2026-07-29 | A timeline that hardens into commitments quietly reverses PD2's criteria-not-dates doctrine; window fever — thinning evidence to make a launch window — is the oldest schedule pathology in planetary exploration and the gates exist precisely to make it impossible. Earliest-credible arc: ~16 years founding-to-Mars, revenue from ~year 3, science from ~year 5, permanent off-Earth operations from ~year 10 (7.1). |
 
 ## Corrections Log (PC)
 
@@ -58,7 +59,7 @@ the Prospector program itself.
 | PQ4 | **Allocation mechanics** (= master Q17). Peer-review vs. game-qualification tracks, campaign mechanics, proprietary periods. Design direction already accumulated in paper Section 9: allocation prices *state* not time; contractual exit conditions; return-to-readiness intervals; stranded-cost policy and the demotion ladder. Promote into designed prose + decision entries. | Med | **RESOLVED first pass (v0.6):** designed at Section 4 under PD8–PD11 (state-vector allocation; two tracks converging on shared campaigns with a charter-protected public share and allocation never sold; two disclosure clocks; stewardship reputation with appealable consequences). Numbers parameterized to the campaign contract template (PQ11). Master Q17 adoption deferred until repo goes public (4.8). |
 | PQ5 | **Economics with numbers.** "Each rung independently fundable" has never been costed, even order-of-magnitude (game-studio scale vs. CLPS-mission scale vs. flagship scale). Also: the three program products (science, constituency, revenue) have no stated priority for conflicts — e.g. discovery naming rights (revenue) vs. IAU nomenclature rules. | Med | **RESOLVED first pass (v0.8):** designed at Section 5 under PD12–PD13. Order-of-magnitude costs anchored (each rung ~10× its predecessor, each fundable by a different kind of money); revenue streams sized honestly (game revenue carries Rung 0–1, never Rung 2+); conflict rule set (revenue always yields; science/constituency conflicts resolve structurally); naming rights resolved as explicitly informal dedications. Bottom-up numbers = PQ12. |
 | PQ6 | **Comms & data dependency.** Public-by-default record implies serious relay capacity; Marslink (D6) is a settlement asset Rung 3 may predate; DSN time for a crowd-directed private fleet is unsolved. Nobody owns this interface. | Med | **RESOLVED first pass (v0.9):** designed at Section 6 under PD14–PD16 (two tiers on two physical paths — the record closes direct-to-Earth with zero relay; relay procurement ladder ending in a program-owned backstop; bandwidth joins latency as a taught variable across all rungs). Technical follow-through (link budgets, spectrum, ground segment, backstop design) spun off to PQ13. |
-| PQ7 | **Timeline.** Map the rungs onto synodic windows, even coarsely (the D3 clock governs Rungs 2–3; Rungs 0–1 are calendar-driven). | Med | Open |
+| PQ7 | **Timeline.** Map the rungs onto synodic windows, even coarsely (the D3 clock governs Rungs 2–3; Rungs 0–1 are calendar-driven). | Med | **RESOLVED first pass (v0.10):** pacing model at Section 7 under PD17 (dates condition on gates, never pressure them; no window commitment before gate passage; three clocks, with the synodic tick as standing program review). Earliest-credible arc: ~16 years founding-to-Mars surface, productive throughout. Refreshed at every synodic review rather than spun off to a new PQ. |
 | PQ8 | **Program naming.** "Open Prospector" is Mars-flavored and extraction-flavored; Section 12.6 already argues the architecture is a capability, not a mission ("OpenExplorer" floated 2026-07-28). Interacts with the site's SD10 umbrella-branding deferral. No -ify names. | Low | Open |
 | PQ9 | **Record escrow: which independent archives mirror the public record, and by what mechanism?** PD5's third commitment — the record survives even the Institute's failure — needs named partners (planetary-science data archives are the natural candidates; libraries have run this model for digital preservation) and a mirroring cadence and format. Couples to the Q18 public-record format spec (a Gate 0→1 deliverable, G1-3). | Med | Open |
 | PQ10 | **Export-control determination.** Formal classification of the trained autonomy stack and the high-fidelity twin under US export rules (PD7): what is controlled, what is publishable, and where the open-layer boundary (protocol spec, directive interface, record formats — deliberately open standards) must sit. Timing: in hand before Gate 1→2 (verified at G2-5); early enough to shape the architecture split rather than react to it. | High | Open |
@@ -781,9 +782,64 @@ for Mars before Gate 2→3).
 spectrum and licensing path, ground-segment procurement options, and the
 preliminary design and cost of the relay backstop for the Rung 3 manifest.
 
-## 7. Timeline (PQ7)
+## 7. Timeline (PQ7) — FIRST PASS v0.10
 
-*Stub.*
+### 7.0 Doctrine: a pacing model, not a schedule (PD17)
+
+Section 1 made rung transitions criteria, not dates; a timeline must not
+quietly reverse that. So the dates below are **earliest-credible
+projections, conditioned on every intervening gate passing** — a pacing
+model that answers "how fast *could* this responsibly go," never a
+commitment. Three standing rules:
+
+1. **The schedule never pressures a gate.** Slipping evidence slips the
+   date; a date never thins the evidence. There is no milestone anyone is
+   "holding."
+2. **No hardware commits to a launch window before its gate passes.**
+   Window targeting stays provisional — studies and long-lead design may
+   look at a window, but the manifest commitment (the capital each gate
+   protects) follows gate passage, never anticipates it. This is the
+   defense against window fever, the oldest schedule pathology in
+   planetary exploration.
+3. **Three clocks.** Rungs 0–1 run on the calendar (software and field
+   seasons). Rung 2 runs on contract lead times (lunar delivery is
+   available roughly monthly; the 2–3-year procurement lead is the real
+   clock). Only Rung 3 runs on the synodic clock (D3) — and the synodic
+   tick doubles as the program's standing review: every ~26 months,
+   availability criteria re-verified (PD4c), pacing model refreshed, the
+   whole ladder re-dated.
+
+### 7.1 The earliest-credible arc
+
+Anchored today (mid-2026); Mars windows fall roughly at 2026, 2029, 2031,
+2033, 2035, 2037–38, 2040, and 2042.
+
+| Years | What happens (and what it is conditioned on) |
+|---|---|
+| 2026–27 | Institute founded (3.5); export determination begun (PQ10); twin data survey (G0-1); Studio formed when game development capitalizes (G0-3) |
+| 2027–30 | Game development (~2–4 years per 5.1); early access mid-stream; revenue begins (5.3). Contestation and interface telemetry accumulate at consumer scale |
+| 2030–31 | **Gate 0→1**: funding model demonstrated or honestly retired; formal Q18 schema written from Rung-0 evidence and adopted back into the master; first qualified cohort exists |
+| 2031–34 | Rung 1 analog fleet: two to three field seasons under injected latency and downlink constraints; full-stack campaign rehearsal (G2-2); sim-to-real gap measured and fed back. **Gate 1→2** around 2034 |
+| 2034–37 | Lunar delivery procured (~2–3-year lead); lunar fleet flies ≈2036–37; a year-plus of operations: lunar-night survivals, injected-Mars-latency campaigns, gatekeeper certification on real regulatory ground. **Gate 2→3** around 2038 |
+| 2036 → | The lunar fleet never decommissions (master 12.6): from here the program permanently operates exploration hardware off Earth, regardless of what happens at Mars |
+| 2038–42 | Seed-fleet and relay-backstop development; provisional targeting of the 2040 window, **committed only after Gate 2→3**; earliest-credible Mars launch at the 2040–42 windows, arrival ~7–9 months later. First campaign: Candor Chaos ground truth (Q1) or the PK3 fallback |
+
+### 7.2 Reading the arc honestly
+
+Founding to Mars surface is roughly **sixteen years** at earliest-credible
+pace — flagship-program timescale, and the design says so rather than
+promising better. The ladder's answer to "why so long" is that the wait is
+not empty: the program is revenue-producing from about year three,
+science-producing (analog fleets, published sim-to-real research) from
+about year five, and permanently operating hardware off Earth from about
+year ten. Every intermediate state is a stable, valuable resting point
+(PD2) — which is also what makes the pacing honest: no rung needs the
+next one to justify itself, so no date needs defending with thin evidence.
+
+The model's biggest lever is Rung 0's duration (game development plus
+evidence accumulation, ~4–5 years of the sixteen); its biggest external
+risk is PK11 at the 2040–42 windows. Both get re-examined at every synodic
+review.
 
 ---
 
@@ -863,3 +919,13 @@ preliminary design and cost of the relay backstop for the Rung 3 manifest.
   latency (D42 pattern) as a taught variable: downlink scarcity is gameplay
   from Rung 0, injected at Rung 1, real at Rungs 2–3. Technical
   follow-through spun off to PQ13.
+- **2026-07-30 (v0.10):** PQ7 resolved first pass at Section 7 (PD17) —
+  the last of the seven founding gaps. Timeline framed as a pacing model
+  so it cannot reverse the criteria-not-dates doctrine: earliest-credible
+  arc of ~16 years founding-to-Mars (Gate 0→1 ≈2030–31, Gate 1→2 ≈2034,
+  lunar fleet ≈2036–37, Gate 2→3 ≈2038, Mars launch at the 2040–42
+  windows), with the honest reading stated — revenue from ~year 3, science
+  from ~year 5, permanent off-Earth operations from ~year 10, every
+  intermediate state a stable resting point. Window-fever rule: no
+  manifest commitment before gate passage. Synodic tick = standing program
+  review. No new PQ; the model refreshes at every review.
