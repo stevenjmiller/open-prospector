@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.11
+**Version:** v0.12
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -37,6 +37,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PD15 | **Tier 2 relay capacity is procured in strict preference order: buy commercial → partner with agencies (paid, contracted, never charity) → fly program-owned smallsat relays as a priced Rung 3 manifest line → treat Marslink as windfall, never plan-of-record.** The backstop option is what makes the plan close without anyone's permission. | 2026-07-28 | Owning the interface (PK6) means the last rung of the ladder is under program control. Cross-agency relay precedent exists and is purchasable in principle; Marslink (D6) is a settlement asset the seed fleet may predate (the PK11 pattern: external infrastructure is never assumed). Gives G3-5's "contracted or designed — not assumed" its concrete meaning. |
 | PD16 | **Bandwidth joins latency as a simulated-then-real physical variable across the ladder: the game enforces realistic downlink scarcity from day one (data-budget craft is a taught, qualification-relevant skill, and game telemetry calibrates tier sizing); Rung 1 injects Mars-realistic downlink constraints as G2-4 injects latency; Rungs 2–3 meet real links with the discipline already trained.** | 2026-07-28 | Extends D42's logic to the second physical constraint the fleet lives under: if latency shapes the control paradigm, bandwidth shapes the science product, and both are cheap to teach in simulation and expensive to learn at Mars. Also hardens qualification: downlink budgeting failures should disqualify in the sim, not strand data on Mars. |
 | PD17 | **The timeline is a pacing model, never a schedule: dates are earliest-credible projections conditioned on gates. The schedule never pressures a gate (slipping evidence slips the date, never the reverse); no hardware commits to a launch window before its gate passes (window targeting stays provisional until then); and the program runs on three clocks — calendar for Rungs 0–1, contract lead time for Rung 2, synodic (D3) for Rung 3 only — with the ~26-month synodic tick doubling as the standing program review (availability re-verification per PD4(c), pacing model refreshed).** | 2026-07-29 | A timeline that hardens into commitments reverses PD2's criteria-not-dates doctrine; window fever — thinning evidence to make a launch window — is the oldest schedule pathology in planetary exploration, and the gates exist to make it impossible. Earliest-credible arc: ~16 years founding-to-Mars, revenue from ~year 3, science from ~year 5, permanent off-Earth operations from ~year 10 (7.1). |
+| PD18 | **Tiered naming: the institution is the Open Exploration Institute; the Open Prospector Program keeps its name as the Institute's first program; the Studio's working name is Open Exploration Studio; the consumer game's name is a later Studio decision inside Institute-set rules (no overpromising, no "-ify" names). Nothing renames today — the paper, corpus, site, and this repo all say "Open Prospector Program" and remain correct; the Institute name first appears when the Institute is founded.** A program fits under the umbrella when it has: a scarce or hazardous instrument, a latency or bandwidth constraint that forces autonomy, science worth doing, and a public that wants real agency. Candidate future programs (capacity, not commitments, per PD2): the permanent lunar fleet that Rung 2 becomes; deep-ocean fleets; crowd-directed orbital instruments; other bodies per master 12.6. | 2026-07-30 | Owner decision: the tiered structure gives the program room to grow into. "Prospector" is accurate for the Mars program (its first campaign literally prospects for ice) but extraction-flavored as a permanent institutional identity — the planetary-protection filing is the sentence it would read worst in. "Open Exploration Institute" is the plainest body-agnostic name, per the explain-don't-allude style rule. NASA-style agency/program/mission layering; program #2 costs a fraction of program #1 because protocol, twin engine, allocation, qualification, and record are shared. |
 
 ## Corrections Log (PC)
 
@@ -60,12 +61,13 @@ the Prospector program itself.
 | PQ5 | **Economics with numbers.** "Each rung independently fundable" has never been costed, even order-of-magnitude (game-studio scale vs. CLPS-mission scale vs. flagship scale). Also: the three program products (science, constituency, revenue) have no stated priority for conflicts — e.g. discovery naming rights (revenue) vs. IAU nomenclature rules. | Med | **RESOLVED first pass (v0.8):** designed at Section 5 under PD12–PD13. Order-of-magnitude costs anchored (each rung ~10× its predecessor, each fundable by a different kind of money); revenue streams sized from public comparables (game revenue carries Rung 0–1, never Rung 2+); conflict rule set (revenue always yields; science/constituency conflicts resolve structurally); naming rights resolved as explicitly informal dedications. Bottom-up numbers = PQ12. |
 | PQ6 | **Comms & data dependency.** Public-by-default record implies serious relay capacity; Marslink (D6) is a settlement asset Rung 3 may predate; DSN time for a crowd-directed private fleet is unsolved. Nobody owns this interface. | Med | **RESOLVED first pass (v0.9):** designed at Section 6 under PD14–PD16 (two tiers on two physical paths — the record closes direct-to-Earth with zero relay; relay procurement ladder ending in a program-owned backstop; bandwidth joins latency as a taught variable across all rungs). Technical follow-through (link budgets, spectrum, ground segment, backstop design) spun off to PQ13. |
 | PQ7 | **Timeline.** Map the rungs onto synodic windows, even coarsely (the D3 clock governs Rungs 2–3; Rungs 0–1 are calendar-driven). | Med | **RESOLVED first pass (v0.10):** pacing model at Section 7 under PD17 (dates condition on gates, never pressure them; no window commitment before gate passage; three clocks, with the synodic tick as standing program review). Earliest-credible arc: ~16 years founding-to-Mars surface, productive throughout. Refreshed at every synodic review rather than spun off to a new PQ. |
-| PQ8 | **Program naming.** "Open Prospector" is Mars-flavored and extraction-flavored; Section 12.6 already argues the architecture is a capability, not a mission ("OpenExplorer" floated 2026-07-28). Interacts with the site's SD10 umbrella-branding deferral. No -ify names. | Low | Open |
+| PQ8 | **Program naming.** "Open Prospector" is Mars-flavored and extraction-flavored; Section 12.6 already argues the architecture is a capability, not a mission ("OpenExplorer" floated 2026-07-28). Interacts with the site's SD10 umbrella-branding deferral. No -ify names. | Low | **RESOLVED (v0.12):** tiered naming adopted at Section 8 (PD18) — Open Exploration Institute over the Open Prospector Program; nothing renames today. Name clearance before founding is PQ14. SD10 adoption deferred until repo goes public (with 4.8). |
 | PQ9 | **Record escrow: which independent archives mirror the public record, and by what mechanism?** PD5's third commitment — the record survives even the Institute's failure — needs named partners (planetary-science data archives are the natural candidates; libraries have run this model for digital preservation) and a mirroring cadence and format. Couples to the Q18 public-record format spec (a Gate 0→1 deliverable, G1-3). | Med | Open |
 | PQ10 | **Export-control determination.** Formal classification of the trained autonomy stack and the high-fidelity twin under US export rules (PD7): what is controlled, what is publishable, and where the open-layer boundary (protocol spec, directive interface, record formats — deliberately open standards) must sit. Timing: in hand before Gate 1→2 (verified at G2-5); early enough to shape the architecture split rather than react to it. | High | Open |
 | PQ11 | **Campaign contract template and first parameter set.** The numbers Section 4 deliberately leaves symbolic: risk-budget units (how expected loss is priced across drone classes — a real actuarial problem), the qualification track's charter-protected minimum share, the two disclosure-clock window lengths, membership fee schedule, readiness-grading scale. Needed as working templates before G2-2's rehearsal campaign; each number frozen per the gate discipline (1.0). | Med | Open |
 | PQ12 | **Bottom-up cost and revenue model.** Section 5's anchors are public comparables, adequate for gate design, inadequate for a budget: studio budget by phase, analog-fleet and field-season costs, real lunar-delivery quotes, membership pricing against named consortium comparables, endowment sizing for indefinite record custody (5.5). Each number freezes per the gate discipline — Rung 0's before G0-3, Rung 2's before Gate 1→2. | Med | Open |
 | PQ13 | **Comms interface specification.** The technical follow-through of Section 6: per-asset-class link budgets sizing the Tier-1 direct-to-Earth requirement (PD14); spectrum coordination and licensing path; ground-segment procurement options (agency networks vs. the emerging commercial deep-space fringe); preliminary design and cost of the program-owned relay backstop for the Rung 3 manifest (PD15). Lunar items verified before Gate 1→2; Mars items before Gate 2→3. | Med | Open |
+| PQ14 | **Name clearance.** Before the Institute is founded (3.5): trademark and entity-name availability search for "Open Exploration Institute" and "Open Exploration Studio" in the incorporation state (PD7), domain acquisition, and a collision check in the space-science and games sectors. Cheap, but it must precede the first public use of the name. | Low | Open |
 
 ---
 
@@ -313,8 +315,8 @@ repo opens to contributions, so it is noted here rather than numbered.
 
 Two entities, and the program owns both.
 
-**The Institute** — a nonprofit — owns every asset the program's promises
-depend on: the protocol specification, the public record, the qualification
+**The Institute** — formally the Open Exploration Institute (PD18), a
+nonprofit — owns every asset the program's promises depend on: the protocol specification, the public record, the qualification
 standards, the allocation authority (peer panels it convenes,
 observatory-style — the lineage of university consortia operating shared
 scientific facilities under charter), the campaign-authority office (3.2),
@@ -838,6 +840,58 @@ evidence accumulation, ~4–5 years of the sixteen); its largest external
 risk is PK11 at the 2040–42 windows. Both get re-examined at every synodic
 review.
 
+## 8. Naming (PQ8) — RESOLVED v0.12
+
+### 8.0 The tiered architecture (PD18)
+
+Three levels, in the agency/program/mission pattern:
+
+- **Institution: the Open Exploration Institute.** The permanent,
+  body-agnostic entity of Section 3. Chosen for plainness — an agency, a
+  university, or a donor understands it without a decoder — and because the
+  institution is the thing Section 12.6 says outlives any one mission.
+- **Program: the Open Prospector Program.** Keeps its name. "Prospector" is
+  accurate for this program — its first Mars campaign literally prospects
+  for ice (D14/Q1) — and everything already published under the name stays
+  correct. The name was wrong only as a *permanent institutional* identity:
+  extraction-flavored in exactly the contexts that matter most, a
+  planetary-protection filing being the worst of them.
+- **Product: named later by the Studio** (working name: Open Exploration
+  Studio), inside Institute-set rules — no overpromising, no "-ify" names,
+  and the informality rules of PD12 where dedications appear in-product.
+
+Nothing renames today. The paper, the master outline, the site, and this
+repo all say "Open Prospector Program" and remain correct; the Institute
+name first appears on the founding documents (3.5), after name clearance
+(PQ14).
+
+### 8.1 What fits under the umbrella
+
+A program belongs under the Institute when it has all four: a scarce or
+hazardous instrument; a latency or bandwidth constraint that forces
+autonomy; science worth doing; and a public that wants real agency. The
+machinery the Institute owns — protocol, gatekeeper, campaign allocation,
+qualification, public record, sim-first pipeline — applies wherever those
+four hold, which is why program #2 costs a fraction of program #1.
+
+Candidate future programs, recorded as **capacity, not commitments** (PD2's
+discipline — none of these starts until someone gates it): the permanent
+lunar fleet that Rung 2 becomes around 2038; deep-ocean fleets (acoustic
+links give real latency and bandwidth scarcity, hardware is off the shelf,
+and the seafloor is mapped worse than Mars); crowd-directed orbital
+instruments (the HiWish precedent, D16, with no mobility at all); and the
+other bodies of master 12.6. Beneath the programs sit three standing
+functions that are naturally Institute-level rather than program-level: the
+open standards, the cross-program archive (PQ9), and education built on the
+sim.
+
+### 8.2 Adoption note
+
+The site's SD10 umbrella-branding deferral now has a candidate answer (the
+Institute as the umbrella over the Mars Colonization and Open Prospector
+cards). Like 4.8, adoption into the public corpus waits until this repo
+goes public.
+
 ---
 
 ## Session Log
@@ -935,3 +989,12 @@ review.
   4.5, 5.2, and 7.2 simplified. No claims, criteria, or ledger meaning
   changed — phrasing only, so no PC entry. "Honest record" kept where it
   names one of the program's four promises (PD3, 2.0).
+- **2026-07-30 (v0.12):** PQ8 resolved at Section 8 (PD18) after working
+  the naming through concrete usage examples with the owner. Tiered
+  architecture adopted (owner: "room to grow into"): Open Exploration
+  Institute over the Open Prospector Program, game named later by the
+  Studio inside Institute rules. Nothing renames today. Umbrella membership
+  test recorded (scarce/hazardous instrument + latency/bandwidth constraint
+  + science + public agency), with candidate future programs noted as
+  capacity, not commitments — deep ocean the strongest non-space case.
+  Name clearance spun off as PQ14; SD10 adoption deferred with 4.8.
