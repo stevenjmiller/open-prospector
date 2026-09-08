@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/run-manifest.schema.json",
+  "title": "Deterministic run manifest v0",
+  "type": "object",
+  "required": [
+    "schema_version", "run_id", "compatibility_profile", "fixture_id", "fixture_hash",
+    "scenario_id", "scenario_hash", "directive_id", "directive_hash", "build",
+    "versions", "clock", "channel", "prng", "recorded_model_results"
+  ],
+  "properties": {
+    "schema_version": { "const": "run-manifest-v0" },
+    "run_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "compatibility_profile": { "const": "op-jcs-int-v0" },
+    "fixture_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "fixture_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+    "scenario_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "scenario_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+    "directive_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "directive_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+    "build": {
+      "type": "object",
+      "required": ["source_revision", "source_dirty", "node_version", "npm_version", "platform", "architecture"],
+      "properties": {
+        "source_revision": { "type": "string", "minLength": 7, "maxLength": 128 },
+        "source_dirty": { "type": "boolean" },
+        "node_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "npm_version": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "platform": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "architecture": { "type": "string", "minLength": 1, "maxLength": 64 }
+      },
+      "additionalProperties": false
+    },
+    "versions": {
+      "type": "object",
+      "required": ["autonomy", "terrain_policy", "gatekeeper", "sensor", "body"],
+      "properties": {
+        "autonomy": { "type": "string", "minLength": 1 },
+        "terrain_policy": { "const": "terrain.slice-v0" },
+        "gatekeeper": { "const": "pp.no-go.slice-v0" },
+        "sensor": { "type": "string", "minLength": 1 },
+        "body": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "clock": {
+      "type": "object",
+      "required": ["tick_ms", "start_tick"],
+      "properties": {
+        "tick_ms": { "const": 100 },
+        "start_tick": { "$ref": "common.schema.json#/$defs/Tick" }
+      },
+      "additionalProperties": false
+    },
+    "channel": {
+      "type": "object",
+      "required": ["one_way_latency_ticks", "tier1_bytes_per_tick", "tier2_bytes_per_tick"],
+      "properties": {
+        "one_way_latency_ticks": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "tier1_bytes_per_tick": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "tier2_bytes_per_tick": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" }
+      },
+      "additionalProperties": false
+    },
+    "prng": {
+      "type": "object",
+      "required": ["algorithm", "seed_words"],
+      "properties": {
+        "algorithm": { "const": "xoshiro128ss-v1" },
+        "seed_words": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "type": "integer", "minimum": 0, "maximum": 4294967295 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "recorded_model_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["seam_id", "input_hash", "output_hash", "output"],
+        "properties": {
+          "seam_id": { "$ref": "common.schema.json#/$defs/Id" },
+          "input_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+          "output_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+          "output": { "$ref": "protocol-payload.schema.json#/$defs/ClassifierOutput" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

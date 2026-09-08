@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/record-event.schema.json",
+  "title": "Tier-1 operational record event v0",
+  "type": "object",
+  "required": [
+    "schema_version", "event_id", "run_id", "sequence", "occurred_tick", "received_tick", "recorded_tick", "event_type",
+    "actor_id", "subject_id", "payload_kind", "payload_hash", "payload",
+    "prev_event_hash", "event_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "record-event-v0" },
+    "event_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "run_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "sequence": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+    "occurred_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+    "received_tick": {
+      "oneOf": [{ "$ref": "common.schema.json#/$defs/Tick" }, { "type": "null" }]
+    },
+    "recorded_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+    "event_type": {
+      "enum": [
+        "run-started", "directive-submitted", "gatekeeper-evaluated",
+        "directive-transmitted", "directive-received", "plan-proposed",
+        "contestation-opened", "alternative-accepted", "directive-revised",
+        "endpoint-state-changed", "observation-summarized",
+        "received-belief-updated", "classifier-result-consumed",
+        "checkpoint-created", "run-completed", "run-failed"
+      ]
+    },
+    "actor_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "subject_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "payload_kind": {
+      "enum": [
+        "run-manifest", "directive", "gatekeeper-result", "channel-message",
+        "plan-summary", "contestation", "alternative-acceptance", "state-transition",
+        "observation-summary", "belief-update-summary", "classifier-result",
+        "checkpoint", "run-summary", "fault"
+      ]
+    },
+    "payload_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+    "payload": {
+      "oneOf": [
+        { "$ref": "run-manifest.schema.json" },
+        { "$ref": "directive.schema.json" },
+        { "$ref": "protocol-payload.schema.json#/$defs/GatekeeperResult" },
+        { "$ref": "channel-message.schema.json" },
+        { "$ref": "protocol-payload.schema.json#/$defs/PlanSummary" },
+        { "$ref": "contestation.schema.json" },
+        { "$ref": "protocol-payload.schema.json#/$defs/AlternativeAcceptance" },
+        { "$ref": "protocol-payload.schema.json#/$defs/StateTransition" },
+        { "$ref": "protocol-payload.schema.json#/$defs/ObservationSummary" },
+        { "$ref": "protocol-payload.schema.json#/$defs/BeliefUpdateSummary" },
+        { "$ref": "protocol-payload.schema.json#/$defs/ClassifierResult" },
+        { "$ref": "protocol-payload.schema.json#/$defs/Checkpoint" },
+        { "$ref": "protocol-payload.schema.json#/$defs/RunSummary" },
+        { "$ref": "protocol-payload.schema.json#/$defs/Fault" }
+      ]
+    },
+    "prev_event_hash": {
+      "oneOf": [{ "$ref": "common.schema.json#/$defs/Hash" }, { "type": "null" }]
+    },
+    "event_hash": { "$ref": "common.schema.json#/$defs/Hash" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/scenario.schema.json",
+  "title": "Headless vertical-slice scenario v0",
+  "type": "object",
+  "required": [
+    "schema_version", "scenario_id", "fixture_id", "asset", "target_entities",
+    "hazards", "sensors", "policy", "scripted_mission_control"
+  ],
+  "properties": {
+    "schema_version": { "const": "scenario-v0" },
+    "scenario_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "fixture_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "asset": {
+      "type": "object",
+      "required": ["asset_id", "start_cell", "starting_energy_units", "speed_mm_per_tick"],
+      "properties": {
+        "asset_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "start_cell": { "$ref": "common.schema.json#/$defs/GridCell" },
+        "starting_energy_units": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "speed_mm_per_tick": { "const": 100 }
+      },
+      "additionalProperties": false
+    },
+    "target_entities": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["entity_id", "cell", "science_class", "initially_known_to_mission", "initially_known_to_asset"],
+        "properties": {
+          "entity_id": { "$ref": "common.schema.json#/$defs/Id" },
+          "cell": { "$ref": "common.schema.json#/$defs/GridCell" },
+          "science_class": { "type": "string", "minLength": 1, "maxLength": 128 },
+          "initially_known_to_mission": { "type": "boolean" },
+          "initially_known_to_asset": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "hazards": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["hazard_id", "kind", "policy_class", "cells", "initially_known_to_mission", "initially_known_to_asset"],
+        "properties": {
+          "hazard_id": { "$ref": "common.schema.json#/$defs/Id" },
+          "kind": { "enum": ["slump", "rock", "no-go-zone"] },
+          "policy_class": { "enum": ["significant-if-open", "reflex-if-closed", "gatekeeper"] },
+          "cells": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "$ref": "common.schema.json#/$defs/GridCell" }
+          },
+          "initially_known_to_mission": { "type": "boolean" },
+          "initially_known_to_asset": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sensors": {
+      "type": "object",
+      "required": ["local_sweep_radius_cells", "obstacle_range_mm", "classifier_seam_id", "classifier_output"],
+      "properties": {
+        "local_sweep_radius_cells": { "const": 20 },
+        "obstacle_range_mm": { "const": 3000 },
+        "classifier_seam_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "classifier_output": { "$ref": "protocol-payload.schema.json#/$defs/ClassifierOutput" }
+      },
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "terrain_policy_id", "gatekeeper_rule_id",
+        "negotiation_ratio_denominator", "caution_grade_permille",
+        "blocked_grade_permille", "reserve_ppm"
+      ],
+      "properties": {
+        "terrain_policy_id": { "const": "terrain.slice-v0" },
+        "gatekeeper_rule_id": { "const": "pp.no-go.slice-v0" },
+        "negotiation_ratio_denominator": { "const": 4 },
+        "caution_grade_permille": { "const": 250 },
+        "blocked_grade_permille": { "const": 350 },
+        "reserve_ppm": { "const": 200000 }
+      },
+      "additionalProperties": false
+    },
+    "scripted_mission_control": {
+      "type": "object",
+      "required": ["response_delay_ticks", "accept_alternative_kind"],
+      "properties": {
+        "response_delay_ticks": { "const": 10 },
+        "accept_alternative_kind": { "const": "substitute-vantage" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

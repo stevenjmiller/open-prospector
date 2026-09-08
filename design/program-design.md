@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.13
+**Version:** v0.14
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -974,6 +974,14 @@ Named-partner selection is conversations, not design, and it needs the
 Institute to exist first. The candidate classes above bound the search;
 the agreements are drafted against 9.3's obligations at founding.
 
+## 10. Application Software Design — SEPARATE WORKING DOCUMENT
+
+The Rung-0 game, evolving world/belief model, simulation core, Blender boundary,
+autonomy runtime, directive workflow, and later fleet-software seams are worked
+in [`application-software-design.md`](application-software-design.md). That
+document implements the constraints established here and in the mars master and
+standalone paper; it does not own or silently revise program decisions.
+
 ---
 
 ## Session Log
@@ -1090,3 +1098,7 @@ the agreements are drafted against 9.3's obligations at founding.
   the G1-3 formal spec. Custody endowment-funded with continuation
   obligations; agreements in force before the first Rung 1 campaign
   record opens. Named partners deferred to founding (9.5).
+- **2026-09-07 (v0.14):** Added Section 10's pointer to the separate application
+  software design discussion draft. No program decisions or ledger entries
+  changed; the pointer preserves the program/software scope boundary while
+  making the downstream design discoverable from the governing document.

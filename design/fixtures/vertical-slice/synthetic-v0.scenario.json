@@ -1,0 +1,83 @@
+{
+  "schema_version": "scenario-v0",
+  "scenario_id": "scenario:headless-slice-v0",
+  "fixture_id": "fixture:synthetic-v0",
+  "asset": {
+    "asset_id": "asset:rover-v0",
+    "start_cell": { "row": 220, "column": 30 },
+    "starting_energy_units": 50000,
+    "speed_mm_per_tick": 100
+  },
+  "target_entities": [
+    {
+      "entity_id": "target:hydrated-primary",
+      "cell": { "row": 180, "column": 80 },
+      "science_class": "hydrated-mineral-candidate",
+      "initially_known_to_mission": true,
+      "initially_known_to_asset": true
+    },
+    {
+      "entity_id": "target:hydrated-substitute",
+      "cell": { "row": 185, "column": 95 },
+      "science_class": "hydrated-mineral-candidate",
+      "initially_known_to_mission": true,
+      "initially_known_to_asset": true
+    }
+  ],
+  "hazards": [
+    {
+      "hazard_id": "hazard:slump-v0",
+      "kind": "slump",
+      "policy_class": "significant-if-open",
+      "cells": [
+        { "row": 207, "column": 45 },
+        { "row": 208, "column": 45 }, { "row": 209, "column": 45 },
+        { "row": 210, "column": 45 }, { "row": 211, "column": 45 },
+        { "row": 212, "column": 45 }, { "row": 213, "column": 45 },
+        { "row": 214, "column": 45 }, { "row": 215, "column": 45 },
+        { "row": 216, "column": 45 }, { "row": 217, "column": 45 },
+        { "row": 218, "column": 45 }, { "row": 219, "column": 45 },
+        { "row": 220, "column": 45 }, { "row": 221, "column": 45 },
+        { "row": 222, "column": 45 }, { "row": 223, "column": 45 },
+        { "row": 224, "column": 45 }, { "row": 225, "column": 45 },
+        { "row": 226, "column": 45 }, { "row": 227, "column": 45 },
+        { "row": 228, "column": 45 }, { "row": 229, "column": 45 },
+        { "row": 230, "column": 45 }, { "row": 231, "column": 45 },
+        { "row": 232, "column": 45 }, { "row": 233, "column": 45 },
+        { "row": 234, "column": 45 }, { "row": 235, "column": 45 }
+      ],
+      "initially_known_to_mission": false,
+      "initially_known_to_asset": false
+    },
+    {
+      "hazard_id": "hazard:rock-v0",
+      "kind": "rock",
+      "policy_class": "reflex-if-closed",
+      "cells": [{ "row": 205, "column": 45 }],
+      "initially_known_to_mission": false,
+      "initially_known_to_asset": false
+    }
+  ],
+  "sensors": {
+    "local_sweep_radius_cells": 20,
+    "obstacle_range_mm": 3000,
+    "classifier_seam_id": "seam:rock-classifier-v0",
+    "classifier_output": {
+      "model_id": "model:stub-rock-v0",
+      "label": "rock",
+      "confidence_ppm": 900000
+    }
+  },
+  "policy": {
+    "terrain_policy_id": "terrain.slice-v0",
+    "gatekeeper_rule_id": "pp.no-go.slice-v0",
+    "negotiation_ratio_denominator": 4,
+    "caution_grade_permille": 250,
+    "blocked_grade_permille": 350,
+    "reserve_ppm": 200000
+  },
+  "scripted_mission_control": {
+    "response_delay_ticks": 10,
+    "accept_alternative_kind": "substitute-vantage"
+  }
+}

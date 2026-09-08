@@ -1,0 +1,33 @@
+{
+  "schema_version": "directive-v0",
+  "directive_id": "directive:hydrate-primary-r0",
+  "revision": 0,
+  "supersedes_directive_id": null,
+  "campaign_id": "campaign:qualification-slice-v0",
+  "author_id": "actor:scripted-team-v0",
+  "asset_id": "asset:rover-v0",
+  "goal": {
+    "goal_id": "goal:characterize-hydrated-candidate",
+    "objective": "Characterize the hydrated-mineral candidate from a safe standoff.",
+    "success_evidence": ["standoff-image", "spectral-characterization", "position-safe", "energy-reserve-met"]
+  },
+  "target": { "kind": "entity", "entity_id": "target:hydrated-primary" },
+  "operating_envelope": { "min_row": 150, "max_row": 240, "min_column": 20, "max_column": 110 },
+  "permitted_substitutions": ["vantage", "target"],
+  "advisory_route": [
+    { "row": 220, "column": 30 },
+    { "row": 215, "column": 45 },
+    { "row": 180, "column": 80 }
+  ],
+  "budget": {
+    "duration_ticks": 20000,
+    "traverse_mm": 200000,
+    "energy_units": 40000,
+    "tier2_bytes": 1000000
+  },
+  "earliest_start_tick": 0,
+  "deadline_tick": 20000,
+  "safe_idle": "hold-position",
+  "source_text": "Characterize the hydrated candidate. I suggest the short route through cell 215,45.",
+  "confirmed": true
+}

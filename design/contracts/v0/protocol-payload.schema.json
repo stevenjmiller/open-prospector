@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/protocol-payload.schema.json",
+  "title": "Open Prospector v0 protocol payloads",
+  "$defs": {
+    "GatekeeperResult": {
+      "type": "object",
+      "required": ["directive_id", "accepted", "rule_id", "evidence_cells"],
+      "properties": {
+        "directive_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "accepted": { "type": "boolean" },
+        "rule_id": { "const": "pp.no-go.slice-v0" },
+        "evidence_cells": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "common.schema.json#/$defs/GridCell" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "PlanSummary": {
+      "type": "object",
+      "required": ["plan_id", "directive_id", "route", "distance_mm", "energy_units", "planned_start_tick", "planned_complete_tick"],
+      "properties": {
+        "plan_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "directive_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "route": { "type": "array", "minItems": 1, "items": { "$ref": "common.schema.json#/$defs/GridCell" } },
+        "distance_mm": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "energy_units": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "planned_start_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+        "planned_complete_tick": { "$ref": "common.schema.json#/$defs/Tick" }
+      },
+      "additionalProperties": false
+    },
+    "AlternativeAcceptance": {
+      "type": "object",
+      "required": ["contestation_id", "alternative_id", "accepted_by", "accepted_tick"],
+      "properties": {
+        "contestation_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "alternative_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "accepted_by": { "$ref": "common.schema.json#/$defs/Id" },
+        "accepted_tick": { "$ref": "common.schema.json#/$defs/Tick" }
+      },
+      "additionalProperties": false
+    },
+    "Status": {
+      "type": "object",
+      "required": ["asset_id", "from", "to", "reason_code", "occurred_tick"],
+      "properties": {
+        "asset_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "from": { "$ref": "#/$defs/StatusState" },
+        "to": { "$ref": "#/$defs/StatusState" },
+        "reason_code": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "occurred_tick": { "$ref": "common.schema.json#/$defs/Tick" }
+      },
+      "additionalProperties": false
+    },
+    "ObservationSummary": {
+      "type": "object",
+      "required": ["observation_id", "observation_type", "observed_tick", "footprint_hash", "changed_cell_count", "hazard_cells", "artifact_refs"],
+      "properties": {
+        "observation_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "observation_type": { "enum": ["local-sweep", "obstacle-range", "standoff-image", "classifier-result"] },
+        "observed_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+        "footprint_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+        "changed_cell_count": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "hazard_cells": { "type": "array", "maxItems": 16, "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/GridCell" } },
+        "artifact_refs": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/EvidenceRef" } }
+      },
+      "additionalProperties": false
+    },
+    "StateTransition": {
+      "type": "object",
+      "required": ["asset_id", "from", "to", "cause_id"],
+      "properties": {
+        "asset_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "from": { "$ref": "#/$defs/StatusState" },
+        "to": { "$ref": "#/$defs/StatusState" },
+        "cause_id": { "$ref": "common.schema.json#/$defs/Id" }
+      },
+      "additionalProperties": false
+    },
+    "StatusState": {
+      "enum": ["idle", "planning", "scheduled", "holding", "executing", "safe-hold", "locked", "completed", "failed", "faulted"]
+    },
+    "BeliefUpdateSummary": {
+      "type": "object",
+      "required": ["observer_id", "observation_id", "changed_cell_count", "belief_state_hash"],
+      "properties": {
+        "observer_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "observation_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "changed_cell_count": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "belief_state_hash": { "$ref": "common.schema.json#/$defs/Hash" }
+      },
+      "additionalProperties": false
+    },
+    "ClassifierOutput": {
+      "type": "object",
+      "required": ["model_id", "label", "confidence_ppm"],
+      "properties": {
+        "model_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "label": { "enum": ["rock", "not-rock", "indeterminate"] },
+        "confidence_ppm": { "type": "integer", "minimum": 0, "maximum": 1000000 }
+      },
+      "additionalProperties": false
+    },
+    "ClassifierResult": {
+      "type": "object",
+      "required": ["seam_id", "input_hash", "output_hash", "output"],
+      "properties": {
+        "seam_id": { "$ref": "common.schema.json#/$defs/Id" },
+        "input_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+        "output_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+        "output": { "$ref": "#/$defs/ClassifierOutput" }
+      },
+      "additionalProperties": false
+    },
+    "Checkpoint": {
+      "type": "object",
+      "required": ["at_tick", "state_hash"],
+      "properties": {
+        "at_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+        "state_hash": { "$ref": "common.schema.json#/$defs/Hash" }
+      },
+      "additionalProperties": false
+    },
+    "RunSummary": {
+      "type": "object",
+      "required": ["terminal_state", "final_state_hash", "event_chain_head"],
+      "properties": {
+        "terminal_state": { "enum": ["completed", "failed", "faulted", "locked"] },
+        "final_state_hash": { "$ref": "common.schema.json#/$defs/Hash" },
+        "event_chain_head": { "$ref": "common.schema.json#/$defs/Hash" }
+      },
+      "additionalProperties": false
+    },
+    "Fault": {
+      "type": "object",
+      "required": ["code", "detail", "safe_state"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "safe_state": { "enum": ["hold-position", "return-to-start", "not-applicable"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

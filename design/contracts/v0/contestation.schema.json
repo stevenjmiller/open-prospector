@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/contestation.schema.json",
+  "title": "Working contestation v0",
+  "type": "object",
+  "required": [
+    "schema_version", "contestation_id", "directive_id", "preserved_goal_id", "asset_id",
+    "autonomy_version", "hazard_id", "hazard_class", "evidence", "confidence_ppm",
+    "severity", "level", "round_trip_ticks", "time_to_harm_ticks", "window_open",
+    "alternative_ids", "disposition", "created_tick"
+  ],
+  "properties": {
+    "schema_version": { "const": "contestation-v0" },
+    "contestation_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "directive_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "preserved_goal_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "asset_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "autonomy_version": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "hazard_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "hazard_class": { "$ref": "common.schema.json#/$defs/HazardClass" },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "common.schema.json#/$defs/EvidenceRef" }
+    },
+    "confidence_ppm": { "type": "integer", "minimum": 0, "maximum": 1000000 },
+    "severity": { "enum": ["reflex", "significant", "critical"] },
+    "level": { "enum": [0, 2, 3] },
+    "round_trip_ticks": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+    "time_to_harm_ticks": {
+      "oneOf": [{ "$ref": "common.schema.json#/$defs/NonNegativeInteger" }, { "type": "null" }]
+    },
+    "window_open": { "type": "boolean" },
+    "alternative_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "common.schema.json#/$defs/Id" }
+    },
+    "disposition": { "enum": ["executed-variant", "holding", "locked", "safe-hold"] },
+    "created_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+    "published_tick": {
+      "oneOf": [{ "$ref": "common.schema.json#/$defs/Tick" }, { "type": "null" }]
+    },
+    "resolved_tick": {
+      "oneOf": [{ "$ref": "common.schema.json#/$defs/Tick" }, { "type": "null" }]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "level": { "const": 0 } }, "required": ["level"] },
+      "then": {
+        "properties": {
+          "severity": { "const": "reflex" },
+          "window_open": { "const": false },
+          "disposition": { "const": "safe-hold" },
+          "alternative_ids": { "maxItems": 0 },
+          "time_to_harm_ticks": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "level": { "const": 2 } }, "required": ["level"] },
+      "then": {
+        "properties": {
+          "severity": { "const": "significant" },
+          "window_open": { "const": true },
+          "disposition": { "const": "holding" },
+          "alternative_ids": { "minItems": 1 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "level": { "const": 3 } }, "required": ["level"] },
+      "then": {
+        "properties": {
+          "severity": { "const": "critical" },
+          "disposition": { "const": "locked" }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

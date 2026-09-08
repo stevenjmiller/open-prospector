@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/fixture-manifest.schema.json",
+  "title": "Grid fixture manifest v0",
+  "type": "object",
+  "required": [
+    "schema_version", "fixture_id", "status", "grid", "local_frame", "source",
+    "crop", "layers"
+  ],
+  "properties": {
+    "schema_version": { "const": "fixture-manifest-v0" },
+    "fixture_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "status": { "enum": ["synthetic", "source-selected", "materialized"] },
+    "grid": {
+      "type": "object",
+      "required": ["rows", "columns", "cell_size_mm", "row_zero", "column_zero"],
+      "properties": {
+        "rows": { "const": 256 },
+        "columns": { "const": 256 },
+        "cell_size_mm": { "const": 1000 },
+        "row_zero": { "const": "north" },
+        "column_zero": { "const": "west" }
+      },
+      "additionalProperties": false
+    },
+    "local_frame": {
+      "type": "object",
+      "required": ["axes", "origin_latitude_microdegrees", "origin_longitude_microdegrees", "datum_elevation_mm"],
+      "properties": {
+        "axes": { "const": "east-north-up" },
+        "origin_latitude_microdegrees": { "type": "integer", "minimum": -90000000, "maximum": 90000000 },
+        "origin_longitude_microdegrees": { "type": "integer", "minimum": -180000000, "maximum": 360000000 },
+        "datum_elevation_mm": { "$ref": "common.schema.json#/$defs/SafeInteger" }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["kind", "product_id", "uri", "source_hash", "source_scale_mm_per_pixel", "license_note"],
+      "properties": {
+        "kind": { "enum": ["synthetic-formula", "hirise-pds-dtm"] },
+        "product_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "uri": { "type": "string", "minLength": 1, "maxLength": 2048 },
+        "source_hash": {
+          "oneOf": [{ "$ref": "common.schema.json#/$defs/Hash" }, { "type": "null" }]
+        },
+        "source_scale_mm_per_pixel": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+        "license_note": { "type": "string", "minLength": 1, "maxLength": 512 }
+      },
+      "additionalProperties": false
+    },
+    "crop": {
+      "type": "object",
+      "required": ["source_row", "source_column", "source_rows", "source_columns", "resampler", "rounding"],
+      "properties": {
+        "source_row": {
+          "oneOf": [{ "$ref": "common.schema.json#/$defs/NonNegativeInteger" }, { "type": "null" }]
+        },
+        "source_column": {
+          "oneOf": [{ "$ref": "common.schema.json#/$defs/NonNegativeInteger" }, { "type": "null" }]
+        },
+        "source_rows": { "const": 256 },
+        "source_columns": { "const": 256 },
+        "resampler": { "const": "nearest-pixel-1to1" },
+        "rounding": { "const": "half-away-from-zero-to-mm" }
+      },
+      "additionalProperties": false
+    },
+    "layers": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["name", "scope", "path", "encoding", "byte_length", "hash"],
+        "properties": {
+          "name": {
+            "enum": [
+              "truth-elevation", "truth-obstacles", "geofence",
+              "asset-initial-elevation", "asset-initial-obstacles", "asset-initial-known", "asset-initial-uncertainty",
+              "mission-initial-elevation", "mission-initial-obstacles", "mission-initial-known", "mission-initial-uncertainty"
+            ]
+          },
+          "scope": { "enum": ["truth", "public", "asset-initial", "mission-initial"] },
+          "path": { "type": "string", "minLength": 1, "maxLength": 260 },
+          "encoding": { "enum": ["int32-le-mm", "uint32-le-mm", "uint8-bool"] },
+          "byte_length": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+          "hash": {
+            "oneOf": [{ "$ref": "common.schema.json#/$defs/Hash" }, { "type": "null" }]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

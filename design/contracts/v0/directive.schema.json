@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/directive.schema.json",
+  "title": "Confirmed directive v0",
+  "type": "object",
+  "required": [
+    "schema_version", "directive_id", "revision", "campaign_id", "author_id",
+    "asset_id", "goal", "target", "operating_envelope", "permitted_substitutions",
+    "budget", "earliest_start_tick", "deadline_tick", "safe_idle", "confirmed"
+  ],
+  "properties": {
+    "schema_version": { "const": "directive-v0" },
+    "directive_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "revision": { "type": "integer", "minimum": 0, "maximum": 1000000 },
+    "supersedes_directive_id": {
+      "oneOf": [{ "$ref": "common.schema.json#/$defs/Id" }, { "type": "null" }]
+    },
+    "campaign_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "author_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "asset_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "goal": { "$ref": "common.schema.json#/$defs/Goal" },
+    "target": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "cell"],
+          "properties": {
+            "kind": { "const": "cell" },
+            "cell": { "$ref": "common.schema.json#/$defs/GridCell" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "entity_id"],
+          "properties": {
+            "kind": { "const": "entity" },
+            "entity_id": { "$ref": "common.schema.json#/$defs/Id" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "operating_envelope": { "$ref": "common.schema.json#/$defs/GridRectangle" },
+    "permitted_substitutions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "enum": ["vantage", "instrument", "target", "defer", "partial"] }
+    },
+    "advisory_route": {
+      "type": "array",
+      "items": { "$ref": "common.schema.json#/$defs/GridCell" }
+    },
+    "budget": { "$ref": "common.schema.json#/$defs/Budget" },
+    "earliest_start_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+    "deadline_tick": { "$ref": "common.schema.json#/$defs/Tick" },
+    "safe_idle": { "enum": ["hold-position", "return-to-start"] },
+    "source_text": { "type": "string", "maxLength": 4096 },
+    "confirmed": { "const": true }
+  },
+  "additionalProperties": false
+}

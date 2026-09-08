@@ -1,0 +1,47 @@
+{
+  "schema_version": "fixture-manifest-v0",
+  "fixture_id": "fixture:candor-sw-v0",
+  "status": "source-selected",
+  "grid": {
+    "rows": 256,
+    "columns": 256,
+    "cell_size_mm": 1000,
+    "row_zero": "north",
+    "column_zero": "west"
+  },
+  "local_frame": {
+    "axes": "east-north-up",
+    "origin_latitude_microdegrees": -6460000,
+    "origin_longitude_microdegrees": 283000000,
+    "datum_elevation_mm": 0
+  },
+  "source": {
+    "kind": "hirise-pds-dtm",
+    "product_id": "DTEEC_001918_1735_001984_1735_U01",
+    "uri": "https://hirise.lpl.arizona.edu/PDS/DTM/PSP/ORB_001900_001999/PSP_001918_1735_PSP_001984_1735/DTEEC_001918_1735_001984_1735_U01.IMG",
+    "source_hash": null,
+    "source_scale_mm_per_pixel": 1010,
+    "license_note": "NASA/JPL-Caltech/University of Arizona product; preserve source credit and provenance."
+  },
+  "crop": {
+    "source_row": null,
+    "source_column": null,
+    "source_rows": 256,
+    "source_columns": 256,
+    "resampler": "nearest-pixel-1to1",
+    "rounding": "half-away-from-zero-to-mm"
+  },
+  "layers": [
+    { "name": "truth-elevation", "scope": "truth", "path": "truth-elevation.i32le", "encoding": "int32-le-mm", "byte_length": 262144, "hash": null },
+    { "name": "truth-obstacles", "scope": "truth", "path": "truth-obstacles.u8", "encoding": "uint8-bool", "byte_length": 65536, "hash": null },
+    { "name": "geofence", "scope": "public", "path": "geofence.u8", "encoding": "uint8-bool", "byte_length": 65536, "hash": null },
+    { "name": "asset-initial-elevation", "scope": "asset-initial", "path": "asset-initial-elevation.i32le", "encoding": "int32-le-mm", "byte_length": 262144, "hash": null },
+    { "name": "asset-initial-obstacles", "scope": "asset-initial", "path": "asset-initial-obstacles.u8", "encoding": "uint8-bool", "byte_length": 65536, "hash": null },
+    { "name": "asset-initial-known", "scope": "asset-initial", "path": "asset-initial-known.u8", "encoding": "uint8-bool", "byte_length": 65536, "hash": null },
+    { "name": "asset-initial-uncertainty", "scope": "asset-initial", "path": "asset-initial-uncertainty.u32le", "encoding": "uint32-le-mm", "byte_length": 262144, "hash": null },
+    { "name": "mission-initial-elevation", "scope": "mission-initial", "path": "mission-initial-elevation.i32le", "encoding": "int32-le-mm", "byte_length": 262144, "hash": null },
+    { "name": "mission-initial-obstacles", "scope": "mission-initial", "path": "mission-initial-obstacles.u8", "encoding": "uint8-bool", "byte_length": 65536, "hash": null },
+    { "name": "mission-initial-known", "scope": "mission-initial", "path": "mission-initial-known.u8", "encoding": "uint8-bool", "byte_length": 65536, "hash": null },
+    { "name": "mission-initial-uncertainty", "scope": "mission-initial", "path": "mission-initial-uncertainty.u32le", "encoding": "uint32-le-mm", "byte_length": 262144, "hash": null }
+  ]
+}
