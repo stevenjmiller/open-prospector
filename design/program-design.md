@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.19
+**Version:** v0.20
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -50,6 +50,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PC4 | v0.16 → v0.17 | **2026-09-09: make runtime fixture boundaries explicit.** Issue #5 adds frozen synthetic generation and observer belief components. The synthetic-belief-profile.md narrows runtime paths to portable flat basenames, distinguishes authoring schemas from complete materialized validation, and specifies atomic raster-domain updates and exact observation/delivery timing. Frozen fixture bytes and program decisions remain unchanged; component tests do not establish full controller acceptance. |
 | PC5 | v0.17 → v0.18 | **2026-09-09: specify executable planning component boundaries.** Issue #6 implements the frozen planner, alternatives, sensor geometry and lineage budget. planning-components-profile.md records centre-based sensor range versus boundary-based contact distance, Euclidean standoff eligibility, resource-constrained route labels, and exact last-step timing. Fixed synthetic golden assertions remain unchanged; controller/clearance/science acceptance remains separate. No program policy is adopted. |
 | PC6 | v0.18 → v0.19 | **2026-09-09: define executable controller evidence and missing runtime details.** Issue #7 adds guarded endpoint transitions, exact accepted revisions, terminal pose preservation, budget-versus-policy failure distinction, and a replay-only classifier. controller-profile.md specifies time-limit precedence, held-edge revision rebasing, synthetic standoff sampling and the detection-observation hash used by the frozen classifier record. Controller success means mandatory onboard evidence was emitted; delivered campaign closure/replay remains #8. Program policy and existing golden terrain/planner assertions are unchanged. |
+| PC7 | v0.19 → v0.20 | **2026-09-09: define full synthetic campaign archive validation.** Issue #8 binds delivered telemetry, all fixture layers, observation/science artifacts and source identity to an independently checked campaign archive. campaign-profile.md distinguishes onboard terminal time from queue-drained closure, verifies evidence before success, preserves replay manifests and keeps actual host reports outside the chain. Human testing instructions are an engineering walkthrough, not the issue #10 participant gate. No random draws, policy adoption or physical-rover claims are introduced. |
 
 ## Open Questions Register (PQ)
 
@@ -996,7 +997,9 @@ runtime materialization and observer boundaries (PC4).
 The [planning component profile](planning-components-profile.md) records route,
 sensor and budget semantics and their component evidence (PC5).
 The [controller profile](controller-profile.md) records executable state,
-authority, classifier and science rules and the remaining closure gate (PC6).
+authority, classifier and science rules and its component closure limits (PC6).
+The [campaign profile](campaign-profile.md) defines delivered closure and replay,
+with a [human testing tutorial](human-testing.md) for engineering review (PC7).
 
 ---
 
@@ -1138,3 +1141,7 @@ authority, classifier and science rules and the remaining closure gate (PC6).
 - **2026-09-09 (v0.19):** Added issue 7 endpoint controller and recorded-seam
   evidence. PC6 records runtime semantics and distinguishes onboard completion
   from the still-pending delivered campaign closure/replay gate.
+
+- **2026-09-09 (v0.20):** Integrated issue 8 synthetic campaign archiving,
+  independent audit and exact replay. PC7 records archive boundaries; the human
+  tutorial explains decisions, delayed evidence and verification failures.

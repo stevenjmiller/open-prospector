@@ -22,7 +22,8 @@
     "replay": "node apps/mission-control/dist/cli.js replay",
     "fixture": "npm run build && node scripts/materialize-synthetic.mjs",
     "planning": "npm run build && node scripts/planning-evidence.mjs",
-    "controller": "npm run build && node scripts/controller-evidence.mjs"
+    "controller": "npm run build && node scripts/controller-evidence.mjs",
+    "campaign": "npm run build && node scripts/campaign.mjs"
   },
   "devDependencies": {
     "typescript": "5.9.3",
