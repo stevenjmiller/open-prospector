@@ -21,6 +21,12 @@
     },
     {
       "path": "tests"
+    },
+    {
+      "path": "packages/belief"
+    },
+    {
+      "path": "packages/simulation-world"
     }
   ]
 }

@@ -36,7 +36,7 @@ async function inspect(directory, owner, dependencies) {
         ts.forEachChild(node, visit);
       }
       visit(file);
-      if (['contracts','deterministic','channel'].includes(owner) && /\b(?:Date|Math\.random|localeCompare)\b/.test(text)) throw new Error(`${owner}: nondeterministic primitive`);
+      if (['contracts','deterministic','channel','belief','simulation-world'].includes(owner) && /\b(?:Date|Math\.random|localeCompare)\b/.test(text)) throw new Error(`${owner}: nondeterministic primitive`);
     }
   }
 }
@@ -52,7 +52,7 @@ for (const base of ['packages','apps']) {
   }
 }
 // Regression checks for the enforcement itself.
-for (const specifier of ['@open-prospector/autonomy','../../fleet-endpoint/src/index.js']) {
+for (const specifier of ['@open-prospector/autonomy','@open-prospector/simulation-world','../../fleet-endpoint/src/index.js']) {
   let rejected = false;
   try { checkImport('mission-control', specifier, 'apps/mission-control/src/index.ts', 'apps/mission-control', {}); } catch { rejected = true; }
   if (!rejected) throw new Error('Boundary checker failed its negative case');

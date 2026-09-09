@@ -171,3 +171,6 @@ export function validate(kind: string, value: unknown): void {
     }
   }
 }
+
+export { validateFixture, validateRaster, readRasterFile } from './fixture.js';
+export type { FixtureManifest, RasterLayer } from './fixture.js';

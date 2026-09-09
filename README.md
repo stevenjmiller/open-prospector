@@ -52,7 +52,7 @@ convention the paper uses). The ledgers live in `design/program-design.md`.
 
 The transport-only implementation uses Node **24.12.0**, npm **11.6.2**,
 TypeScript **5.9.3**, and Ajv **8.20.0**. It runs a separate fake endpoint using
-the actual channel and audit contracts. It does not yet implement terrain,
+the actual channel and audit contracts. The runner does not yet integrate terrain,
 planner, budget policy, contestations or the full science scenario.
 
 ```text
@@ -76,6 +76,13 @@ tracks delivery. Issues [1](https://github.com/stevenjmiller/open-prospector/iss
 issues 5–10 add world/belief, planner, controller, full acceptance, terrain ingest
 and a human understanding check. CI tests Windows/Linux separately and compares
 authoritative output bytes before the spine's cross-platform gate passes.
+
+Issue #5 adds synthetic terrain generation and separate asset/mission belief
+components. Run `npm run fixture` to materialize all eleven frozen layers in a
+new `artifacts/synthetic-v0` directory. Scoped loaders, hidden scenario projections,
+and atomic observation updates are tested independently of the fake runner.
+See the [runtime belief profile](design/synthetic-belief-profile.md) for boundaries
+and the remaining sensor/planner integration work.
 
 ## Style
 
