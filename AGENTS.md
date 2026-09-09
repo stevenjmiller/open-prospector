@@ -8,7 +8,8 @@ before code depends on them. Never use the section symbol.
 ## Implementation workflow
 
 - Track deliverables in GitHub milestone 1; dependencies and acceptance evidence
-  are in issues 1-10. The current stage is the fake-endpoint spine, issues 1-4.
+  are in issues 1-10. The fake-endpoint spine remains the integrated runner;
+  issue 5 adds independently tested synthetic-world and observer-belief components.
 - The lead owns integration, root tooling, shared contracts and spec corrections.
   Delegate only bounded independent work with explicit file ownership. Subagents
   share the checkout unless an isolated worktree was actually created.

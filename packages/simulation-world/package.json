@@ -1,0 +1,8 @@
+{
+  "name": "@open-prospector/simulation-world",
+  "dependencies": { "@open-prospector/contracts": "0.0.0" },
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "exports": "./dist/index.js"
+}

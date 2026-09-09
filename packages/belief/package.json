@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "exports": "./dist/index.js",
+  "dependencies": {
+    "@open-prospector/contracts": "0.0.0"
+  },
+  "name": "@open-prospector/belief",
+  "type": "module"
+}

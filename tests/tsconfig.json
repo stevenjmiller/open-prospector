@@ -18,6 +18,12 @@
     },
     {
       "path": "../apps/fleet-endpoint"
+    },
+    {
+      "path": "../packages/belief"
+    },
+    {
+      "path": "../packages/simulation-world"
     }
   ],
   "compilerOptions": {
