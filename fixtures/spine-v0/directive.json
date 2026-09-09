@@ -1,0 +1,44 @@
+{
+  "schema_version": "directive-v0",
+  "directive_id": "directive:spine-v0",
+  "revision": 0,
+  "supersedes_directive_id": null,
+  "campaign_id": "campaign:spine-transport-test",
+  "author_id": "actor:scripted-team-v0",
+  "asset_id": "asset:rover-v0",
+  "goal": {
+    "goal_id": "goal:spine-transport-evidence",
+    "objective": "Transmit the stipulated synthetic transport marker; no science inference.",
+    "success_evidence": [
+      "standoff-image",
+      "spectral-characterization",
+      "position-safe",
+      "energy-reserve-met"
+    ]
+  },
+  "target": {
+    "kind": "cell",
+    "cell": {
+      "row": 0,
+      "column": 0
+    }
+  },
+  "operating_envelope": {
+    "min_column": 0,
+    "max_column": 0,
+    "min_row": 0,
+    "max_row": 0
+  },
+  "permitted_substitutions": [],
+  "advisory_route": [],
+  "budget": {
+    "duration_ticks": 20000,
+    "traverse_mm": 200000,
+    "energy_units": 40000,
+    "tier2_bytes": 1000000
+  },
+  "earliest_start_tick": 0,
+  "deadline_tick": 20000,
+  "safe_idle": "hold-position",
+  "confirmed": true
+}

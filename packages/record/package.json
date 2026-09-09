@@ -1,0 +1,11 @@
+{
+  "name": "@open-prospector/record",
+  "dependencies": {
+    "@open-prospector/deterministic": "0.0.0",
+    "@open-prospector/contracts": "0.0.0"
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "exports": "./dist/index.js"
+}

@@ -6,3 +6,7 @@
 *.u32le binary
 *.u8 binary
 *.png binary
+*.ts text eol=lf
+*.mjs text eol=lf
+*.yml text eol=lf
+*.py text eol=lf

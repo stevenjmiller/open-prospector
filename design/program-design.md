@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.15
+**Version:** v0.16
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -46,6 +46,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 |---|---------|------------|
 | PC1 | v0.2 → v0.4 | **Owner review caught a silent assumption.** The v0.2 gates tested only what the *program* must demonstrate (readiness), assuming the external infrastructure each rung rides on — commercial lunar delivery, Mars-capable heavy lift, relay capacity — will exist when the program is ready for it. But lunar delivery programs get scrapped for technical or political reasons, and a Mars-capable launch provider can lose interest in Mars; none of that is under program control. **Fix:** every gate now carries availability criteria beside its readiness criteria (PD4), and the never-materializing ride is its own killer (PK11), distinct from PK10's failed launch. |
 | PC2 | v0.14 → v0.15 | **2026-09-09: reconcile the supporting software baseline.** Static review identified incomplete alternative/audit transport, IPC scheduling ownership, revision semantics, budget enforcement, recovery guards, scenario truth isolation and run closure. Application draft 0.4 and implementation brief v0.2 correct these with schema changes and contract examples. These remain provisional Rung-0 engineering choices; no PD decision or master artifact is changed. The earlier software handoff pass is historical, not runtime acceptance evidence. |
+| PC3 | v0.15 → v0.16 | **2026-09-09: define the first executable transport spine.** The full scenario schema requires terrain hazards and cannot honestly describe an ACK-only harness. Add the separate fake-evidence-spine-v0 profile and spine-scenario-v0 init alternative, retaining actual delayed evidence requirements for completion. Bind full observation artifacts to Tier 1 and source snapshots to manifests; document the fake checkpoint and replay limitations in first-spine-profile.md. No full-autonomy or program-policy acceptance is implied. |
 
 ## Open Questions Register (PQ)
 
@@ -985,6 +986,8 @@ standalone paper; it does not own or silently revise program decisions.
 The first executable baseline is [implementation brief v0.2](vertical-slice-implementation-brief.md),
 with [v0 contracts and examples](contracts/v0/README.md); PC2 records its
 2026-09-09 reconciliation. Runtime acceptance remains a separate gate.
+The [first executable spine profile](first-spine-profile.md) records its explicit
+transport-only scope and provenance rules (PC3).
 
 ---
 
@@ -1110,3 +1113,7 @@ with [v0 contracts and examples](contracts/v0/README.md); PC2 records its
 - **2026-09-09 (v0.15):** Reconciled supporting software contracts and handoff
   language (PC2); added static contract examples and validation. No program
   policy adoption or implementation acceptance is implied.
+
+- **2026-09-09 (v0.16):** Created milestone 1 and ten dependency-linked issues;
+  implemented the first fake-endpoint transport spine (PC3). Full scenario and
+  human/terrain gates remain separate.

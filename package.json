@@ -1,0 +1,19 @@
+{
+  "name": "open-prospector",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "24.12.0", "npm": "11.6.2" },
+  "packageManager": "npm@11.6.2",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "build": "node scripts/sync-contracts.mjs && tsc -b && node scripts/build-identity.mjs",
+    "lint": "node scripts/check-boundaries.mjs",
+    "test": "npm run build && node scripts/test.mjs",
+    "check": "npm run lint && npm test",
+    "spine": "npm run build && node apps/mission-control/dist/cli.js",
+    "verify": "node apps/mission-control/dist/cli.js verify",
+    "replay": "node apps/mission-control/dist/cli.js replay"
+  },
+  "devDependencies": { "typescript": "5.9.3", "@types/node": "24.10.1" }
+}

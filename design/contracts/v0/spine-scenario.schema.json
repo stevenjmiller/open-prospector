@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/spine-scenario.schema.json",
+  "title": "Transport-only fake scenario v0",
+  "type": "object",
+  "required": ["schema_version", "scenario_id", "fixture_id", "purpose"],
+  "properties": {
+    "schema_version": { "const": "spine-scenario-v0" },
+    "scenario_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "fixture_id": { "$ref": "common.schema.json#/$defs/Id" },
+    "purpose": { "const": "transport-evidence-only" }
+  },
+  "additionalProperties": false
+}

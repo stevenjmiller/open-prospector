@@ -1,0 +1,30 @@
+{
+  "extends": "../tsconfig.base.json",
+  "references": [
+    {
+      "path": "../packages/contracts"
+    },
+    {
+      "path": "../packages/deterministic"
+    },
+    {
+      "path": "../packages/channel"
+    },
+    {
+      "path": "../packages/record"
+    },
+    {
+      "path": "../apps/mission-control"
+    },
+    {
+      "path": "../apps/fleet-endpoint"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "."
+  },
+  "include": [
+    "*.ts"
+  ]
+}

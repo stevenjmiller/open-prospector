@@ -19,7 +19,10 @@
           "$ref": "run-manifest.schema.json"
         },
         "scenario": {
-          "$ref": "scenario.schema.json"
+          "oneOf": [
+            { "$ref": "scenario.schema.json" },
+            { "$ref": "spine-scenario.schema.json" }
+          ]
         },
         "fixture_root": {
           "type": "string",

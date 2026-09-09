@@ -1,0 +1,26 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "packages/contracts"
+    },
+    {
+      "path": "packages/deterministic"
+    },
+    {
+      "path": "packages/channel"
+    },
+    {
+      "path": "packages/record"
+    },
+    {
+      "path": "apps/mission-control"
+    },
+    {
+      "path": "apps/fleet-endpoint"
+    },
+    {
+      "path": "tests"
+    }
+  ]
+}

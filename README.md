@@ -48,6 +48,35 @@ convention the paper uses). The ledgers live in `design/program-design.md`.
   repo's* material.
 - `design/` — supporting documents as sections outgrow the main document.
 
+## First executable spine
+
+The transport-only implementation uses Node **24.12.0**, npm **11.6.2**,
+TypeScript **5.9.3**, and Ajv **8.20.0**. It runs a separate fake endpoint using
+the actual channel and audit contracts. It does not yet implement terrain,
+planner, budget policy, contestations or the full science scenario.
+
+```text
+npm ci
+npm run check
+npm run spine
+npm run verify -- artifacts/spine-run
+npm run replay -- artifacts/spine-run artifacts/spine-replay
+```
+
+Output directories must be new; existing archives are never overwritten. Use
+`npm run spine -- artifacts/another-run` for subsequent runs. Each bundle includes
+canonical inputs, source/build identity, schemas, lockfile, event chain, delivered
+observation/science bytes and a verification report. The terminal output reports
+the chain head and checkpoint hash. Failed runs exit nonzero and retain evidence.
+
+[Implementation profile](design/first-spine-profile.md) explains the fake behavior
+and archive limitations. [Milestone 1](https://github.com/stevenjmiller/open-prospector/milestone/1)
+tracks delivery. Issues [1](https://github.com/stevenjmiller/open-prospector/issues/1)–
+[4](https://github.com/stevenjmiller/open-prospector/issues/4) establish the spine;
+issues 5–10 add world/belief, planner, controller, full acceptance, terrain ingest
+and a human understanding check. CI tests Windows/Linux separately and compares
+authoritative output bytes before the spine's cross-platform gate passes.
+
 ## Style
 
 - Never use the section symbol (§). Write "Section 4" or "(4.5)".
