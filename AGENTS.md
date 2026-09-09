@@ -10,6 +10,8 @@ before code depends on them. Never use the section symbol.
 - Track deliverables in GitHub milestone 1; dependencies and acceptance evidence
   are in issues 1-10. The fake-endpoint spine remains the integrated runner;
   issue 5 adds independently tested synthetic-world and observer-belief components.
+  Issue 6 adds planner, sensor and lineage-budget components; controller and full
+  scenario integration remain later work.
 - The lead owns integration, root tooling, shared contracts and spec corrections.
   Delegate only bounded independent work with explicit file ownership. Subagents
   share the checkout unless an isolated worktree was actually created.

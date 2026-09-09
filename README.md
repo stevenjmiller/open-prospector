@@ -84,6 +84,12 @@ and atomic observation updates are tested independently of the fake runner.
 See the [runtime belief profile](design/synthetic-belief-profile.md) for boundaries
 and the remaining sensor/planner integration work.
 
+Issue #6 adds deterministic A*, structured alternatives, sensor geometry and
+lineage budgets. `npm run planning` writes a component evidence report that
+reproduces the frozen vantage, detects the rock before contact and finds a safe
+recovery without refunding movement. See the [planning profile](design/planning-components-profile.md)
+for APIs and limits; controller/clearance/science integration remains separate.
+
 ## Style
 
 - Never use the section symbol (§). Write "Section 4" or "(4.5)".

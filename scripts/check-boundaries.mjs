@@ -36,7 +36,7 @@ async function inspect(directory, owner, dependencies) {
         ts.forEachChild(node, visit);
       }
       visit(file);
-      if (['contracts','deterministic','channel','belief','simulation-world'].includes(owner) && /\b(?:Date|Math\.random|localeCompare)\b/.test(text)) throw new Error(`${owner}: nondeterministic primitive`);
+      if (['contracts','deterministic','channel','belief','simulation-world','autonomy'].includes(owner) && /\b(?:Date|Math\.random|localeCompare)\b/.test(text)) throw new Error(`${owner}: nondeterministic primitive`);
     }
   }
 }

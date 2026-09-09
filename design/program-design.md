@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.17
+**Version:** v0.18
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -48,6 +48,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PC2 | v0.14 → v0.15 | **2026-09-09: reconcile the supporting software baseline.** Static review identified incomplete alternative/audit transport, IPC scheduling ownership, revision semantics, budget enforcement, recovery guards, scenario truth isolation and run closure. Application draft 0.4 and implementation brief v0.2 correct these with schema changes and contract examples. These remain provisional Rung-0 engineering choices; no PD decision or master artifact is changed. The earlier software handoff pass is historical, not runtime acceptance evidence. |
 | PC3 | v0.15 → v0.16 | **2026-09-09: define the first executable transport spine.** The full scenario schema requires terrain hazards and cannot honestly describe an ACK-only harness. Add the separate fake-evidence-spine-v0 profile and spine-scenario-v0 init alternative, retaining actual delayed evidence requirements for completion. Bind full observation artifacts to Tier 1 and source snapshots to manifests; document the fake checkpoint and replay limitations in first-spine-profile.md. No full-autonomy or program-policy acceptance is implied. |
 | PC4 | v0.16 → v0.17 | **2026-09-09: make runtime fixture boundaries explicit.** Issue #5 adds frozen synthetic generation and observer belief components. The synthetic-belief-profile.md narrows runtime paths to portable flat basenames, distinguishes authoring schemas from complete materialized validation, and specifies atomic raster-domain updates and exact observation/delivery timing. Frozen fixture bytes and program decisions remain unchanged; component tests do not establish full controller acceptance. |
+| PC5 | v0.17 → v0.18 | **2026-09-09: specify executable planning component boundaries.** Issue #6 implements the frozen planner, alternatives, sensor geometry and lineage budget. planning-components-profile.md records centre-based sensor range versus boundary-based contact distance, Euclidean standoff eligibility, resource-constrained route labels, and exact last-step timing. Fixed synthetic golden assertions remain unchanged; controller/clearance/science acceptance remains separate. No program policy is adopted. |
 
 ## Open Questions Register (PQ)
 
@@ -991,6 +992,8 @@ The [first executable spine profile](first-spine-profile.md) records its explici
 transport-only scope and provenance rules (PC3).
 The [synthetic terrain and belief profile](synthetic-belief-profile.md) records
 runtime materialization and observer boundaries (PC4).
+The [planning component profile](planning-components-profile.md) records route,
+sensor and budget semantics and their component evidence (PC5).
 
 ---
 
@@ -1124,3 +1127,7 @@ runtime materialization and observer boundaries (PC4).
 - **2026-09-09 (v0.17):** Implemented synthetic fixture and observer belief
   components for issue 5; recorded runtime restrictions and component acceptance
   limits in PC4 and synthetic-belief-profile.md. Frozen hashes are unchanged.
+
+- **2026-09-09 (v0.18):** Added issue 6 planning, sensor and budget components.
+  PC5 records implementation semantics and component acceptance limits; the
+  frozen fixture and program policy remain unchanged.

@@ -2,6 +2,8 @@ import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync } from 'node:fs';
 import { Ajv2020 } from 'ajv/dist/2020.js';
 export { FrameDecoder } from './framing.js';
+export { gridCell, cellCenter, octile, edgeLength, bresenham, expandAdvisory, sweepFootprint } from './geometry.js';
+export type { GridCell } from './geometry.js';
 
 export type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 export type ObjectValue = { [key: string]: Json };
