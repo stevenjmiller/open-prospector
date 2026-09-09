@@ -19,8 +19,15 @@
     "deliver_at_tick": { "$ref": "common.schema.json#/$defs/Tick" },
     "payload_kind": {
       "enum": [
-        "cleared-directive", "directive-revision", "contestation", "plan-summary",
-        "alternative-acceptance", "observation-summary", "observation", "status", "science-artifact"
+        "cleared-directive",
+        "directive-revision",
+        "contestation",
+        "plan-summary",
+        "observation-summary",
+        "observation",
+        "status",
+        "science-artifact",
+        "endpoint-event"
       ]
     },
     "payload_hash": { "$ref": "common.schema.json#/$defs/Hash" },
@@ -37,15 +44,6 @@
         "properties": {
           "direction": { "const": "mission-to-asset" }, "tier": { "const": "tier-1" }, "priority": { "const": 220 },
           "payload": { "$ref": "directive.schema.json" }
-        }
-      }
-    },
-    {
-      "if": { "properties": { "payload_kind": { "const": "alternative-acceptance" } }, "required": ["payload_kind"] },
-      "then": {
-        "properties": {
-          "direction": { "const": "mission-to-asset" }, "tier": { "const": "tier-1" }, "priority": { "const": 230 },
-          "payload": { "$ref": "protocol-payload.schema.json#/$defs/AlternativeAcceptance" }
         }
       }
     },
@@ -99,7 +97,35 @@
       "then": {
         "properties": {
           "direction": { "const": "asset-to-mission" }, "tier": { "const": "tier-2" }, "priority": { "const": 100 },
-          "payload": { "$ref": "common.schema.json#/$defs/EvidenceRef" }
+          "payload": { "$ref": "protocol-payload.schema.json#/$defs/ScienceArtifact" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "endpoint-event"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-1"
+          },
+          "priority": {
+            "const": 230
+          },
+          "payload": {
+            "$ref": "endpoint-event.schema.json"
+          }
         }
       }
     }

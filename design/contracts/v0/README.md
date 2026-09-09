@@ -28,6 +28,37 @@ validation:
 - contestation level, severity, window, alternatives, and disposition obey the
   implementation brief; executable v0 deliberately has no Level 1.
 
+Reconciliation rules added on 2026-09-09 (working brief v0.2):
+
+- embedded alternative ids exactly match alternative_ids in order; goal,
+  contestation and hazard links agree; no duplicate alternatives; Level 3 is empty;
+- reflex_inputs reproduce stopping distance and T using the brief's formula,
+  with positive braking decrement; Level 0 requires those inputs;
+- accepted revisions match a previously offered and delivered alternative,
+  preserve lineage ceilings and the original science target for vantage, and
+  carry the exact acceptance; observation_cell is checked by gatekeeper/planner;
+- outbound intents contain no parent scheduling fields, match the active tick,
+  and are committed only after done; endpoint event occurred_tick equals sent_tick;
+- endpoint-event payloads map to the exact record event/payload pair in Section
+  5.2; duplicate source event ids fail; statuses do not duplicate state events;
+- channel capacities are positive; FIFO state is per tier, shared across directions;
+- science base64 is canonical, decoded bytes match reference hash and required
+  byte_length, and transmission/budget count the entire canonical payload;
+- all budget counters survive revision and replan; stored offered alternatives,
+  acceptance links and counters participate in checkpoints;
+- scenario truth metadata remains in privileged orchestration/simulator scopes;
+  only explicit observer projections reach controllers;
+- closure requires queue drain and verified mandatory evidence; its embedded head
+  is its predecessor, and EOF without closure means incomplete;
+- cross-platform replay retains the archived manifest; replay-host metadata is
+  written separately, outside the event chain.
+
+`ipc-frame.schema.json`, `outbound-intent.schema.json`, and
+`endpoint-event.schema.json` define the process boundary. Runnable static review
+checks and protocol examples are described in [examples/README.md](examples/README.md).
+The v0 schemas were reconciled before any runtime release; archive the exact
+bundle with runs and use a new version for incompatible changes after release.
+
 The implementation package should compile schemas once, expose one validator per
 top-level artifact, and run all example documents through those validators in
 continuous integration.

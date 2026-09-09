@@ -54,9 +54,34 @@
     "budget": { "$ref": "common.schema.json#/$defs/Budget" },
     "earliest_start_tick": { "$ref": "common.schema.json#/$defs/Tick" },
     "deadline_tick": { "$ref": "common.schema.json#/$defs/Tick" },
-    "safe_idle": { "enum": ["hold-position", "return-to-start"] },
+    "safe_idle": { "const": "hold-position" },
     "source_text": { "type": "string", "maxLength": 4096 },
-    "confirmed": { "const": true }
+    "confirmed": { "const": true },
+    "observation_cell": {"$ref": "common.schema.json#/$defs/GridCell"},
+    "accepted_alternative": {"$ref": "protocol-payload.schema.json#/$defs/AlternativeAcceptance"}
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "accepted_alternative"
+        ]
+      },
+      "then": {
+        "required": [
+          "supersedes_directive_id",
+          "observation_cell"
+        ],
+        "properties": {
+          "revision": {
+            "minimum": 1
+          },
+          "supersedes_directive_id": {
+            "$ref": "common.schema.json#/$defs/Id"
+          }
+        }
+      }
+    }
+  ]
 }

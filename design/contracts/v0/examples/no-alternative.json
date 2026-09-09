@@ -1,0 +1,28 @@
+{
+  "schema_version": "contestation-v0",
+  "contestation_id": "contestation:no-alternative-example",
+  "directive_id": "directive:hydrate-primary-r0",
+  "preserved_goal_id": "goal:characterize-hydrated-candidate",
+  "asset_id": "asset:rover-v0",
+  "autonomy_version": "contract-example-v0",
+  "hazard_id": "hazard:slump-v0",
+  "hazard_class": "terrain",
+  "evidence": [
+    {
+      "artifact_id": "artifact:example-sweep",
+      "artifact_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "media_type": "application/json",
+      "byte_length": 0
+    }
+  ],
+  "confidence_ppm": 1000000,
+  "severity": "critical",
+  "level": 3,
+  "round_trip_ticks": 6000,
+  "time_to_harm_ticks": null,
+  "window_open": true,
+  "alternative_ids": [],
+  "alternatives": [],
+  "disposition": "locked",
+  "created_tick": 10000
+}

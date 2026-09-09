@@ -4,10 +4,25 @@
   "title": "Working contestation v0",
   "type": "object",
   "required": [
-    "schema_version", "contestation_id", "directive_id", "preserved_goal_id", "asset_id",
-    "autonomy_version", "hazard_id", "hazard_class", "evidence", "confidence_ppm",
-    "severity", "level", "round_trip_ticks", "time_to_harm_ticks", "window_open",
-    "alternative_ids", "disposition", "created_tick"
+    "schema_version",
+    "contestation_id",
+    "directive_id",
+    "preserved_goal_id",
+    "asset_id",
+    "autonomy_version",
+    "hazard_id",
+    "hazard_class",
+    "evidence",
+    "confidence_ppm",
+    "severity",
+    "level",
+    "round_trip_ticks",
+    "time_to_harm_ticks",
+    "window_open",
+    "alternative_ids",
+    "disposition",
+    "created_tick",
+    "alternatives"
   ],
   "properties": {
     "schema_version": { "const": "contestation-v0" },
@@ -43,6 +58,35 @@
     },
     "resolved_tick": {
       "oneOf": [{ "$ref": "common.schema.json#/$defs/Tick" }, { "type": "null" }]
+    },
+    "alternatives": {"type": "array", "maxItems": 2, "items": {"$ref": "alternative.schema.json"}},
+    "reflex_inputs": {
+      "type": "object",
+      "required": [
+        "distance_mm",
+        "speed_mm_per_tick",
+        "reaction_ticks",
+        "braking_mm_per_tick2",
+        "stopping_distance_mm"
+      ],
+      "properties": {
+        "distance_mm": {
+          "$ref": "common.schema.json#/$defs/NonNegativeInteger"
+        },
+        "speed_mm_per_tick": {
+          "$ref": "common.schema.json#/$defs/NonNegativeInteger"
+        },
+        "reaction_ticks": {
+          "$ref": "common.schema.json#/$defs/NonNegativeInteger"
+        },
+        "braking_mm_per_tick2": {
+          "$ref": "common.schema.json#/$defs/NonNegativeInteger"
+        },
+        "stopping_distance_mm": {
+          "$ref": "common.schema.json#/$defs/NonNegativeInteger"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "allOf": [
@@ -54,8 +98,10 @@
           "window_open": { "const": false },
           "disposition": { "const": "safe-hold" },
           "alternative_ids": { "maxItems": 0 },
-          "time_to_harm_ticks": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" }
-        }
+          "time_to_harm_ticks": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
+          "alternatives": {"maxItems": 0}
+        },
+        "required": ["reflex_inputs"]
       }
     },
     {
@@ -65,7 +111,8 @@
           "severity": { "const": "significant" },
           "window_open": { "const": true },
           "disposition": { "const": "holding" },
-          "alternative_ids": { "minItems": 1 }
+          "alternative_ids": { "minItems": 1 },
+          "alternatives": {"minItems": 1}
         }
       }
     },
@@ -74,7 +121,9 @@
       "then": {
         "properties": {
           "severity": { "const": "critical" },
-          "disposition": { "const": "locked" }
+          "disposition": { "const": "locked" },
+          "alternatives": {"maxItems": 0},
+          "alternative_ids": {"maxItems": 0}
         }
       }
     }

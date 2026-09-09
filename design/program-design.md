@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.14
+**Version:** v0.15
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -45,6 +45,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | # | Version | Correction |
 |---|---------|------------|
 | PC1 | v0.2 → v0.4 | **Owner review caught a silent assumption.** The v0.2 gates tested only what the *program* must demonstrate (readiness), assuming the external infrastructure each rung rides on — commercial lunar delivery, Mars-capable heavy lift, relay capacity — will exist when the program is ready for it. But lunar delivery programs get scrapped for technical or political reasons, and a Mars-capable launch provider can lose interest in Mars; none of that is under program control. **Fix:** every gate now carries availability criteria beside its readiness criteria (PD4), and the never-materializing ride is its own killer (PK11), distinct from PK10's failed launch. |
+| PC2 | v0.14 → v0.15 | **2026-09-09: reconcile the supporting software baseline.** Static review identified incomplete alternative/audit transport, IPC scheduling ownership, revision semantics, budget enforcement, recovery guards, scenario truth isolation and run closure. Application draft 0.4 and implementation brief v0.2 correct these with schema changes and contract examples. These remain provisional Rung-0 engineering choices; no PD decision or master artifact is changed. The earlier software handoff pass is historical, not runtime acceptance evidence. |
 
 ## Open Questions Register (PQ)
 
@@ -981,6 +982,9 @@ autonomy runtime, directive workflow, and later fleet-software seams are worked
 in [`application-software-design.md`](application-software-design.md). That
 document implements the constraints established here and in the mars master and
 standalone paper; it does not own or silently revise program decisions.
+The first executable baseline is [implementation brief v0.2](vertical-slice-implementation-brief.md),
+with [v0 contracts and examples](contracts/v0/README.md); PC2 records its
+2026-09-09 reconciliation. Runtime acceptance remains a separate gate.
 
 ---
 
@@ -1102,3 +1106,7 @@ standalone paper; it does not own or silently revise program decisions.
   software design discussion draft. No program decisions or ledger entries
   changed; the pointer preserves the program/software scope boundary while
   making the downstream design discoverable from the governing document.
+
+- **2026-09-09 (v0.15):** Reconciled supporting software contracts and handoff
+  language (PC2); added static contract examples and validation. No program
+  policy adoption or implementation acceptance is implied.

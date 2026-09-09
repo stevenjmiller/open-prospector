@@ -1,7 +1,7 @@
 # Open Prospector Headless Vertical Slice — Implementation Brief
 
-**Version:** Working freeze v0.1  
-**Date:** 2026-09-08  
+**Version:** Working freeze v0.2
+**Date:** 2026-09-09
 **Status:** Executable engineering baseline; provisional Rung-0 policy  
 **Parent design:** `application-software-design.md`, Section 14
 
@@ -19,8 +19,11 @@ with D/PD material is a defect in this brief.
 
 ## 2. Handoff verdict
 
-Coding may begin when the repository scaffold records the toolchain versions.
-The following work packages are actionable independently:
+Scaffolding may begin now. Endpoint integration is gated on the contract and
+protocol conformance cases in Section 11 and `contracts/v0/examples/README.md`.
+This reconciliation is a working baseline, not evidence that those runtime
+acceptance tests have passed.
+The following work packages use the shared contracts and ordered gates below:
 
 1. contracts and canonical serialization;
 2. deterministic clock, channel, and append-only record;
@@ -144,6 +147,10 @@ round-trip comparison changes, including `1.0`, exponent notation, `-0`,
 non-LF line endings, or insignificant whitespace in a canonical/golden stream.
 `JSON.parse` alone is therefore not an acceptable input validator.
 
+The canonical id tuple is the JSON array `[run_id, kind, creation_tick, ordinal]`.
+Array order is significant. Ordinals start at zero per kind across the run,
+not once per tick, except the explicitly global channel-message counter.
+
 For record event sequence `n`:
 
 - `prev_event_hash` is null only for sequence zero and otherwise equals event
@@ -173,7 +180,7 @@ boundaries:
 {"frame":"init","run_manifest":{},"scenario":{},"fixture_root":"fixtures/synthetic-v0"}
 {"frame":"ready","run_id":"run:slice-v0"}
 {"frame":"advance","to_tick":42,"deliveries":[]}
-{"frame":"emit","message":{}}
+{"frame":"emit","intent":{}}
 {"frame":"done","at_tick":42}
 {"frame":"checkpoint","at_tick":42}
 {"frame":"checkpoint-result","at_tick":42,"state_hash":"sha256:..."}
@@ -184,10 +191,12 @@ boundaries:
 `init` is first and receives exactly one `ready`. It supplies validated values,
 not paths to mission-control-private state. Every `advance` must have
 `to_tick == current_tick + 1`; the reference runner advances one tick at a time
-even while holding. It contains all and only messages with
+even while holding. It contains all and only mission-to-asset messages with
 `deliver_at_tick == to_tick`, already sorted by Section 4.2. The endpoint
 advances its clock, applies those deliveries, takes the scheduled step, emits
-zero or more `emit` frames, and terminates the reply with exactly one `done`.
+zero or more `emit` intent frames, and terminates the reply with exactly one `done`.
+Frames validate against `ipc-frame.schema.json`; the sketches above omit required
+payload members and are not validation examples.
 The parent sends no next request before `done`. Early, late, duplicate,
 skipped-tick, or omitted delivery is a protocol fault. The endpoint cannot
 inspect the channel queue. State hashes are computed only for explicit
@@ -195,8 +204,10 @@ checkpoints and run closure, not every `done`.
 
 Tier 1 and Tier 2 are independent FIFO serial links, consistent with PD14's two
 paths. Within one tier, messages queue by `(sent_tick, creation_ordinal)`. The
-ordinal is a run-global, zero-based message creation counter and is covered by
-the message hash. For each message:
+ordinal is a run-global, zero-based message creation counter assigned by the
+parent. It is covered when the complete channel message is hashed as record
+payload; `payload_hash` hashes only the payload, not scheduling metadata.
+For each message:
 
 ```text
 link_start_tick = max(sent_tick, previous_link_finish_tick)
@@ -216,9 +227,8 @@ The slice channel profile is:
 | Payload kind | Direction | Tier | Priority |
 |---|---|---:|---:|
 | cleared directive / directive revision | mission to asset | 1 | 220 |
-| alternative acceptance | mission to asset | 1 | 230 |
 | contestation | asset to mission | 1 | 240 |
-| endpoint status or fault | asset to mission | 1 | 230 |
+| endpoint status / endpoint audit event (including fault) | asset to mission | 1 | 230 |
 | plan summary | asset to mission | 1 | 200 |
 | observation summary | asset to mission | 1 | 180 |
 | full observation and belief patch | asset to mission | 2 | 160 |
@@ -232,6 +242,68 @@ mission control's cell-level belief.
 Messages are immutable after enqueue. Mission control retains only delivered
 asset information in `received belief`. Scene and audit projections for the
 operator consume received belief, never endpoint belief.
+
+### 5.1 Scheduling ownership and tick commit
+
+Only the parent constructs `channel-message-v0`. The endpoint emits an
+`outbound-intent` containing sent tick, direction, tier, priority, kind, and typed
+payload; it never supplies delivery time, message id, global ordinal, or hashes.
+The parent validates and buffers intents until `done`, then assigns ordinals,
+message ids, canonical payload hashes/lengths, and delivery times. A message id
+uses Section 4.2 with kind `message` and the global message ordinal.
+
+At tick t, the parent first processes due asset-to-mission deliveries in Section
+4.2 order, then due local script actions in action-creation order, assigning ordinals to resulting mission
+messages. It then sends only due mission-to-asset deliveries in `advance`.
+Endpoint intents receive ordinals afterward in emitted order. The two FIFO links
+are shared across directions within each tier (half-duplex v0); they have
+independent finish ticks, initially the manifest start tick. Even zero latency
+delivers no earlier than t+1. The first advance is start_tick+1; the initial
+directive is submitted and enqueued at start_tick.
+
+Malformed output, child exit, or a 30-second wall-time watchdog before `done`
+discards that tick's buffered intents, terminates the simulated child, and closes
+the run as incomplete. Previously delivered parent-side events remain durable.
+This is a simulation abort, not a physical safe-state acknowledgement. Wall time
+never enters a successful chain; timeout failures are not reproducibility runs.
+An endpoint cannot detect an omitted delivery without queue access; that check
+belongs to the parent/channel conformance harness.
+
+### 5.2 Endpoint audit and science transport
+
+`endpoint-event` carries the unchained envelope in `endpoint-event.schema.json`
+on Tier 1. It transports directive receipt, accountable state transitions,
+classifier consumption, and endpoint faults. On delivery the parent preserves
+event id, actor, subject, occurred tick and payload; it assigns sequence,
+received/recorded ticks and chain hashes. Payload kinds are respectively
+`directive`, `state-transition`, `classifier-result`, and `fault`. The other
+asset payloads map once each: contestation to `contestation-opened`, plan summary
+to `plan-proposed`, observation summary to `observation-summarized`; their event
+ids use kind `message-event` and the source message creation ordinal at sent tick.
+They occur at sent tick, with asset as actor and directive/observation as subject.
+`status` is optional telemetry, never a substitute for an accountable transition.
+Full observations produce `received-belief-updated` locally on delivery. Receipt
+is an acknowledgement only; it does not duplicate directive submission.
+
+Every transition listed in Section 9 emits an endpoint state event, including
+planning, scheduled, and failed. Its cause is the directive id for receipt,
+scheduling, deadline or budget failure; contestation id for holds/locks; plan id
+for execution/recovery; final observation id for completion; endpoint-fault
+event id for faults. Record the reason code and cumulative budget snapshot.
+Emit the cause before its transition; emit classifier consumption after reflex
+and before recovery. Generated unchained endpoint event ids use kind
+`endpoint-event`; locally
+generated record ids use kind `mission-event`, preventing same-tick ordinal
+collisions between sources. No control frame publishes endpoint knowledge to
+operators. The parent records received-belief-updated as a local event at delivery
+tick (received_tick=null); the linked observation preserves its source tick.
+
+A `science-artifact` payload contains an evidence reference and canonical base64
+content. Decoded bytes must match the required reference byte_length and SHA-256;
+base64 must re-encode identically. Transmission and budget count the entire
+canonical JSON payload (including base64 expansion), exactly once per enqueue.
+References in other messages do not grant access to content. Mission control
+exposes content only after the artifact message is delivered and verified.
 
 ## 6. Spatial, fixture, and belief contract
 
@@ -286,6 +358,17 @@ sample. A belief patch may mention only cells in that footprint. The acceptance
 test's total sensed region is the union of footprints from observations whose
 sensor model reports `truth_contact=true`; planner look-ahead and route searches
 do not count as sensing.
+
+The parent executable has a privileged orchestration shell and an unprivileged
+mission controller. The shell may read the complete scenario solely to validate,
+archive, and initialize the simulator; it never passes that object to the
+controller, gatekeeper, or scripted actor. Those receive public policy, asset
+identity, public geofence, their initial belief and initially-known target
+entities, plus delivered messages. The endpoint composition root similarly
+passes all hidden hazard cells and truth entity mappings only to its simulator
+adapter; autonomy receives an observer-scoped catalog and observations. Explicit
+projection functions and runtime tests cover scenario metadata as well as raster
+paths. Mutating hidden scenario cells must not alter either controller's inputs.
 
 ### 6.4 Sensor geometry and visibility
 
@@ -350,6 +433,31 @@ authority, budget, and gatekeeper evaluation before transmission. An accepted
 alternative is not itself a clearance. Alternative generation excludes every
 no-go cell.
 
+### 7.1 Accepted revision transformation
+
+The complete contestation embeds `alternatives` in Tier 1. Its `alternative_ids`
+must exactly equal the embedded ids in order, without duplicates. Each alternative
+must reference this contestation, goal, and hazard. Levels 0 and 3 contain none;
+Level 2 contains one or two, ordered vantage then target. The scripted actor's
+ten-tick response starts only when this complete message is delivered.
+
+Acceptance is a local record event, not a second command in this scenario. The
+cleared revision carries `accepted_alternative` (the exact acceptance object),
+increments revision, links the immediately preceding directive, and gets a new
+generated directive id. Preserve campaign, asset, author, goal, envelope,
+substitution permissions, budget ceilings, earliest start, deadline and safe idle.
+Remove source_text, which described the original, and replace advisory_route with
+the proposed route if present (otherwise remove it). For vantage, preserve target
+and set `observation_cell` to proposed_cell. For target substitution, replace
+target with proposed_entity_id and set observation_cell to proposed_cell.
+The endpoint checks the link against its stored offered alternative and replans
+to observation_cell; it still gathers science about target. Neither acceptance
+nor an advisory route authorizes bypassing local planning. Gatekeeper checks
+observation_cell too. For accepted revisions, preflight tests reachability of
+observation_cell rather than requiring a path onto the science target cell.
+A standalone acceptance wire message is invalid in v0; the acceptance payload
+schema is used by the local record and the linked revision only.
+
 ## 8. Asset-side planning and policy
 
 ### 8.1 Motion and energy
@@ -382,6 +490,42 @@ Authoritative pose during an edge is `{from_cell,to_cell,progress_mm}`.
 tick. Cell occupancy changes only when progress reaches 1,000 or 1,414. No
 fractional east/north diagonal coordinate is computed and unused progress does
 not carry to the next edge.
+
+### 8.1.1 Budget lifecycle
+
+Counters belong to the original directive lineage and never reset on revision,
+hold or replan. The parent fixes submitted_tick when recording the original
+directive; the endpoint derives it from that directive's original sent_tick.
+Later revisions must preserve the original budget/deadline and cannot arrive
+before the original. V0 safe_idle is hold-position only; return-to-start requires
+a separately specified recovery planner and is rejected by the v0 schema.
+
+| Counter | Debit and enforcement |
+|---|---|
+| duration_ticks | Current tick minus original submitted_tick, including transit and holds; fail at submitted_tick+limit before work, just like deadline. |
+| traverse_mm | Actual positive edge progress, checked before each step; abandoned progress remains charged. |
+| energy_units | Full edge energy before first positive progress, including abandoned edges; no idle/sensor energy in v0. |
+| tier2_bytes | Entire canonical payload bytes of observation and science-artifact intents, reserved before emission; summaries and Tier-1 audit are exempt. |
+
+All prospective debits must leave cumulative usage at or below their ceiling;
+energy must also leave at least the starting reserve. Deadline/duration checks
+precede sensing; other checks precede the operation they charge. Reaching a
+non-time ceiling is allowed; attempting to exceed it fails without performing
+that operation. Failure holds position and emits an exempt Tier-1 state event
+with reason `budget:<counter>` and pre-debit usage. Mandatory final evidence that
+cannot be enqueued cannot complete the directive. Optional science is omitted
+before attempting a debit; the v0 final artifact and full observation are mandatory.
+Reserve exhaustion after a new hazard follows the alternatives/lock policy;
+explicit directive-ceiling exhaustion is `failed`, not Level 3.
+
+Planning enforces the operating envelope, remaining traverse/energy ceilings,
+reserve and time limits for candidate routes. Alternative budget_delta is
+candidate estimated usage minus the original advisory route's estimated usage
+(expanded as in Section 7, using the same costs even on hazard cells); if no
+advisory route exists use the Bresenham cell sequence from current cell to target,
+ignoring blocks for this comparison baseline only. Duration is
+sum of ceil(edge length/100); Tier-2 delta is zero in v0 because both alternatives
+request the same evidence. These are estimates, never a budget grant.
 
 ### 8.2 Preflight alternatives
 
@@ -503,15 +647,17 @@ exercises Levels 0 and 2; a component fixture exercises Level 3.
 | scheduled | start tick reached | executing | execution-started |
 | executing | reflex hazard, window shut | safe-hold | Level-0 event before motion |
 | safe-hold | safe local replan exists | executing | recovery plan link |
-| safe-hold | no safe local replan | holding | Level-2 contestation with `T=null` |
+| safe-hold | no safe local replan, permitted safe alternative exists | holding | Level-2 contestation with `T=null` |
+| safe-hold | no safe local replan and no permitted safe alternative | locked | Level-3 contestation with no alternatives |
 | executing | significant hazard, window open | holding | Level-2 contestation |
 | executing | critical hazard | locked | Level-3 contestation |
 | executing | success evidence complete | completed | completion summary |
-| any nonterminal | deadline tick reached before success | failed | safe-idle and failure summary |
+| any nonterminal | deadline/duration limit reached before success, or next debit exceeds budget | failed | hold-position and state event with budget snapshot |
 | any nonterminal | invariant or protocol failure | faulted | fault event |
 
-At a tick boundary, deadline is checked before sensor or motion work; a success
-completed on the preceding tick wins, otherwise the deadline fails. `locked`,
+At a tick boundary, deadline and duration are checked before sensor or motion
+work; a success completed on the preceding tick wins, otherwise the time limit
+fails. `locked`,
 `completed`, `failed`, and `faulted` are terminal in the casual slice. Level-3
 release requires a future Institute-supervised campaign authority and is not
 represented by a Studio-side command.
@@ -527,8 +673,7 @@ NDJSON telemetry file. Tier-1 event types are limited to:
 
 - directive submitted, gatekeeper evaluated, directive transmitted/received;
 - plan proposed, contestation opened, alternative accepted, directive revised;
-- endpoint state changed when entering or leaving holding, executing,
-  safe-hold, locked, completed, or faulted;
+- endpoint state changed for every transition in Section 9;
 - observation summarized and received-belief updated;
 - classifier result consumed;
 - run started, checkpointed, completed, or failed.
@@ -548,7 +693,7 @@ NDJSON telemetry file. Tier-1 event types are limited to:
 | classifier-result-consumed | classifier-result |
 | checkpoint-created | checkpoint |
 | run-completed | run-summary |
-| run-failed | fault |
+| endpoint-fault, run-failed | fault |
 
 The record stores payloads inline for this slice. Science bytes are immutable
 artifacts referenced by hash and counted against Tier 2. Casual-play telemetry
@@ -566,8 +711,37 @@ Every record event distinguishes:
 Checkpoint `state_hash` is SHA-256 over canonical JSON containing current tick,
 FSM state, current directive id/hash, `{from_cell,to_cell,progress_mm}`, energy,
 remaining plan, hashes of all asset-belief rasters, per-kind creation ordinals,
-and PRNG state/draw indices. It excludes diagnostics, wall time, process ids,
+PRNG state/draw indices, original submitted tick, cumulative budget counters,
+accepted-alternative linkage and stored offered alternatives. It excludes
+diagnostics, wall time, process ids,
 file paths, and record-chain hash.
+
+### 10.1 Closure and replay identity
+
+Endpoint terminal state freezes all budget counters at the terminal tick and
+stops sensing, movement and new science generation;
+subsequent advances only acknowledge ticks and consume in-flight commands as
+telemetry `ignored-terminal`. The parent learns terminal state through the
+delivered Tier-1 state event, disables future scripted commands, then drains
+both links, applying all delivered evidence. It requests a final checkpoint
+after both queues are empty and the current done has arrived, at that tick.
+Append run-completed only for endpoint completed plus verified mandatory delivered
+evidence. Its event_chain_head equals the closure event's prev_event_hash; the
+closure event's own hash is the final bundle head. Failed/locked/faulted outcomes
+append run-failed with a stable reason, never run-completed. An abnormal child
+exit, timeout, malformed frame, missing artifact or truncated log is incomplete;
+run-failed records safe_state=not-applicable if no endpoint acknowledgement exists.
+Do not fabricate a final state hash for an unavailable endpoint. A clean EOF
+without a valid closure event is incomplete even if every preceding hash verifies.
+
+On-disk append uses one writer and flush-before-acknowledgement. A partial final
+line after interruption is retained as evidence and rejected; v0 replays from
+the start and does not resume or silently repair that archive.
+
+Cross-platform replay uses the original immutable manifest, including its original
+build platform fields. Record actual replay host/toolchain in a separate validation
+report, outside the chain. A newly authored run on another host is a compatibility
+comparison, not a claim that different provenance hashes match.
 
 ## 11. Test matrix and definition of done
 

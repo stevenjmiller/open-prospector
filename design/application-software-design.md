@@ -1,6 +1,6 @@
 # Open Prospector Application Software Design
 
-**Version:** Discussion draft 0.3  
+**Version:** Discussion draft 0.4
 **Started:** 2026-09-07  
 **Status:** Architecture proposal for owner review; not yet a program decision  
 **Scope:** The Rung-0 consumer simulation and the software seams that let it
@@ -588,8 +588,9 @@ carry:
 - hazard class and evidence references;
 - reason, confidence, and severity;
 - computed negotiation-window inputs and result;
-- zero or more alternatives, with zero permitted only for a reflex whose held
-  safe state is the immediate alternative;
+- zero or more alternatives, with zero permitted for a reflex whose held
+  safe state is the immediate alternative, or a Level-3 lock when no permitted
+  safe goal-preserving alternative exists;
 - disposition: executed variant, holding, or locked;
 - asset identity and autonomy-stack version;
 - creation, publication, response, and resolution times;
@@ -1106,3 +1107,23 @@ Q18 artifacts or physical-rover limits.
 After the reconciliation, Fable performed a final read-only audit and returned
 **PASS** for handing work packages 1-7 to independent coding agents without
 inventing semantics.
+
+## Appendix D. Contract reconciliation — 2026-09-09
+
+A static review after the Appendix C pass found remaining gaps in alternative
+transport, IPC scheduling ownership, endpoint audit transport, accepted-vantage
+semantics, budget enforcement, the no-replan transition, scenario truth access,
+and closure. Working brief v0.2 and the reconciled v0 schemas address these as
+provisional engineering choices. The historical Appendix C verdict is retained;
+it does not certify this revision or replace executable acceptance evidence.
+
+The complete contestation carries its alternatives; the parent schedules outbound
+intents; endpoint audit events use Tier 1; revisions preserve science targets and
+budget lineage; no-alternative recovery locks; privileged scenario orchestration
+is separated from controller inputs; closure drains queued evidence. Contract
+examples and conformance cases live in `contracts/v0/examples/README.md`.
+The pre-implementation v0 schemas changed in place because no archived runtime
+release exists. Archive this exact schema bundle with every future run. Once
+runtime archives exist, incompatible changes require a new contract version.
+Scaffolding is ready; runtime integration remains subject to the acceptance gates.
+These changes do not adopt formal Q18 policy or modify program PD decisions.

@@ -1,0 +1,30 @@
+{
+  "frame": "emit",
+  "intent": {
+    "direction": "asset-to-mission",
+    "tier": "tier-1",
+    "priority": 230,
+    "sent_tick": 10000,
+    "payload_kind": "endpoint-event",
+    "payload": {
+      "event_id": "event:budget-failure-example",
+      "occurred_tick": 10000,
+      "actor_id": "asset:rover-v0",
+      "subject_id": "directive:hydrate-primary-r0",
+      "event_type": "endpoint-state-changed",
+      "payload": {
+        "asset_id": "asset:rover-v0",
+        "from": "executing",
+        "to": "failed",
+        "cause_id": "directive:hydrate-primary-r0",
+        "reason_code": "budget:traverse_mm",
+        "budget_used": {
+          "duration_ticks": 10000,
+          "traverse_mm": 200000,
+          "energy_units": 10000,
+          "tier2_bytes": 250000
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,539 @@
+{
+  "original": {
+    "schema_version": "directive-v0",
+    "directive_id": "directive:hydrate-primary-r0",
+    "revision": 0,
+    "supersedes_directive_id": null,
+    "campaign_id": "campaign:qualification-slice-v0",
+    "author_id": "actor:scripted-team-v0",
+    "asset_id": "asset:rover-v0",
+    "goal": {
+      "goal_id": "goal:characterize-hydrated-candidate",
+      "objective": "Characterize the hydrated-mineral candidate from a safe standoff.",
+      "success_evidence": [
+        "standoff-image",
+        "spectral-characterization",
+        "position-safe",
+        "energy-reserve-met"
+      ]
+    },
+    "target": {
+      "kind": "entity",
+      "entity_id": "target:hydrated-primary"
+    },
+    "operating_envelope": {
+      "min_row": 150,
+      "max_row": 240,
+      "min_column": 20,
+      "max_column": 110
+    },
+    "permitted_substitutions": [
+      "vantage",
+      "target"
+    ],
+    "advisory_route": [
+      {
+        "row": 220,
+        "column": 30
+      },
+      {
+        "row": 215,
+        "column": 45
+      },
+      {
+        "row": 180,
+        "column": 80
+      }
+    ],
+    "budget": {
+      "duration_ticks": 20000,
+      "traverse_mm": 200000,
+      "energy_units": 40000,
+      "tier2_bytes": 1000000
+    },
+    "earliest_start_tick": 0,
+    "deadline_tick": 20000,
+    "safe_idle": "hold-position",
+    "source_text": "Characterize the hydrated candidate. I suggest the short route through cell 215,45.",
+    "confirmed": true
+  },
+  "contestation": {
+    "schema_version": "contestation-v0",
+    "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+    "directive_id": "directive:hydrate-primary-r0",
+    "preserved_goal_id": "goal:characterize-hydrated-candidate",
+    "asset_id": "asset:rover-v0",
+    "autonomy_version": "contract-example-v0",
+    "hazard_id": "hazard:slump-v0",
+    "hazard_class": "terrain",
+    "evidence": [
+      {
+        "artifact_id": "artifact:example-sweep",
+        "artifact_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "media_type": "application/json",
+        "byte_length": 0
+      }
+    ],
+    "confidence_ppm": 1000000,
+    "severity": "significant",
+    "level": 2,
+    "round_trip_ticks": 6000,
+    "time_to_harm_ticks": null,
+    "window_open": true,
+    "alternative_ids": [
+      "alternative:0de958e6ce53fc111c8051b7",
+      "alternative:c0e614ef63258631025e99b3"
+    ],
+    "alternatives": [
+      {
+        "schema_version": "alternative-v0",
+        "alternative_id": "alternative:0de958e6ce53fc111c8051b7",
+        "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+        "kind": "substitute-vantage",
+        "preserved_goal_id": "goal:characterize-hydrated-candidate",
+        "hazard_id": "hazard:slump-v0",
+        "proposed_cell": {
+          "row": 180,
+          "column": 70
+        },
+        "budget_delta": {
+          "duration_ticks": 0,
+          "traverse_mm": 0,
+          "energy_units": 0,
+          "tier2_bytes": 0
+        },
+        "requested_evidence": [
+          "standoff-image",
+          "spectral-characterization",
+          "position-safe",
+          "energy-reserve-met"
+        ],
+        "summary_template_id": "vantage.slice-v0",
+        "summary": "Contract example: substitute-vantage"
+      },
+      {
+        "schema_version": "alternative-v0",
+        "alternative_id": "alternative:c0e614ef63258631025e99b3",
+        "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+        "kind": "substitute-target",
+        "preserved_goal_id": "goal:characterize-hydrated-candidate",
+        "hazard_id": "hazard:slump-v0",
+        "proposed_cell": {
+          "row": 185,
+          "column": 95
+        },
+        "budget_delta": {
+          "duration_ticks": 0,
+          "traverse_mm": 0,
+          "energy_units": 0,
+          "tier2_bytes": 0
+        },
+        "requested_evidence": [
+          "standoff-image",
+          "spectral-characterization",
+          "position-safe",
+          "energy-reserve-met"
+        ],
+        "summary_template_id": "target.slice-v0",
+        "summary": "Contract example: substitute-target",
+        "proposed_entity_id": "target:hydrated-substitute"
+      }
+    ],
+    "disposition": "holding",
+    "created_tick": 3001
+  },
+  "acceptance": {
+    "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+    "alternative_id": "alternative:0de958e6ce53fc111c8051b7",
+    "accepted_by": "actor:scripted-team-v0",
+    "accepted_tick": 6012
+  },
+  "revision": {
+    "schema_version": "directive-v0",
+    "directive_id": "directive:45ae56ef5e26c311eecbaffa",
+    "revision": 1,
+    "supersedes_directive_id": "directive:hydrate-primary-r0",
+    "campaign_id": "campaign:qualification-slice-v0",
+    "author_id": "actor:scripted-team-v0",
+    "asset_id": "asset:rover-v0",
+    "goal": {
+      "goal_id": "goal:characterize-hydrated-candidate",
+      "objective": "Characterize the hydrated-mineral candidate from a safe standoff.",
+      "success_evidence": [
+        "standoff-image",
+        "spectral-characterization",
+        "position-safe",
+        "energy-reserve-met"
+      ]
+    },
+    "target": {
+      "kind": "entity",
+      "entity_id": "target:hydrated-primary"
+    },
+    "operating_envelope": {
+      "min_row": 150,
+      "max_row": 240,
+      "min_column": 20,
+      "max_column": 110
+    },
+    "permitted_substitutions": [
+      "vantage",
+      "target"
+    ],
+    "budget": {
+      "duration_ticks": 20000,
+      "traverse_mm": 200000,
+      "energy_units": 40000,
+      "tier2_bytes": 1000000
+    },
+    "earliest_start_tick": 0,
+    "deadline_tick": 20000,
+    "safe_idle": "hold-position",
+    "confirmed": true,
+    "accepted_alternative": {
+      "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+      "alternative_id": "alternative:0de958e6ce53fc111c8051b7",
+      "accepted_by": "actor:scripted-team-v0",
+      "accepted_tick": 6012
+    },
+    "observation_cell": {
+      "row": 180,
+      "column": 70
+    }
+  },
+  "emit_frame": {
+    "frame": "emit",
+    "intent": {
+      "direction": "asset-to-mission",
+      "tier": "tier-1",
+      "priority": 240,
+      "sent_tick": 3001,
+      "payload_kind": "contestation",
+      "payload": {
+        "schema_version": "contestation-v0",
+        "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+        "directive_id": "directive:hydrate-primary-r0",
+        "preserved_goal_id": "goal:characterize-hydrated-candidate",
+        "asset_id": "asset:rover-v0",
+        "autonomy_version": "contract-example-v0",
+        "hazard_id": "hazard:slump-v0",
+        "hazard_class": "terrain",
+        "evidence": [
+          {
+            "artifact_id": "artifact:example-sweep",
+            "artifact_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "media_type": "application/json",
+            "byte_length": 0
+          }
+        ],
+        "confidence_ppm": 1000000,
+        "severity": "significant",
+        "level": 2,
+        "round_trip_ticks": 6000,
+        "time_to_harm_ticks": null,
+        "window_open": true,
+        "alternative_ids": [
+          "alternative:0de958e6ce53fc111c8051b7",
+          "alternative:c0e614ef63258631025e99b3"
+        ],
+        "alternatives": [
+          {
+            "schema_version": "alternative-v0",
+            "alternative_id": "alternative:0de958e6ce53fc111c8051b7",
+            "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+            "kind": "substitute-vantage",
+            "preserved_goal_id": "goal:characterize-hydrated-candidate",
+            "hazard_id": "hazard:slump-v0",
+            "proposed_cell": {
+              "row": 180,
+              "column": 70
+            },
+            "budget_delta": {
+              "duration_ticks": 0,
+              "traverse_mm": 0,
+              "energy_units": 0,
+              "tier2_bytes": 0
+            },
+            "requested_evidence": [
+              "standoff-image",
+              "spectral-characterization",
+              "position-safe",
+              "energy-reserve-met"
+            ],
+            "summary_template_id": "vantage.slice-v0",
+            "summary": "Contract example: substitute-vantage"
+          },
+          {
+            "schema_version": "alternative-v0",
+            "alternative_id": "alternative:c0e614ef63258631025e99b3",
+            "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+            "kind": "substitute-target",
+            "preserved_goal_id": "goal:characterize-hydrated-candidate",
+            "hazard_id": "hazard:slump-v0",
+            "proposed_cell": {
+              "row": 185,
+              "column": 95
+            },
+            "budget_delta": {
+              "duration_ticks": 0,
+              "traverse_mm": 0,
+              "energy_units": 0,
+              "tier2_bytes": 0
+            },
+            "requested_evidence": [
+              "standoff-image",
+              "spectral-characterization",
+              "position-safe",
+              "energy-reserve-met"
+            ],
+            "summary_template_id": "target.slice-v0",
+            "summary": "Contract example: substitute-target",
+            "proposed_entity_id": "target:hydrated-substitute"
+          }
+        ],
+        "disposition": "holding",
+        "created_tick": 3001
+      }
+    }
+  },
+  "scheduled_messages": [
+    {
+      "schema_version": "channel-message-v0",
+      "message_id": "message:b88e7caf2fd8a842dd1b2c66",
+      "run_id": "run:contract-example-v0",
+      "creation_ordinal": 0,
+      "direction": "mission-to-asset",
+      "tier": "tier-1",
+      "priority": 220,
+      "sent_tick": 0,
+      "deliver_at_tick": 3001,
+      "payload_kind": "cleared-directive",
+      "payload_hash": "sha256:ffab5d8b066bc63df79636f26bae43bc56a957e345890c38a5d0a652f5a7231c",
+      "payload_bytes": 1053,
+      "payload": {
+        "schema_version": "directive-v0",
+        "directive_id": "directive:hydrate-primary-r0",
+        "revision": 0,
+        "supersedes_directive_id": null,
+        "campaign_id": "campaign:qualification-slice-v0",
+        "author_id": "actor:scripted-team-v0",
+        "asset_id": "asset:rover-v0",
+        "goal": {
+          "goal_id": "goal:characterize-hydrated-candidate",
+          "objective": "Characterize the hydrated-mineral candidate from a safe standoff.",
+          "success_evidence": [
+            "standoff-image",
+            "spectral-characterization",
+            "position-safe",
+            "energy-reserve-met"
+          ]
+        },
+        "target": {
+          "kind": "entity",
+          "entity_id": "target:hydrated-primary"
+        },
+        "operating_envelope": {
+          "min_row": 150,
+          "max_row": 240,
+          "min_column": 20,
+          "max_column": 110
+        },
+        "permitted_substitutions": [
+          "vantage",
+          "target"
+        ],
+        "advisory_route": [
+          {
+            "row": 220,
+            "column": 30
+          },
+          {
+            "row": 215,
+            "column": 45
+          },
+          {
+            "row": 180,
+            "column": 80
+          }
+        ],
+        "budget": {
+          "duration_ticks": 20000,
+          "traverse_mm": 200000,
+          "energy_units": 40000,
+          "tier2_bytes": 1000000
+        },
+        "earliest_start_tick": 0,
+        "deadline_tick": 20000,
+        "safe_idle": "hold-position",
+        "source_text": "Characterize the hydrated candidate. I suggest the short route through cell 215,45.",
+        "confirmed": true
+      }
+    },
+    {
+      "schema_version": "channel-message-v0",
+      "message_id": "message:291dc77172efebb17fabe669",
+      "run_id": "run:contract-example-v0",
+      "creation_ordinal": 1,
+      "direction": "asset-to-mission",
+      "tier": "tier-1",
+      "priority": 240,
+      "sent_tick": 3001,
+      "deliver_at_tick": 6002,
+      "payload_kind": "contestation",
+      "payload_hash": "sha256:dc76d9bc380c2a7c87f74336315008f29b045c5fa2d1de65b678bcd2cf64f3c9",
+      "payload_bytes": 2024,
+      "payload": {
+        "schema_version": "contestation-v0",
+        "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+        "directive_id": "directive:hydrate-primary-r0",
+        "preserved_goal_id": "goal:characterize-hydrated-candidate",
+        "asset_id": "asset:rover-v0",
+        "autonomy_version": "contract-example-v0",
+        "hazard_id": "hazard:slump-v0",
+        "hazard_class": "terrain",
+        "evidence": [
+          {
+            "artifact_id": "artifact:example-sweep",
+            "artifact_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "media_type": "application/json",
+            "byte_length": 0
+          }
+        ],
+        "confidence_ppm": 1000000,
+        "severity": "significant",
+        "level": 2,
+        "round_trip_ticks": 6000,
+        "time_to_harm_ticks": null,
+        "window_open": true,
+        "alternative_ids": [
+          "alternative:0de958e6ce53fc111c8051b7",
+          "alternative:c0e614ef63258631025e99b3"
+        ],
+        "alternatives": [
+          {
+            "schema_version": "alternative-v0",
+            "alternative_id": "alternative:0de958e6ce53fc111c8051b7",
+            "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+            "kind": "substitute-vantage",
+            "preserved_goal_id": "goal:characterize-hydrated-candidate",
+            "hazard_id": "hazard:slump-v0",
+            "proposed_cell": {
+              "row": 180,
+              "column": 70
+            },
+            "budget_delta": {
+              "duration_ticks": 0,
+              "traverse_mm": 0,
+              "energy_units": 0,
+              "tier2_bytes": 0
+            },
+            "requested_evidence": [
+              "standoff-image",
+              "spectral-characterization",
+              "position-safe",
+              "energy-reserve-met"
+            ],
+            "summary_template_id": "vantage.slice-v0",
+            "summary": "Contract example: substitute-vantage"
+          },
+          {
+            "schema_version": "alternative-v0",
+            "alternative_id": "alternative:c0e614ef63258631025e99b3",
+            "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+            "kind": "substitute-target",
+            "preserved_goal_id": "goal:characterize-hydrated-candidate",
+            "hazard_id": "hazard:slump-v0",
+            "proposed_cell": {
+              "row": 185,
+              "column": 95
+            },
+            "budget_delta": {
+              "duration_ticks": 0,
+              "traverse_mm": 0,
+              "energy_units": 0,
+              "tier2_bytes": 0
+            },
+            "requested_evidence": [
+              "standoff-image",
+              "spectral-characterization",
+              "position-safe",
+              "energy-reserve-met"
+            ],
+            "summary_template_id": "target.slice-v0",
+            "summary": "Contract example: substitute-target",
+            "proposed_entity_id": "target:hydrated-substitute"
+          }
+        ],
+        "disposition": "holding",
+        "created_tick": 3001
+      }
+    },
+    {
+      "schema_version": "channel-message-v0",
+      "message_id": "message:1084b496d24d54a34c6cec22",
+      "run_id": "run:contract-example-v0",
+      "creation_ordinal": 2,
+      "direction": "mission-to-asset",
+      "tier": "tier-1",
+      "priority": 220,
+      "sent_tick": 6012,
+      "deliver_at_tick": 9013,
+      "payload_kind": "directive-revision",
+      "payload_hash": "sha256:ff59b1f2e27c2ed4d73dbabd9eee782bf62b2e44b79765cedcc10503426898cd",
+      "payload_bytes": 1136,
+      "payload": {
+        "schema_version": "directive-v0",
+        "directive_id": "directive:45ae56ef5e26c311eecbaffa",
+        "revision": 1,
+        "supersedes_directive_id": "directive:hydrate-primary-r0",
+        "campaign_id": "campaign:qualification-slice-v0",
+        "author_id": "actor:scripted-team-v0",
+        "asset_id": "asset:rover-v0",
+        "goal": {
+          "goal_id": "goal:characterize-hydrated-candidate",
+          "objective": "Characterize the hydrated-mineral candidate from a safe standoff.",
+          "success_evidence": [
+            "standoff-image",
+            "spectral-characterization",
+            "position-safe",
+            "energy-reserve-met"
+          ]
+        },
+        "target": {
+          "kind": "entity",
+          "entity_id": "target:hydrated-primary"
+        },
+        "operating_envelope": {
+          "min_row": 150,
+          "max_row": 240,
+          "min_column": 20,
+          "max_column": 110
+        },
+        "permitted_substitutions": [
+          "vantage",
+          "target"
+        ],
+        "budget": {
+          "duration_ticks": 20000,
+          "traverse_mm": 200000,
+          "energy_units": 40000,
+          "tier2_bytes": 1000000
+        },
+        "earliest_start_tick": 0,
+        "deadline_tick": 20000,
+        "safe_idle": "hold-position",
+        "confirmed": true,
+        "accepted_alternative": {
+          "contestation_id": "contestation:37543a70cd58a82a7f35aa56",
+          "alternative_id": "alternative:0de958e6ce53fc111c8051b7",
+          "accepted_by": "actor:scripted-team-v0",
+          "accepted_tick": 6012
+        },
+        "observation_cell": {
+          "row": 180,
+          "column": 70
+        }
+      }
+    }
+  ]
+}

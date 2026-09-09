@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/outbound-intent.schema.json",
+  "title": "Endpoint outbound intent before parent scheduling v0",
+  "type": "object",
+  "required": [
+    "direction",
+    "tier",
+    "priority",
+    "sent_tick",
+    "payload_kind",
+    "payload"
+  ],
+  "properties": {
+    "direction": {
+      "const": "asset-to-mission"
+    },
+    "tier": {
+      "enum": [
+        "tier-1",
+        "tier-2"
+      ]
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 255
+    },
+    "sent_tick": {
+      "$ref": "common.schema.json#/$defs/Tick"
+    },
+    "payload_kind": {
+      "enum": [
+        "cleared-directive",
+        "directive-revision",
+        "contestation",
+        "plan-summary",
+        "observation-summary",
+        "observation",
+        "status",
+        "science-artifact",
+        "endpoint-event"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "common.schema.json#/$defs/CanonicalValue"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "enum": [
+              "cleared-directive",
+              "directive-revision"
+            ]
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "mission-to-asset"
+          },
+          "tier": {
+            "const": "tier-1"
+          },
+          "priority": {
+            "const": 220
+          },
+          "payload": {
+            "$ref": "directive.schema.json"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "contestation"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-1"
+          },
+          "priority": {
+            "const": 240
+          },
+          "payload": {
+            "$ref": "contestation.schema.json"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "status"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-1"
+          },
+          "priority": {
+            "const": 230
+          },
+          "payload": {
+            "$ref": "protocol-payload.schema.json#/$defs/Status"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "plan-summary"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-1"
+          },
+          "priority": {
+            "const": 200
+          },
+          "payload": {
+            "$ref": "protocol-payload.schema.json#/$defs/PlanSummary"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "observation-summary"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-1"
+          },
+          "priority": {
+            "const": 180
+          },
+          "payload": {
+            "$ref": "protocol-payload.schema.json#/$defs/ObservationSummary"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "observation"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-2"
+          },
+          "priority": {
+            "const": 160
+          },
+          "payload": {
+            "$ref": "observation.schema.json"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "science-artifact"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-2"
+          },
+          "priority": {
+            "const": 100
+          },
+          "payload": {
+            "$ref": "protocol-payload.schema.json#/$defs/ScienceArtifact"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload_kind": {
+            "const": "endpoint-event"
+          }
+        },
+        "required": [
+          "payload_kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "direction": {
+            "const": "asset-to-mission"
+          },
+          "tier": {
+            "const": "tier-1"
+          },
+          "priority": {
+            "const": 230
+          },
+          "payload": {
+            "$ref": "endpoint-event.schema.json"
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

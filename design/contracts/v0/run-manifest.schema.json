@@ -57,8 +57,16 @@
       "required": ["one_way_latency_ticks", "tier1_bytes_per_tick", "tier2_bytes_per_tick"],
       "properties": {
         "one_way_latency_ticks": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
-        "tier1_bytes_per_tick": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" },
-        "tier2_bytes_per_tick": { "$ref": "common.schema.json#/$defs/NonNegativeInteger" }
+        "tier1_bytes_per_tick": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "tier2_bytes_per_tick": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
       },
       "additionalProperties": false
     },

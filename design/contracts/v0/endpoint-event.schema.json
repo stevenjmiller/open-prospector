@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.openprospector.invalid/v0/endpoint-event.schema.json",
+  "title": "Unchained endpoint audit event v0",
+  "type": "object",
+  "required": [
+    "event_id",
+    "occurred_tick",
+    "actor_id",
+    "subject_id",
+    "event_type",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "occurred_tick": {
+      "$ref": "common.schema.json#/$defs/Tick"
+    },
+    "actor_id": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "subject_id": {
+      "$ref": "common.schema.json#/$defs/Id"
+    },
+    "event_type": {
+      "enum": [
+        "directive-received",
+        "endpoint-state-changed",
+        "classifier-result-consumed",
+        "endpoint-fault"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "directive-received"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "directive.schema.json"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "endpoint-state-changed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "protocol-payload.schema.json#/$defs/StateTransition"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "classifier-result-consumed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "protocol-payload.schema.json#/$defs/ClassifierResult"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "endpoint-fault"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "protocol-payload.schema.json#/$defs/Fault"
+          }
+        }
+      }
+    }
+  ]
+}

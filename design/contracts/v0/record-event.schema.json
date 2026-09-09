@@ -20,12 +20,23 @@
     "recorded_tick": { "$ref": "common.schema.json#/$defs/Tick" },
     "event_type": {
       "enum": [
-        "run-started", "directive-submitted", "gatekeeper-evaluated",
-        "directive-transmitted", "directive-received", "plan-proposed",
-        "contestation-opened", "alternative-accepted", "directive-revised",
-        "endpoint-state-changed", "observation-summarized",
-        "received-belief-updated", "classifier-result-consumed",
-        "checkpoint-created", "run-completed", "run-failed"
+        "run-started",
+        "directive-submitted",
+        "gatekeeper-evaluated",
+        "directive-transmitted",
+        "directive-received",
+        "plan-proposed",
+        "contestation-opened",
+        "alternative-accepted",
+        "directive-revised",
+        "endpoint-state-changed",
+        "observation-summarized",
+        "received-belief-updated",
+        "classifier-result-consumed",
+        "checkpoint-created",
+        "run-completed",
+        "run-failed",
+        "endpoint-fault"
       ]
     },
     "actor_id": { "$ref": "common.schema.json#/$defs/Id" },
