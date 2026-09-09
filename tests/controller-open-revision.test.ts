@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { canonical, type ObjectValue } from '@open-prospector/contracts';
+import { createFixture, drive } from './controller-fixture.js';
+
+test('open-window runtime acceptance rebases the held edge and completes without resetting lineage usage', () => {
+  const context = createFixture({ latency: 0 });
+  const result = drive(context);
+  assert.equal(result.checkpoint.state, 'completed', canonical(result.transitions));
+  const runtime = result.intents.find(intent => intent.payload_kind === 'contestation' && intent.payload.hazard_class === 'obstacle');
+  assert.ok(runtime);
+  assert.equal(runtime.payload.level, 2);
+  assert.equal(runtime.payload.window_open, true);
+  assert.equal(result.recorded.length, 0, 'An open negotiation window does not use the reflex classifier');
+  const holding = result.transitions.find(transition => transition.from === 'executing' && transition.to === 'holding');
+  assert.ok(holding);
+  const heldUsage = holding.budget_used as ObjectValue;
+  assert.ok(Number(heldUsage.traverse_mm) > 0);
+  assert.ok(Number(heldUsage.energy_units) > 0);
+  const receipt = result.intents.find(intent => intent.payload_kind === 'endpoint-event' && intent.payload.event_type === 'directive-received' && ((intent.payload.payload as ObjectValue).accepted_alternative as ObjectValue | undefined)?.contestation_id === runtime.payload.contestation_id);
+  assert.ok(receipt, 'Runtime offer must be accepted and delivered');
+  const revision = receipt.payload.payload as ObjectValue;
+  const resumed = result.transitions.find(transition => transition.from === 'holding' && transition.to === 'planning' && transition.cause_id === revision.directive_id);
+  assert.ok(resumed);
+  const resumedUsage = resumed.budget_used as ObjectValue;
+  for (const counter of ['traverse_mm', 'energy_units', 'tier2_bytes']) assert.equal(resumedUsage[counter], heldUsage[counter], counter);
+  assert.ok(Number(resumedUsage.duration_ticks) > Number(heldUsage.duration_ticks), 'Holding time remains charged');
+  const budget = result.checkpoint.budget as ObjectValue;
+  assert.equal(budget.original_directive_id, context.original.directive_id);
+  assert.equal(budget.submitted_tick, 0);
+  assert.equal(budget.revision, 2);
+  const finalUsage = budget.usage as ObjectValue;
+  assert.ok(Number(finalUsage.traverse_mm) > Number(heldUsage.traverse_mm));
+  assert.ok(Number(finalUsage.energy_units) > Number(heldUsage.energy_units));
+  assert.equal(result.intents.some(intent => intent.payload.event_type === 'endpoint-fault'), false);
+});

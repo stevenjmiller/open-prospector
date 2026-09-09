@@ -12,6 +12,8 @@ before code depends on them. Never use the section symbol.
   issue 5 adds independently tested synthetic-world and observer-belief components.
   Issue 6 adds planner, sensor and lineage-budget components; controller and full
   scenario integration remain later work.
+  Issue 7 adds real endpoint controller/IPC evidence; issue 8 still owns campaign
+  chain integration, delivered-evidence closure and replay acceptance.
 - The lead owns integration, root tooling, shared contracts and spec corrections.
   Delegate only bounded independent work with explicit file ownership. Subagents
   share the checkout unless an isolated worktree was actually created.

@@ -6,6 +6,7 @@ import { Clock, identifier } from '@open-prospector/deterministic';
 import { Channel } from '@open-prospector/channel';
 import { RecordWriter, verifyFile, type Verification } from '@open-prospector/record';
 import { Connection, ProtocolError } from './connection.js';
+export { Connection } from './connection.js';
 
 const repo = fileURLToPath(new URL('../../../', import.meta.url));
 const endpointPath = fileURLToPath(new URL('../../fleet-endpoint/dist/cli.js', import.meta.url));

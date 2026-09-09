@@ -1,6 +1,7 @@
 import { clone, hash, hashBytes, validate, validateFixture, readRasterFile, type Message, type ObjectValue, type RasterLayer } from '@open-prospector/contracts';
 
 export type Observer = 'asset' | 'mission';
+export { evaluateGatekeeper, buildAcceptedRevision, validateAcceptedRevision } from './directives.js';
 export interface Cell { row: number; column: number }
 export interface BeliefCell { known: boolean; obstacle: boolean; elevation_mm: number; uncertainty_mm: number; geofence: boolean; sensed: boolean }
 type ReadRaster = (root: string, layer: RasterLayer) => Buffer;

@@ -4,3 +4,6 @@ export { planDirective, proposeAlternatives } from './alternatives.js';
 export type { KnownTarget, PlanningContext, ScheduledRoute } from './alternatives.js';
 export * from './budget.js';
 export * from './motion.js';
+export * from './state.js';
+export * from './classifier.js';
+export * from './controller.js';

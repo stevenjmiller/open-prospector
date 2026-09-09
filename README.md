@@ -90,6 +90,13 @@ reproduces the frozen vantage, detects the rock before contact and finds a safe
 recovery without refunding movement. See the [planning profile](design/planning-components-profile.md)
 for APIs and limits; controller/clearance/science integration remains separate.
 
+Issue #7 adds the actual v0 endpoint controller. `npm run controller` runs it as
+a child process through delayed negotiation, reflex recovery and mandatory
+onboard science, using a frozen recorded classifier result. See the
+[controller profile](design/controller-profile.md). Its report stops at terminal
+notification; full campaign record, delivered-evidence closure and replay remain
+issue #8. The fake transport runner remains a separate regression fixture.
+
 ## Style
 
 - Never use the section symbol (§). Write "Section 4" or "(4.5)".
