@@ -1,4 +1,4 @@
-import { clone, edgeLength, sweepFootprint, validate, type ObjectValue } from '@open-prospector/contracts';
+import { bresenham, clone, edgeLength, sweepFootprint, validate, type ObjectValue } from '@open-prospector/contracts';
 import type { Cell } from '@open-prospector/belief';
 import type { World } from './index.js';
 
@@ -54,6 +54,26 @@ export function createSensorAdapter(world: World, input: unknown) {
     return clone({ observation, discovered_hazards: discovered, contact });
   }
   return Object.freeze({
+    standoff(from: Cell, target: { cell: Cell; entity_id?: string }, metadata: ObservationMetadata): ObjectValue {
+      if (metadata.asset_id !== assetId) throw new Error('Sensor asset identity mismatch');
+      const path = bresenham(from, target.cell);
+      const sampled = path.map(cell => world.cell(cell.row,cell.column));
+      const visible = sampled.slice(1, -1).every(cell => !cell.obstacle);
+      const squared = BigInt((from.row-target.cell.row)**2+(from.column-target.cell.column)**2)*1000000n;
+      let lo=0n, hi=400000n;
+      while(lo<hi) { const mid=(lo+hi)/2n; if(mid*mid<squared) lo=mid+1n; else hi=mid; }
+      const entity = (scenario.target_entities as ObjectValue[]).find(value => {
+        const cell=value.cell as unknown as Cell;
+        return cell.row===target.cell.row && cell.column===target.cell.column && (target.entity_id === undefined || value.entity_id===target.entity_id);
+      });
+      const observation: ObjectValue = { schema_version:'observation-v0',...metadata,sensor_id:'sensor:standoff-v0',observed_tick:metadata.observed_tick,observation_type:'standoff-image',truth_contact:true,
+        footprint_cells:path.map(cell=>({...cell})).sort(order),belief_patch:[], measurements:[
+          {name:'target_range_mm',value:Number(lo),unit:'mm',uncertainty_ppm:0},
+          {name:'line_of_sight',value:visible,unit:'boolean',uncertainty_ppm:0},
+          {name:'spectral_class',value:visible && entity ? entity.science_class! : 'indeterminate',unit:'class',uncertainty_ppm:0}
+        ] };
+      validate('observation',observation); return clone(observation);
+    },
     sweep(center: Cell, metadata: ObservationMetadata): SensorSample {
       return sample(sweepFootprint(center), 'local-sweep', metadata);
     },
@@ -82,15 +102,4 @@ export function createSensorAdapter(world: World, input: unknown) {
   });
 }
 
-/** Integer-only reflex arithmetic. No classifier or model seam is available. */
-export function reflexWindow(distance_mm: number, speed_mm_per_tick: number, latency_ticks: number) {
-  if (!Number.isSafeInteger(distance_mm) || !Number.isSafeInteger(speed_mm_per_tick) || speed_mm_per_tick < 0
-    || !Number.isSafeInteger(latency_ticks) || latency_ticks < 0) throw new Error('Invalid reflex inputs');
-  const v = BigInt(speed_mm_per_tick);
-  const stopping = v + (v * v + 49n) / 50n;
-  if (stopping > BigInt(Number.MAX_SAFE_INTEGER)) throw new Error('Stopping distance overflow');
-  const margin = BigInt(distance_mm) - stopping;
-  const ticks = margin <= 0n ? 0n : margin / (v > 0n ? v : 1n);
-  return Object.freeze({ distance_mm, speed_mm_per_tick, reaction_ticks: 1, braking_mm_per_tick_squared: 25,
-    latency_ticks, stopping_distance_mm: Number(stopping), T: Number(ticks), window_open: 4n * BigInt(latency_ticks) <= ticks });
-}
+export { reflexWindow } from '@open-prospector/deterministic';

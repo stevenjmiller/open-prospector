@@ -20,6 +20,8 @@ jobs:
       - run: npm run fixture
       - run: node apps/mission-control/dist/cli.js artifacts/ci-run
       - run: node scripts/planning-evidence.mjs artifacts/ci-run/component-planning.json
+      - run: node scripts/controller-evidence.mjs artifacts/ci-run/controller
+      - run: node scripts/campaign.mjs run artifacts/ci-run/campaign
       - uses: actions/upload-artifact@v4
         with:
           name: spine-${{ matrix.os }}
@@ -36,4 +38,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: artifacts/compare
-      - run: node scripts/compare-runs.mjs artifacts/compare/spine-ubuntu-latest artifacts/compare/spine-windows-latest --planning
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/compare-runs.mjs artifacts/compare/spine-ubuntu-latest artifacts/compare/spine-windows-latest --planning --controller --campaign
+      - run: node scripts/campaign.mjs replay artifacts/compare/spine-windows-latest/campaign artifacts/windows-replayed-on-linux

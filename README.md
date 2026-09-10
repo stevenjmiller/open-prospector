@@ -90,6 +90,31 @@ reproduces the frozen vantage, detects the rock before contact and finds a safe
 recovery without refunding movement. See the [planning profile](design/planning-components-profile.md)
 for APIs and limits; controller/clearance/science integration remains separate.
 
+Issue #7 adds the actual v0 endpoint controller. `npm run controller` runs it as
+a child process through delayed negotiation, reflex recovery and mandatory
+onboard science, using a frozen recorded classifier result. See the
+[controller profile](design/controller-profile.md). Its report stops at terminal
+notification; full campaign record, delivered-evidence closure and replay remain
+issue #8. The fake transport runner remains a separate regression fixture.
+
+## Full synthetic campaign and human testing
+
+Issue #8 archives the real controller's delayed negotiation, reflex recovery and
+delivered science, closes the campaign record and supports exact replay:
+
+```text
+npm run campaign -- run artifacts/campaign-run
+npm run campaign -- verify artifacts/campaign-run
+npm run campaign -- audit artifacts/campaign-run
+npm run campaign -- replay artifacts/campaign-run artifacts/campaign-replay
+```
+
+Follow the [human testing tutorial](design/human-testing.md) for a guided run,
+expected transitions, budget interpretation, science inspection and a deliberate
+corruption test. The [campaign profile](design/campaign-profile.md) explains the
+archive and its verification limits. The real-data and facilitated human-check
+gates remain issues #9 and #10.
+
 ## Style
 
 - Never use the section symbol (§). Write "Section 4" or "(4.5)".

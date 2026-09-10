@@ -6,6 +6,10 @@ import { Clock, identifier } from '@open-prospector/deterministic';
 import { Channel } from '@open-prospector/channel';
 import { RecordWriter, verifyFile, type Verification } from '@open-prospector/record';
 import { Connection, ProtocolError } from './connection.js';
+export { Connection } from './connection.js';
+export { runCampaign } from './campaign.js';
+export { defaultCampaignInputs } from './campaign-inputs.js';
+export { verifyCampaign, auditCampaign } from './campaign-audit.js';
 
 const repo = fileURLToPath(new URL('../../../', import.meta.url));
 const endpointPath = fileURLToPath(new URL('../../fleet-endpoint/dist/cli.js', import.meta.url));
@@ -174,6 +178,12 @@ export async function archivedInputs(bundle: string): Promise<Inputs> {
 }
 export async function verifyBundle(bundle: string): Promise<Verification> {
   const inputs = await archivedInputs(bundle); checkInputs(inputs);
+  await verifyArchiveIdentity(bundle, inputs);
+  const verification = verifyFile(join(bundle, 'events.ndjson'));
+  if (hash(verification.events[0]?.payload) !== hash(inputs.manifest)) throw new Error('Bundle manifest mismatch');
+  return verifySpineEvidence(bundle, inputs, verification);
+}
+export async function verifyArchiveIdentity(bundle: string, inputs: Inputs): Promise<void> {
   const buildText = await readFile(join(bundle, 'build-identity.json'), 'utf8');
   if (!buildText.endsWith('\n')) throw new Error('Incomplete build identity');
   const build = parseCanonical(buildText.slice(0, -1)) as ObjectValue;
@@ -186,8 +196,8 @@ export async function verifyBundle(bundle: string): Promise<Verification> {
     if ((await readFile(join(bundle, 'schemas', name), 'utf8')).replace(/\r\n/g, '\n') !== sources['design/contracts/v0/' + name]) throw new Error('Archived schema mismatch');
   }
   if ((await readFile(join(bundle, 'package-lock.json'), 'utf8')).replace(/\r\n/g, '\n') !== sources['package-lock.json']) throw new Error('Archived dependency lock mismatch');
-  const verification = verifyFile(join(bundle, 'events.ndjson'));
-  if (hash(verification.events[0]?.payload) !== hash(inputs.manifest)) throw new Error('Bundle manifest mismatch');
+}
+async function verifySpineEvidence(bundle: string, inputs: Inputs, verification: Verification): Promise<Verification> {
   if (verification.status === 'completed') {
     const text = await readFile(join(bundle, 'observation.json'), 'utf8');
     if (!text.endsWith('\n')) throw new Error('Incomplete observation artifact');

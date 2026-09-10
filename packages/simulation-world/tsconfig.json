@@ -6,6 +6,9 @@
     },
     {
       "path": "../belief"
+    },
+    {
+      "path": "../deterministic"
     }
   ],
   "compilerOptions": {

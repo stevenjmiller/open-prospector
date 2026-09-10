@@ -1,0 +1,1 @@
+[{"input_hash":"sha256:aa43863b26f307e2a651e57e0c62ef8a06fbaff4282063526f76561250f9aee6","output":{"confidence_ppm":900000,"label":"rock","model_id":"model:stub-rock-v0"},"output_hash":"sha256:c8b9d791c6382ab2592d5bdc23ab5bfbce84d84b562bb6475f27c807e9189549","seam_id":"seam:rock-classifier-v0"}]

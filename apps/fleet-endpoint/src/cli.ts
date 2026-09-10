@@ -1,6 +1,6 @@
 import { canonical, FrameDecoder, hash, hashBytes, validate, type ObjectValue, type Json, type Message } from '@open-prospector/contracts';
 import { identifier, add } from '@open-prospector/deterministic';
-import { implementationVersion } from './index.js';
+import { implementationVersion, createRuntime } from './index.js';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -10,6 +10,7 @@ let run = ''; let tick = 0; let ordinal = 0; let directive: ObjectValue | null =
 let state = 'idle'; let terminalTick: number | null = null;
 let fixture: ObjectValue;
 const seen = new Set<string>();
+let runtime:ReturnType<typeof createRuntime>|null=null;
 const emit = (frame: ObjectValue): void => { validate('ipc-frame', frame); process.stdout.write(canonical(frame) + '\n'); };
 function intent(kind: string, payload: ObjectValue, tier = 'tier-1', priority = 230): void {
   emit({ frame: 'emit', intent: { direction: 'asset-to-mission', tier, priority, sent_tick: tick, payload_kind: kind, payload } });
@@ -46,6 +47,11 @@ function handle(frame: ObjectValue): void {
     if (run) throw new Error('Duplicate init');
     const manifest = frame.run_manifest as ObjectValue;
     validate('run-manifest', manifest);
+    if((frame.scenario as ObjectValue).schema_version==='scenario-v0') {
+      if(mode!=='normal') throw new Error('Fault injection modes belong to the fake transport fixture');
+      runtime=createRuntime(frame); run=String(manifest.run_id); tick=runtime.tick;
+      emit({frame:'ready',run_id:run}); return;
+    }
     fixture = JSON.parse(readFileSync(join(String(frame.fixture_root), 'fixture.json'), 'utf8')) as ObjectValue;
     if (hash(fixture) !== manifest.fixture_hash || fixture.implementation !== implementationVersion) throw new Error('Fake fixture mismatch');
     run = String(manifest.run_id); tick = Number((manifest.clock as ObjectValue).start_tick);
@@ -53,6 +59,20 @@ function handle(frame: ObjectValue): void {
     emit({ frame: 'ready', run_id: mode === 'wrong-ready' ? 'run:wrong' : run }); return;
   }
   if (!run) throw new Error('Missing init');
+  if(runtime) {
+    if(frame.frame==='advance') {
+      for(const value of runtime.advance(Number(frame.to_tick),frame.deliveries as unknown as Message[])) emit({frame:'emit',intent:value as unknown as ObjectValue});
+      emit({frame:'done',at_tick:runtime.tick}); return;
+    }
+    if(frame.frame==='checkpoint') {
+      if(frame.at_tick!==runtime.tick) throw new Error('Wrong checkpoint tick');
+      emit({frame:'checkpoint-result',at_tick:runtime.tick,state_hash:hash(runtime.checkpoint())}); return;
+    }
+    if(frame.frame==='shutdown') {
+      emit({frame:'stopped',at_tick:runtime.tick}); process.stdin.pause(); process.stdin.destroy(); return;
+    }
+    throw new Error('Unexpected controller request');
+  }
   if (frame.frame === 'advance') {
     if (frame.to_tick !== add(tick, 1)) throw new Error('Nonconsecutive tick');
     tick = Number(frame.to_tick);

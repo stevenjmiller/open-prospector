@@ -2,7 +2,8 @@
   "name": "@open-prospector/simulation-world",
   "dependencies": {
     "@open-prospector/contracts": "0.0.0",
-    "@open-prospector/belief": "0.0.0"
+    "@open-prospector/belief": "0.0.0",
+    "@open-prospector/deterministic": "0.0.0"
   },
   "type": "module",
   "version": "0.0.0",
