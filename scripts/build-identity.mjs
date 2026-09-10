@@ -7,7 +7,7 @@ async function walk(path) {
     if (['dist', 'node_modules', 'schemas'].includes(entry.name)) continue;
     const name = path + '/' + entry.name;
     if (entry.isDirectory()) await walk(name);
-    else if (/\.(ts|json|mjs|py|txt)$/.test(name) && !name.endsWith('.tsbuildinfo') && !name.endsWith('/source-label.txt')) sources[name] = (await readFile(name, 'utf8')).replace(/\r\n/g, '\n');
+    else if (/\.(ts|json|mjs|js|css|html|py|txt)$/.test(name) && !name.endsWith('.tsbuildinfo') && !name.endsWith('/source-label.txt')) sources[name] = (await readFile(name, 'utf8')).replace(/\r\n/g, '\n');
   }
 }
 for (const path of ['packages', 'apps', 'scripts', 'fixtures/spine-v0', 'fixtures/controller-v0', 'fixtures/candor-sw-v0', 'design/contracts/v0']) await walk(path);

@@ -33,7 +33,10 @@ The following work packages use the shared contracts and ordered gates below:
 6. synthetic fixture generation;
 7. HiRISE fixture materialization after the data-preparation prerequisite.
 
-The interactive client, Blender worker, campaign rehearsal sampling, account
+PC9 subsequently permits the local read-only archive viewer described in
+`archive-viewer-profile.md`; the headless runtime remains unchanged.
+
+The command-capable interactive client, Blender worker, campaign rehearsal sampling, account
 identity, signing infrastructure, real classifier calls, and real-time engine
 remain out of scope. No work package may silently add them.
 

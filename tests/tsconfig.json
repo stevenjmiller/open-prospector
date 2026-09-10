@@ -1,6 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "references": [
+    { "path": "../apps/archive-viewer" },
     {
       "path": "../packages/contracts"
     },

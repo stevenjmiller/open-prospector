@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "references": [
+    { "path": "../../packages/contracts" },
+    { "path": "../../packages/belief" },
+    { "path": "../mission-control" }
+  ],
+  "compilerOptions": { "outDir": "dist", "rootDir": "src" },
+  "include": ["src/**/*.ts"]
+}

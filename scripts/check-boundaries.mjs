@@ -6,6 +6,7 @@ const allowed = {
   belief: ['contracts','deterministic'], 'simulation-world': ['contracts','deterministic','belief'],
   autonomy: ['contracts','deterministic','belief'],
   'mission-control': ['contracts','deterministic','belief','channel','record'],
+  'archive-viewer': ['contracts','belief','mission-control'],
   'fleet-endpoint': ['contracts','deterministic','belief','autonomy','simulation-world']
 };
 export function checkImport(owner, specifier, sourcePath, directory, dependencies) {
