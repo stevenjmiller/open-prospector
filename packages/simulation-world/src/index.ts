@@ -1,5 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+export { createSensorAdapter, reflexWindow } from './sensors.js';
+export type { ObservationMetadata, MotionPose, VisibleHazard, SensorSample } from './sensors.js';
 import {
   hashBytes, validateFixture, validateRaster, readRasterFile
 } from '@open-prospector/contracts';

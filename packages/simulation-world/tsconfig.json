@@ -1,6 +1,21 @@
 {
   "extends": "../../tsconfig.base.json",
-  "references": [{ "path": "../contracts" }],
-  "compilerOptions": { "outDir": "dist", "rootDir": "src" },
-  "include": ["src/**/*.ts"]
+  "references": [
+    {
+      "path": "../contracts"
+    },
+    {
+      "path": "../belief"
+    },
+    {
+      "path": "../deterministic"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
 }

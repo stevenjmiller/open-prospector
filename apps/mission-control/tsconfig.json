@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "references": [
+    { "path": "../../packages/belief" },
     {
       "path": "../../packages/contracts"
     },

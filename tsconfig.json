@@ -27,6 +27,9 @@
     },
     {
       "path": "packages/simulation-world"
+    },
+    {
+      "path": "packages/autonomy"
     }
   ]
 }

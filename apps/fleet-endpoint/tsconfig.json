@@ -6,6 +6,15 @@
     },
     {
       "path": "../../packages/deterministic"
+    },
+    {
+      "path": "../../packages/belief"
+    },
+    {
+      "path": "../../packages/autonomy"
+    },
+    {
+      "path": "../../packages/simulation-world"
     }
   ],
   "compilerOptions": {
