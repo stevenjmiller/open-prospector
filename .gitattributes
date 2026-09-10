@@ -10,3 +10,4 @@
 *.mjs text eol=lf
 *.yml text eol=lf
 *.py text eol=lf
+fixtures/candor-sw-v0/* -text

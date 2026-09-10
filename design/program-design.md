@@ -1,6 +1,6 @@
 # Open Prospector — Program Design (Living Document)
 
-**Version:** v0.20
+**Version:** v0.21
 **Started:** 2026-07-28
 **Scope:** program-level design — the institutional, economic, and
 mission-assurance skeleton of the Open Prospector program. Software design
@@ -51,6 +51,7 @@ designed in the standalone paper (master Q18, ADVANCED).
 | PC5 | v0.17 → v0.18 | **2026-09-09: specify executable planning component boundaries.** Issue #6 implements the frozen planner, alternatives, sensor geometry and lineage budget. planning-components-profile.md records centre-based sensor range versus boundary-based contact distance, Euclidean standoff eligibility, resource-constrained route labels, and exact last-step timing. Fixed synthetic golden assertions remain unchanged; controller/clearance/science acceptance remains separate. No program policy is adopted. |
 | PC6 | v0.18 → v0.19 | **2026-09-09: define executable controller evidence and missing runtime details.** Issue #7 adds guarded endpoint transitions, exact accepted revisions, terminal pose preservation, budget-versus-policy failure distinction, and a replay-only classifier. controller-profile.md specifies time-limit precedence, held-edge revision rebasing, synthetic standoff sampling and the detection-observation hash used by the frozen classifier record. Controller success means mandatory onboard evidence was emitted; delivered campaign closure/replay remains #8. Program policy and existing golden terrain/planner assertions are unchanged. |
 | PC7 | v0.19 → v0.20 | **2026-09-09: define full synthetic campaign archive validation.** Issue #8 binds delivered telemetry, all fixture layers, observation/science artifacts and source identity to an independently checked campaign archive. campaign-profile.md distinguishes onboard terminal time from queue-drained closure, verifies evidence before success, preserves replay manifests and keeps actual host reports outside the chain. Human testing instructions are an engineering walkthrough, not the issue #10 participant gate. No random draws, policy adoption or physical-rover claims are introduced. |
+| PC8 | v0.20 → v0.21 | **2026-09-10: reconcile Candor source precision and preparation custody.** The downloaded PDS label specifies 1.0115995086777 m/pixel, not exactly the catalog-rounded 1.01 m/pixel. Preserve the exact value and affine/CRS in hashed preparation metadata; the manifest uses its nearest integer millimetre value, 1012. Retain one source pixel per 1000 mm prototype cell, no rotation, and unchanged source elevations rounded half-away-from-zero. Compute the southwest crop origin for provenance only. Materialized manifests require non-null source/crop/layer identities and a hashed preparation sidecar. Crop approval remains the explicit issue #9 human gate. |
 
 ## Open Questions Register (PQ)
 
@@ -1000,6 +1001,8 @@ The [controller profile](controller-profile.md) records executable state,
 authority, classifier and science rules and its component closure limits (PC6).
 The [campaign profile](campaign-profile.md) defines delivered closure and replay,
 with a [human testing tutorial](human-testing.md) for engineering review (PC7).
+The [reviewed Candor fixture](../fixtures/candor-sw-v0/README.md) records the
+approved real-data crop and its source/tool custody (PC8).
 
 ---
 
@@ -1145,3 +1148,7 @@ with a [human testing tutorial](human-testing.md) for engineering review (PC7).
 - **2026-09-09 (v0.20):** Integrated issue 8 synthetic campaign archiving,
   independent audit and exact replay. PC7 records archive boundaries; the human
   tutorial explains decisions, delayed evidence and verification failures.
+
+- **2026-09-10 (v0.21):** Materialized Candor crop B after Steve approved its
+  moderate ridges and 30.6 m relief. PC8 records exact source scale and hashed
+  preparation provenance. Runtime and observer checks use the existing loaders.

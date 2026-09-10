@@ -17,7 +17,9 @@ before code depends on them. Never use the section symbol.
   Issue 8 adds the separate synthetic-campaign-v0 archive and human walkthrough.
   Use `npm run campaign -- run <new-directory>` for the full synthetic run;
   `verify`, `audit`, and `replay` check its artifacts and explain decisions.
-  Terrain ingestion and the facilitated participant gate remain issues 9 and 10.
+  Issue 9 supplies the reviewed Candor fixture; `npm run terrain` verifies it.
+  Never alter reviewed crop offsets, source/tool identities or frozen layer hashes
+  to rescue a test. The facilitated participant gate remains issue 10.
 - The lead owns integration, root tooling, shared contracts and spec corrections.
   Delegate only bounded independent work with explicit file ownership. Subagents
   share the checkout unless an isolated worktree was actually created.

@@ -66,3 +66,11 @@ requirements. Its completion is an explicitly fake evidence-delivery test.
 The implementation package should compile schemas once, expose one validator per
 top-level artifact, and run all example documents through those validators in
 continuous integration.
+
+## Materialized terrain provenance
+
+PC8 adds a required hashed `preparation.json` reference for `status: materialized`.
+Such manifests also require non-null source, crop-offset and layer hashes.
+Synthetic manifests keep their existing representation. Preparation metadata is
+verified by terrain tooling; observer loaders retain access to only their own
+initial layers and public geofence.

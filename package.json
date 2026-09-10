@@ -23,7 +23,8 @@
     "fixture": "npm run build && node scripts/materialize-synthetic.mjs",
     "planning": "npm run build && node scripts/planning-evidence.mjs",
     "controller": "npm run build && node scripts/controller-evidence.mjs",
-    "campaign": "npm run build && node scripts/campaign.mjs"
+    "campaign": "npm run build && node scripts/campaign.mjs",
+    "terrain": "npm run build && node scripts/verify-candor.mjs"
   },
   "devDependencies": {
     "typescript": "5.9.3",

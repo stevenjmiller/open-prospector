@@ -112,8 +112,15 @@ npm run campaign -- replay artifacts/campaign-run artifacts/campaign-replay
 Follow the [human testing tutorial](design/human-testing.md) for a guided run,
 expected transitions, budget interpretation, science inspection and a deliberate
 corruption test. The [campaign profile](design/campaign-profile.md) explains the
-archive and its verification limits. The real-data and facilitated human-check
-gates remain issues #9 and #10.
+archive and its verification limits. The facilitated human-check gate remains #10.
+
+## Reviewed Candor terrain
+
+Issue #9 adds the approved HiRISE-derived crop and eleven scoped rasters.
+Run `npm run terrain` to verify the source, preparation and layer identities and
+load both observer views. No GDAL installation or download is needed for this
+check. See the [crop preview and preparation instructions](fixtures/candor-sw-v0/README.md).
+The existing campaign command continues to use its frozen synthetic scenario.
 
 ## Style
 
