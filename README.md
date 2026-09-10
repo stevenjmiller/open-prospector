@@ -116,17 +116,23 @@ archive and its verification limits. The facilitated human-check gate remains #1
 
 ## Visual archive viewer
 
-Open an existing completed campaign in the local browser viewer:
+Browse your campaign runs in the local web library:
 
 ```text
-npm run viewer -- artifacts/human-run-1
+npm run viewer
 ```
 
-Open the printed localhost address. Compare **Rover** and **Mission control** at
+Open the printed localhost address, search the archive cards, and choose a run.
+The library scans `artifacts`, including nested campaign folders. Create another
+run with `npm run campaign -- run artifacts/human-run-2`, then click **Refresh runs**
+to open it without restarting the server. Use a new directory name for each run.
+An optional root and port select another collection: `npm run viewer -- <archive-root> 4174`.
+
+Compare **Rover** and **Mission control** at
 the same tick, follow the decision chapters, and inspect the map and science.
 The server verifies the archive first. Routes are proposed plans; the archive
 does not contain a continuous position trace. Use the synthetic campaign archive
-from the tutorial, or create a new one with `npm run campaign -- run <new-directory>`.
+from the tutorial or any other completed synthetic campaign.
 See the [viewer guide](design/archive-viewer-profile.md) for timing, controls and limits.
 
 ## Reviewed Candor terrain

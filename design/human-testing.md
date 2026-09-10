@@ -7,13 +7,25 @@ automatically. Budget energy is an integer simulation unit, not joules.
 
 ## Quick visual walkthrough
 
-If you already ran `artifacts/human-run-1`, use that archive:
+Start the run library:
 
 ```powershell
-npm run viewer -- artifacts/human-run-1
+npm run viewer
 ```
 
-Open `http://127.0.0.1:4173`. Then try three comparisons:
+Open `http://127.0.0.1:4173` and choose your archive, such as `human-run-1`.
+Every card opens its own verified run. To inspect a new run:
+
+```powershell
+npm run campaign -- run artifacts/human-run-2
+```
+
+Click **Refresh runs**, then choose `human-run-2`. Use a fresh directory name if
+that one already exists. You can switch back to `human-run-1` from the same page;
+each opening resets time and verifies the selected archive. Search narrows the
+library when you have many runs.
+
+Within either run, try three comparisons:
 
 1. **Offer reaches mission:** compare Rover and Mission control at the same
    tick. The concern is available before the full observation changes mission's

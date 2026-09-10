@@ -1,17 +1,17 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
-import { type Archive } from './index.js';
+import { CatalogError, type Catalog } from './catalog.js';
 
 /** Loopback-only, fixed routes, no archive filesystem route and no mutations. */
-export async function serveArchive(archive: Archive, port = 4173) {
+export async function serveCatalog(catalog: Catalog, port = 4173) {
   if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error('Invalid port');
   const staticFiles = new Map<string, { bytes: Buffer; type: string }>();
   for (const [route, file, type] of [['/', 'index.html', 'text/html'], ['/viewer.js', 'viewer.js', 'text/javascript'], ['/viewer.css', 'viewer.css', 'text/css']]) {
     staticFiles.set(route!, { bytes: await readFile(new URL('../public/' + file, import.meta.url)), type: type! + '; charset=utf-8' });
   }
   let origin = '';
-  const server = createServer((req, res) => {
+  const server = createServer(async (req, res) => {
     const send = (status: number, value: Buffer | object, type = 'application/json; charset=utf-8') => {
       let body = Buffer.isBuffer(value) ? value : Buffer.from(JSON.stringify(value));
       res.statusCode = status;
@@ -28,17 +28,21 @@ export async function serveArchive(archive: Archive, port = 4173) {
       const url = new URL(req.url ?? '/', origin);
       const file = staticFiles.get(url.pathname);
       if (file && !url.search) { send(200, file.bytes, file.type); return; }
-      if (url.pathname === '/api/session' && !url.search) { send(200, archive.session()); return; }
+      if (url.pathname === '/api/runs' && !url.search) { send(200, await catalog.list()); return; }
+      if (url.pathname === '/api/session') {
+        if ([...url.searchParams.keys()].length !== 1 || !url.searchParams.has('run')) { send(400, { error: 'Choose a run from the catalog.' }); return; }
+        send(200, await catalog.session(url.searchParams.get('run')!)); return;
+      }
       if (url.pathname === '/api/view') {
         const keys = [...url.searchParams.keys()];
         const tick = url.searchParams.get('tick'), observer = url.searchParams.get('observer');
-        if (keys.length !== 2 || !keys.includes('tick') || !keys.includes('observer') || !/^(0|[1-9]\d*)$/.test(tick ?? '') || (observer !== 'asset' && observer !== 'mission')) {
-          send(400, { error: 'Use one integer tick and one observer (asset or mission).' }); return;
+        if (keys.length !== 4 || !['run', 'snapshot', 'tick', 'observer'].every(key => keys.includes(key)) || !/^(0|[1-9]\d*)$/.test(tick ?? '') || (observer !== 'asset' && observer !== 'mission')) {
+          send(400, { error: 'Choose a run snapshot, integer tick and observer (asset or mission).' }); return;
         }
-        send(200, archive.view(Number(tick), observer)); return;
+        send(200, catalog.view(url.searchParams.get('run')!, url.searchParams.get('snapshot')!, Number(tick), observer)); return;
       }
       send(404, { error: 'Not found.' });
-    } catch { send(400, { error: 'Unable to show this tick. Choose a tick within the archive.' }); }
+    } catch (error) { send(error instanceof CatalogError ? error.status : 400, { error: error instanceof CatalogError ? error.message : 'Unable to show this request. Choose a tick within the archive, or refresh the catalog.' }); }
   });
   await new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', () => { server.off('error', reject); resolve(); }); });
   const address = server.address();

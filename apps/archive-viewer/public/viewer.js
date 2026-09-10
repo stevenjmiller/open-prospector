@@ -4,6 +4,7 @@ const number = value => Number(value).toLocaleString(undefined, { maximumFractio
 const words = value => String(value ?? 'Not recorded').replaceAll('-', ' ').replaceAll('_', ' ');
 const node = (tag, text, className) => { const element = document.createElement(tag); if (text !== undefined) element.textContent = text; if (className) element.className = className; return element; };
 let session, view, observer = 'asset', tick = 0, fullMap = false, selected = null, bounds, requestId = 0, controller, playing = false, playTimer, sliderTimer;
+let runs = [], activeRunId = null, runGeneration = 0, sessionController, catalogRequest = 0;
 const canvas = $('map');
 const context = canvas.getContext('2d');
 function time(value) { const seconds = value * (session?.tick_ms ?? 100) / 1000; return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${(seconds % 60).toFixed(1).padStart(4, '0')}`; }
@@ -12,23 +13,28 @@ function empty(container, text) { container.replaceChildren(node('p', text, 'emp
 function pause() { playing = false; clearTimeout(playTimer); clearTimeout(sliderTimer); $('play').replaceChildren(node('span', '▶ Play')); $('play').setAttribute('aria-label', 'Play event steps'); }
 function fail(error) {
   pause();
+  if (error.status === 410) { $('run-workspace').hidden = true; session = null; view = null; $('archive-name').textContent = 'Snapshot expired'; $('fixture-name').textContent = 'Choose this run again to reopen it.'; renderRuns(); }
   if (view) { tick = view.tick; observer = view.observer; $('timeline').value = String(tick); $('time').textContent = time(tick); $('tick').textContent = `Tick ${number(tick)}`; render(); }
   $('error').hidden = false; $('error').textContent = `Unable to display the requested archive view. ${error.message}${view ? ` Still showing ${view.observer === 'asset' ? 'rover' : 'mission control'} knowledge at tick ${number(view.tick)}.` : ''}`;
   $('verification').textContent = 'View request failed'; $('verification').className = 'badge failed'; $('workspace').setAttribute('aria-busy', 'false');
 }
-async function json(url, signal) { const response = await fetch(url, { signal, cache: 'no-store' }); const data = await response.json(); if (!response.ok || data.error) throw new Error(data.error || `Request failed (${response.status})`); return data; }
+async function json(url, signal) { const response = await fetch(url, { signal, cache: 'no-store' }); const data = await response.json(); if (!response.ok || data.error) { const error = new Error(data.error || `Request failed (${response.status})`); error.status = response.status; throw error; } return data; }
 async function load(at = tick, requestedObserver = observer) {
+  if (!session) return;
+  const currentSession = session, generation = runGeneration;
   const requestedTick = Math.max(0, Math.min(session.max_tick, Math.round(Number(at) || 0)));
   const id = ++requestId; controller?.abort(); controller = new AbortController();
   $('workspace').setAttribute('aria-busy', 'true'); $('timeline').value = String(requestedTick); $('tick').textContent = `${view ? `Showing tick ${number(view.tick)} · ` : ''}loading ${requestedObserver === 'asset' ? 'rover' : 'mission'} tick ${number(requestedTick)}…`;
   try {
-    const next = await json(`/api/view?tick=${requestedTick}&observer=${requestedObserver}`, controller.signal);
-    if (id !== requestId) return;
+    const query = new URLSearchParams({ run: currentSession.archive_id, snapshot: currentSession.snapshot_id, tick: String(requestedTick), observer: requestedObserver });
+    const next = await json(`/api/view?${query}`, controller.signal);
+    if (id !== requestId || generation !== runGeneration) return;
+    if (next.archive_id !== currentSession.archive_id || next.snapshot_id !== currentSession.snapshot_id) throw new Error('Archive response did not match the selected run. Reopen the run.');
     view = next; tick = next.tick; observer = next.observer; $('error').hidden = true; $('workspace').setAttribute('aria-busy', 'false'); $('timeline').value = String(tick); $('time').textContent = time(tick); $('tick').textContent = `Tick ${number(tick)}`;
     $('verification').textContent = '✓ Verified complete archive'; $('verification').className = 'badge verified';
     render();
     if (playing) { if (view.next_tick !== null && view.next_tick > tick) playTimer = setTimeout(() => load(view.next_tick), 1100); else pause(); }
-  } catch (error) { if (error.name !== 'AbortError' && id === requestId) fail(error); }
+  } catch (error) { if (error.name !== 'AbortError' && id === requestId && generation === runGeneration) fail(error); }
 }
 function render() {
   $('asset').setAttribute('aria-pressed', String(observer === 'asset')); $('mission').setAttribute('aria-pressed', String(observer === 'mission'));
@@ -134,11 +140,53 @@ $('previous').addEventListener('click', () => { if (view?.previous_tick != null)
 $('end').addEventListener('click', () => { if (session) { pause(); load(session.max_tick); } });
 $('play').addEventListener('click', () => { if (!view) return; if (playing) return pause(); playing = true; $('play').textContent = 'Ⅱ Pause'; $('play').setAttribute('aria-label', 'Pause event steps'); load(tick >= session.max_tick ? 0 : tick); });
 new ResizeObserver(draw).observe(canvas.parentElement);
-async function initialize() {
-  try { session = await json('/api/session'); $('archive-name').textContent = session.archive_name; $('fixture-name').textContent = session.fixture_id; $('timeline').max = String(session.max_tick); $('timeline').disabled = false;
-    for (const chapter of session.chapters) { const button = node('button', chapter.label); button.addEventListener('click', () => { pause(); load(chapter.tick); }); $('chapters').append(button); }
-    for (const [label, value] of [['Run', session.run_id], ['Fixture', session.fixture_id], ['Chain head', session.chain_head], ['Archive status', session.status]]) $('identity').append(node('dt', label), node('dd', value));
-    for (const limit of session.limits) $('limits').append(node('li', limit)); await load(0);
-  } catch (error) { fail(error); }
+function renderRuns() {
+  const search = $('run-search').value.trim().toLowerCase(); const list = $('run-list'); list.replaceChildren();
+  const matches = runs.filter(run => [run.name, run.run_id, run.fixture_id].some(value => String(value ?? '').toLowerCase().includes(search)));
+  for (const run of matches) {
+    const button = node('button', undefined, 'run-card'); button.setAttribute('aria-pressed', String(run.id === activeRunId));
+    button.append(node('strong', run.name), node('span', run.fixture_id ?? 'Terrain not identified'));
+    if (run.run_id) button.append(node('span', run.run_id));
+    if (run.modified_at) { const date = new Date(run.modified_at); if (!Number.isNaN(date.getTime())) button.append(node('span', `Modified ${date.toLocaleString()}`)); }
+    const status = view && session?.archive_id === run.id ? 'Viewing verified snapshot · Reopen' : run.kind === 'campaign' ? 'Not verified · Open archive' : run.kind === 'unsupported' ? 'Unsupported archive format' : 'Unreadable archive metadata';
+    button.append(node('span', status, 'run-status'));
+    button.disabled = run.kind !== 'campaign'; button.addEventListener('click', () => openRun(run.id)); list.append(button);
+  }
+  if (runs.length && !matches.length) list.append(node('p', 'No runs match this search.', 'empty'));
+  $('library-empty').hidden = runs.length !== 0;
 }
-initialize();
+async function refreshRuns() {
+  const id = ++catalogRequest; $('refresh-runs').disabled = true; $('library-status').textContent = 'Looking for archives…';
+  try { const catalog = await json('/api/runs'); if (id !== catalogRequest) return; runs = catalog.runs; $('library-root').textContent = `In ${catalog.root_name}`; renderRuns(); $('library-status').textContent = `${runs.length} archive folders${catalog.truncated ? ' · Listing limit reached; some folders are not shown.' : ''}`; }
+  catch (error) { if (id === catalogRequest) $('library-status').textContent = `Unable to refresh the run library. ${error.message}`; }
+  finally { if (id === catalogRequest) $('refresh-runs').disabled = false; }
+}
+async function openRun(id) {
+  pause(); controller?.abort(); sessionController?.abort(); ++requestId; const generation = ++runGeneration;
+  sessionController = new AbortController(); activeRunId = id; session = null; view = null; tick = 0; observer = 'asset'; selected = null; bounds = null; fullMap = false;
+  $('run-workspace').hidden = true; $('error').hidden = true; $('verification').textContent = 'Verifying archive…'; $('verification').className = 'badge';
+  const name = runs.find(run => run.id === id)?.name ?? 'Selected archive'; $('archive-name').textContent = name; $('fixture-name').textContent = 'Verifying the archive before opening…'; renderRuns();
+  $('announcement').textContent = `Verifying ${name}.`;
+  try {
+    const opened = await json(`/api/session?${new URLSearchParams({ run: id })}`, sessionController.signal);
+    if (generation !== runGeneration) return;
+    if (opened.archive_id !== id) throw new Error('Archive identity did not match the selected folder.');
+    session = opened; $('archive-name').textContent = name; $('fixture-name').textContent = session.fixture_id;
+    $('timeline').max = String(session.max_tick); $('timeline').value = '0'; $('timeline').disabled = false; $('time').textContent = time(0); $('tick').textContent = 'Tick 0';
+    $('full-map').setAttribute('aria-pressed', 'false'); $('mission-area').setAttribute('aria-pressed', 'true'); $('cell-coordinate').textContent = ''; $('cell-value').textContent = 'Click the map or enter a row and column.'; document.querySelector('.cell-details').open = false;
+    for (const container of ['chapters', 'identity', 'limits', 'decisions', 'observations', 'events']) $(container).replaceChildren();
+    for (const chapter of session.chapters) { const button = node('button', chapter.label); button.addEventListener('click', () => { pause(); load(chapter.tick); }); $('chapters').append(button); }
+    for (const [label, value] of [['Archive folder', name], ['Run', session.run_id], ['Fixture', session.fixture_id], ['Chain head', session.chain_head], ['Archive status', session.status]]) $('identity').append(node('dt', label), node('dd', value));
+    for (const limit of session.limits) $('limits').append(node('li', limit));
+    await load(0);
+    if (generation === runGeneration && view) { $('run-workspace').hidden = false; renderRuns(); draw(); }
+  } catch (error) {
+    if (error.name === 'AbortError' || generation !== runGeneration) return;
+    session = null; view = null; $('verification').textContent = 'Archive unavailable'; $('verification').className = 'badge failed'; $('fixture-name').textContent = 'This archive could not be opened.';
+    $('error').hidden = false; $('error').textContent = `${name} is unavailable. ${error.message} Choose another run, or fix the archive and open it again.`;
+  }
+}
+$('refresh-runs').addEventListener('click', refreshRuns);
+$('run-search').addEventListener('input', renderRuns);
+$('archive-name').textContent = 'No archive selected'; $('fixture-name').textContent = 'Choose a run below.'; $('verification').textContent = 'Run library';
+refreshRuns();

@@ -3,7 +3,8 @@ import { basename, join, resolve } from 'node:path';
 import { clone, validateFixture, readRasterFile, type Message, type ObjectValue, type RecordEvent } from '@open-prospector/contracts';
 import { loadAssetFixture, loadMissionFixture, projectScenario, type Observer, type Cell } from '@open-prospector/belief';
 import { verifyCampaign } from '@open-prospector/mission-control';
-export { serveArchive } from './server.js';
+export { serveCatalog } from './server.js';
+export { createCatalog, CatalogError } from './catalog.js';
 
 const endpointTypes = new Set(['directive-received', 'endpoint-state-changed', 'classifier-result-consumed', 'endpoint-fault', 'contestation-opened', 'observation-summarized', 'plan-proposed']);
 const missionTypes = new Set(['directive-submitted', 'gatekeeper-evaluated', 'alternative-accepted', 'directive-revised', 'received-belief-updated', 'checkpoint-created', 'run-completed']);

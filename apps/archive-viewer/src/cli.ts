@@ -1,13 +1,12 @@
-import { openArchive } from './index.js';
-import { serveArchive } from './server.js';
+import { createCatalog } from './catalog.js';
+import { serveCatalog } from './server.js';
 
 try {
-  const [directory, port = '4173', ...extra] = process.argv.slice(2);
-  if (!directory || extra.length || !/^\d+$/.test(port)) throw new Error('Usage: npm run viewer -- <campaign-archive> [port]');
-  console.log('Verifying campaign archive…');
-  const archive = await openArchive(directory);
-  const { server, url } = await serveArchive(archive, Number(port));
-  console.log(`Verified archive viewer: ${url}\nRead-only. Press Ctrl+C to stop.`);
+  const [directory = 'artifacts', port = '4173', ...extra] = process.argv.slice(2);
+  if (extra.length || !/^\d+$/.test(port)) throw new Error('Usage: npm run viewer -- [archive-root] [port]');
+  const catalog = await createCatalog(directory);
+  const { server, url } = await serveCatalog(catalog, Number(port));
+  console.log(`Campaign run library: ${url}\nArchive root: ${directory}\nChoose a run in the browser; each run is verified on opening. Refresh finds new runs.\nRead-only. Press Ctrl+C to stop.`);
   process.once('SIGINT', () => server.close());
   process.once('SIGTERM', () => server.close());
 } catch (error) { console.error(String(error)); process.exitCode = 1; }

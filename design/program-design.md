@@ -1154,4 +1154,4 @@ approved real-data crop and its source/tool custody (PC8).
   moderate ridges and 30.6 m relief. PC8 records exact source scale and hashed
   preparation provenance. Runtime and observer checks use the existing loaders.
 
-- **2026-09-10 (v0.22):** Owner authorized a local visual archive viewer after merging issue #9. PC9 records its observer timing, verification and route-display boundaries; the participant gate remains separate.
+- **2026-09-10 (v0.22):** Owner authorized a local visual archive viewer after merging issue #9. Owner review required a reusable run library with discovery, refresh and in-page selection across multiple archives. PC9 records observer timing, verification and route-display boundaries; the participant gate remains separate.
