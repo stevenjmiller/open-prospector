@@ -18,6 +18,9 @@ terminal Tier-1 notification and requesting an endpoint checkpoint. It does not
 drain both links, prove that mandatory science arrived, write a hash-chained
 record, or verify closure/replay custody. The received-belief hash is explicitly
 at terminal notification. Those acceptance gates remain issue #8.
+The separate [campaign command](campaign-profile.md), added by issue #8, now
+drains and verifies the complete archive; this shorter controller command
+retains its original boundary.
 
 ## Authority and observer boundaries
 

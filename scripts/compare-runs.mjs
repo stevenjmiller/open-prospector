@@ -7,3 +7,9 @@ for (const name of ['events.ndjson','inputs/manifest.json','observation.json', .
   assert.deepEqual(await readFile(join(left,name)),await readFile(join(right,name)),name + ' differs across platforms');
 }
 console.log('Windows and Linux authoritative bytes match exactly.');
+if (process.argv.includes('--campaign')) {
+  for (const name of ['events.ndjson','telemetry.ndjson','inputs/manifest.json','audit.json']) {
+    assert.deepEqual(await readFile(join(left,'campaign',name)),await readFile(join(right,'campaign',name)),'campaign/'+name+' differs across platforms');
+  }
+  console.log('Full synthetic campaign authoritative bytes match exactly.');
+}
