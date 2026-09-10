@@ -1,9 +1,37 @@
 # Human testing tutorial
 
 This walkthrough runs the simulated mission, explains its decisions, and checks
-that the science evidence reached mission control. It uses a terminal; there is
-no interactive rover interface. The mission-side actor accepts alternatives
+that the science evidence reached mission control. A read-only browser viewer
+now supplements the terminal steps below. The mission-side actor accepts alternatives
 automatically. Budget energy is an integer simulation unit, not joules.
+
+## Quick visual walkthrough
+
+If you already ran `artifacts/human-run-1`, use that archive:
+
+```powershell
+npm run viewer -- artifacts/human-run-1
+```
+
+Open `http://127.0.0.1:4173`. Then try three comparisons:
+
+1. **Offer reaches mission:** compare Rover and Mission control at the same
+   tick. The concern is available before the full observation changes mission's
+   map. This is the difference between a Tier-1 summary and Tier-2 detail.
+2. **Onboard decision:** Rover shows safe hold and a newly detected obstacle;
+   mission still shows its earlier knowledge. Advance through significant events
+   to see the local recovery and later delivery.
+3. **Science reaches mission:** the measured range, line of sight and spectral
+   class are now available at mission control. **Archive closes** follows after
+   all evidence is accounted for.
+
+The dashed line is a plan, not an executed position trace. Use **Start** to reset
+time; the map should lose later observations. These are simulated minutes, not
+wall-clock playback. This engineering walkthrough supports, but does not replace,
+issue #10's facilitated participant check.
+
+The [viewer guide](archive-viewer-profile.md) has details. If you need to create
+an archive first, continue below.
 
 ## 1. Prepare and run
 

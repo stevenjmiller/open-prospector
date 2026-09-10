@@ -33,7 +33,8 @@ before code depends on them. Never use the section symbol.
   record. It may not import autonomy, simulation-world or endpoint implementation.
   Fleet endpoint may depend on contracts, deterministic, belief, autonomy and
   simulation-world; never channel, record or mission-control implementation.
-- Renderer, database, real models, flight safety claims and signing are out of
+- PC9 permits a local read-only archive viewer with observer-scoped responses.
+  Production rendering, database, real models, flight safety claims and signing are out of
   scope. Fake-spine success is transport evidence, not science/autonomy evidence.
 
 ## Commands and completion

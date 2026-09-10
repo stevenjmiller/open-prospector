@@ -114,6 +114,21 @@ expected transitions, budget interpretation, science inspection and a deliberate
 corruption test. The [campaign profile](design/campaign-profile.md) explains the
 archive and its verification limits. The facilitated human-check gate remains #10.
 
+## Visual archive viewer
+
+Open an existing completed campaign in the local browser viewer:
+
+```text
+npm run viewer -- artifacts/human-run-1
+```
+
+Open the printed localhost address. Compare **Rover** and **Mission control** at
+the same tick, follow the decision chapters, and inspect the map and science.
+The server verifies the archive first. Routes are proposed plans; the archive
+does not contain a continuous position trace. Use the synthetic campaign archive
+from the tutorial, or create a new one with `npm run campaign -- run <new-directory>`.
+See the [viewer guide](design/archive-viewer-profile.md) for timing, controls and limits.
+
 ## Reviewed Candor terrain
 
 Issue #9 adds the approved HiRISE-derived crop and eleven scoped rasters.

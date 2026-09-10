@@ -24,6 +24,7 @@
     "planning": "npm run build && node scripts/planning-evidence.mjs",
     "controller": "npm run build && node scripts/controller-evidence.mjs",
     "campaign": "npm run build && node scripts/campaign.mjs",
+    "viewer": "npm run build && node apps/archive-viewer/dist/cli.js",
     "terrain": "npm run build && node scripts/verify-candor.mjs"
   },
   "devDependencies": {
