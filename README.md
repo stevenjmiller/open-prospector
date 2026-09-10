@@ -48,6 +48,73 @@ convention the paper uses). The ledgers live in `design/program-design.md`.
   repo's* material.
 - `design/` — supporting documents as sections outgrow the main document.
 
+## First executable spine
+
+The transport-only implementation uses Node **24.12.0**, npm **11.6.2**,
+TypeScript **5.9.3**, and Ajv **8.20.0**. It runs a separate fake endpoint using
+the actual channel and audit contracts. The runner does not yet integrate terrain,
+planner, budget policy, contestations or the full science scenario.
+
+```text
+npm ci
+npm run check
+npm run spine
+npm run verify -- artifacts/spine-run
+npm run replay -- artifacts/spine-run artifacts/spine-replay
+```
+
+Output directories must be new; existing archives are never overwritten. Use
+`npm run spine -- artifacts/another-run` for subsequent runs. Each bundle includes
+canonical inputs, source/build identity, schemas, lockfile, event chain, delivered
+observation/science bytes and a verification report. The terminal output reports
+the chain head and checkpoint hash. Failed runs exit nonzero and retain evidence.
+
+[Implementation profile](design/first-spine-profile.md) explains the fake behavior
+and archive limitations. [Milestone 1](https://github.com/stevenjmiller/open-prospector/milestone/1)
+tracks delivery. Issues [1](https://github.com/stevenjmiller/open-prospector/issues/1)–
+[4](https://github.com/stevenjmiller/open-prospector/issues/4) establish the spine;
+issues 5–10 add world/belief, planner, controller, full acceptance, terrain ingest
+and a human understanding check. CI tests Windows/Linux separately and compares
+authoritative output bytes before the spine's cross-platform gate passes.
+
+Issue #5 adds synthetic terrain generation and separate asset/mission belief
+components. Run `npm run fixture` to materialize all eleven frozen layers in a
+new `artifacts/synthetic-v0` directory. Scoped loaders, hidden scenario projections,
+and atomic observation updates are tested independently of the fake runner.
+See the [runtime belief profile](design/synthetic-belief-profile.md) for boundaries
+and the remaining sensor/planner integration work.
+
+Issue #6 adds deterministic A*, structured alternatives, sensor geometry and
+lineage budgets. `npm run planning` writes a component evidence report that
+reproduces the frozen vantage, detects the rock before contact and finds a safe
+recovery without refunding movement. See the [planning profile](design/planning-components-profile.md)
+for APIs and limits; controller/clearance/science integration remains separate.
+
+Issue #7 adds the actual v0 endpoint controller. `npm run controller` runs it as
+a child process through delayed negotiation, reflex recovery and mandatory
+onboard science, using a frozen recorded classifier result. See the
+[controller profile](design/controller-profile.md). Its report stops at terminal
+notification; full campaign record, delivered-evidence closure and replay remain
+issue #8. The fake transport runner remains a separate regression fixture.
+
+## Full synthetic campaign and human testing
+
+Issue #8 archives the real controller's delayed negotiation, reflex recovery and
+delivered science, closes the campaign record and supports exact replay:
+
+```text
+npm run campaign -- run artifacts/campaign-run
+npm run campaign -- verify artifacts/campaign-run
+npm run campaign -- audit artifacts/campaign-run
+npm run campaign -- replay artifacts/campaign-run artifacts/campaign-replay
+```
+
+Follow the [human testing tutorial](design/human-testing.md) for a guided run,
+expected transitions, budget interpretation, science inspection and a deliberate
+corruption test. The [campaign profile](design/campaign-profile.md) explains the
+archive and its verification limits. The real-data and facilitated human-check
+gates remain issues #9 and #10.
+
 ## Style
 
 - Never use the section symbol (§). Write "Section 4" or "(4.5)".

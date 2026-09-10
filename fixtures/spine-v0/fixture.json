@@ -1,0 +1,10 @@
+{
+  "fixture_id": "fixture:spine-v0",
+  "implementation": "fake-evidence-spine-v0",
+  "geofence_cells": [],
+  "completion_measurements": [
+    { "name": "target_range_mm", "value": 0, "unit": "mm", "uncertainty_ppm": 0 },
+    { "name": "line_of_sight", "value": true, "unit": "boolean", "uncertainty_ppm": 0 },
+    { "name": "spectral_class", "value": "synthetic-transport-marker", "unit": "class", "uncertainty_ppm": 0 }
+  ]
+}

@@ -1,0 +1,12 @@
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { canonical, hashBytes } from '../packages/contracts/dist/index.js';
+import { materializeSynthetic } from '../packages/simulation-world/dist/index.js';
+const manifest = JSON.parse(readFileSync('design/fixtures/vertical-slice/synthetic-v0.fixture-manifest.json', 'utf8'));
+mkdirSync('artifacts', { recursive: true });
+const root = process.argv[2] ?? 'artifacts/synthetic-v0';
+materializeSynthetic(root, manifest);
+writeFileSync(join(root, 'fixture-manifest.json'), canonical(manifest) + '\n', { flag: 'wx' });
+const hashes = Object.fromEntries(manifest.layers.map(layer => [layer.name, hashBytes(readFileSync(join(root, layer.path)))]));
+writeFileSync(join(root, 'hashes.json'), canonical(hashes) + '\n', { flag: 'wx' });
+console.log(`Materialized and verified ${manifest.layers.length} frozen layers in ${root}`);

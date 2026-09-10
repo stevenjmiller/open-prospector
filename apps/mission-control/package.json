@@ -1,0 +1,14 @@
+{
+  "name": "@open-prospector/mission-control",
+  "dependencies": {
+    "@open-prospector/belief": "0.0.0",
+    "@open-prospector/record": "0.0.0",
+    "@open-prospector/channel": "0.0.0",
+    "@open-prospector/contracts": "0.0.0",
+    "@open-prospector/deterministic": "0.0.0"
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "exports": "./dist/index.js"
+}

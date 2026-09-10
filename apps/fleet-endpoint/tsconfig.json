@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "references": [
+    {
+      "path": "../../packages/contracts"
+    },
+    {
+      "path": "../../packages/deterministic"
+    },
+    {
+      "path": "../../packages/belief"
+    },
+    {
+      "path": "../../packages/autonomy"
+    },
+    {
+      "path": "../../packages/simulation-world"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

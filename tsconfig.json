@@ -1,0 +1,35 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "packages/contracts"
+    },
+    {
+      "path": "packages/deterministic"
+    },
+    {
+      "path": "packages/channel"
+    },
+    {
+      "path": "packages/record"
+    },
+    {
+      "path": "apps/mission-control"
+    },
+    {
+      "path": "apps/fleet-endpoint"
+    },
+    {
+      "path": "tests"
+    },
+    {
+      "path": "packages/belief"
+    },
+    {
+      "path": "packages/simulation-world"
+    },
+    {
+      "path": "packages/autonomy"
+    }
+  ]
+}

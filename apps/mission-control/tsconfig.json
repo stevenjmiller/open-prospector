@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "references": [
+    { "path": "../../packages/belief" },
+    {
+      "path": "../../packages/contracts"
+    },
+    {
+      "path": "../../packages/deterministic"
+    },
+    {
+      "path": "../../packages/channel"
+    },
+    {
+      "path": "../../packages/record"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

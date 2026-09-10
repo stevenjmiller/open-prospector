@@ -59,6 +59,10 @@ checks and protocol examples are described in [examples/README.md](examples/READ
 The v0 schemas were reconciled before any runtime release; archive the exact
 bundle with runs and use a new version for incompatible changes after release.
 
+The transport-only `spine-scenario-v0` alternative in IPC init is documented in
+`../../first-spine-profile.md`. It preserves the full scenario's target/hazard
+requirements. Its completion is an explicitly fake evidence-delivery test.
+
 The implementation package should compile schemas once, expose one validator per
 top-level artifact, and run all example documents through those validators in
 continuous integration.

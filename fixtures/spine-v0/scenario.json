@@ -1,0 +1,6 @@
+{
+  "purpose": "transport-evidence-only",
+  "fixture_id": "fixture:spine-v0",
+  "scenario_id": "scenario:spine-v0",
+  "schema_version": "spine-scenario-v0"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@open-prospector/fleet-endpoint",
+  "dependencies": {
+    "@open-prospector/deterministic": "0.0.0",
+    "@open-prospector/contracts": "0.0.0",
+    "@open-prospector/belief": "0.0.0",
+    "@open-prospector/autonomy": "0.0.0",
+    "@open-prospector/simulation-world": "0.0.0"
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "exports": "./dist/index.js"
+}

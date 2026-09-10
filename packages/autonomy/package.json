@@ -1,0 +1,5 @@
+{
+  "name": "@open-prospector/autonomy",
+  "version": "0.0.0", "private": true, "type": "module", "exports": "./dist/index.js",
+  "dependencies": { "@open-prospector/contracts": "0.0.0", "@open-prospector/deterministic": "0.0.0", "@open-prospector/belief": "0.0.0" }
+}
