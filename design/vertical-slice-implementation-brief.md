@@ -403,8 +403,12 @@ the authored slump and runtime rock, and is required for continuous tests.
 once, a valid 256 by 256 window is selected, and each source pixel is treated as
 one 1,000 mm slice cell by the declared `nearest-pixel-1to1` prototype
 convention. The resulting approximately one-percent local scale distortion is
-accepted only for `slice-v0`; the manifest preserves the true 1,010 mm source
-scale. Elevations are rounded to millimetres and source/crop/tool hashes are
+accepted only for `slice-v0`. PC8 corrects the precision of the catalog value:
+the downloaded PDS
+label gives 1.0115995086777 m/pixel. Preparation metadata preserves that exact
+scale; the materialized manifest rounds it to 1,012 mm. The prototype maps it
+to 1,000 mm without resampling (about 1.15 percent shorter horizontal distances).
+Elevations are rounded to millimetres and source/crop/tool hashes are
 recorded. GDAL installation and the 274 MB source download are explicit
 data-preparation prerequisites, not runtime dependencies. The first
 materialization pull request freezes the crop offsets; until then, runtime work

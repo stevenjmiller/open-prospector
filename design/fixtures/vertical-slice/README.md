@@ -1,8 +1,10 @@
 # Vertical-slice fixture work
 
-`candor-sw-v0.fixture-manifest.json` names the authoritative source but is not a
-runnable fixture while its status is `source-selected`. Null source hash, crop
-offsets, and layer hashes are intentional blockers. An ingest change must:
+`candor-sw-v0.fixture-manifest.json` now points to the approved materialized
+fixture in `fixtures/candor-sw-v0`. Steve reviewed candidate B on 2026-09-10;
+source row 7680, column 4096 is frozen. The materialized fixture's review JSON records the
+decision. PC8 records the precise native scale and preparation custody.
+Any replacement ingest must:
 
 1. download and hash the HiRISE PDS DTM;
 2. record GDAL and conversion-script versions;
@@ -15,9 +17,9 @@ offsets, and layer hashes are intentional blockers. An ingest change must:
 6. replace every null, set status `materialized`, and pass the same loader and
    leak tests as the synthetic fixture.
 
-The continuous-test fixture is generated in the future implementation tree,
-not stored in this design directory. It must use exactly the same manifest and
-layer formats.
+The continuous synthetic fixture and reviewed Candor fixture use the same
+manifest and runtime layer formats. Candor's preparation sidecar additionally
+binds the source label/crop, conversion script, tool hashes and human review.
 
 ## Synthetic v0 generator
 
